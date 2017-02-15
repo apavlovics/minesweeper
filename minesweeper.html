@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="author" content="Andrejs Pavlovics">
+        <link type="text/css" rel="stylesheet" href="view.css">
+
+        <!-- Libraries -->
+        <script src="libraries/jquery.js"></script>
+        <script src="libraries/jquery.cookie.js"></script>
+
+        <title>Minesweeper</title>
+    </head>
+    <body>
+        <table id="minesweeper">
+            <tr>
+                <td class="menu">
+                    <input type="radio" name="level" value="easy"   data-row-count="8"  data-column-count="8"  data-mine-count="10" checked> Easy<br>
+                    <input type="radio" name="level" value="medium" data-row-count="8"  data-column-count="16" data-mine-count="25"> Medium<br>
+                    <input type="radio" name="level" value="hard"   data-row-count="16" data-column-count="16" data-mine-count="45"> Hard<br>
+                    <button id="new-game" onclick="resetField()">New Game</button><br>
+                    <button id="cheat" onclick="revealField()">Cheat</button><br>
+                </td>
+                <td>
+                    <table>
+                        <thead>
+                            <tr><th id="notification-bar">Minesweeper</th></tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <td id="mine-count-icon"><div class="mine"></div></td>
+                                <td id="mine-count-bar"></td>
+                            </tr>
+                        </tfoot>
+                        <tbody id="field"></tbody>
+                    </table>
+                </td>
+                <td class="menu"></td>
+            </tr>
+        </table>
+
+        <!-- Engine -->
+        <script src="engine/cell.js"></script>
+        <script src="engine/state.js"></script>
+        <script src="engine/cookies.js"></script>
+        <script src="engine/controls.js"></script>
+        <script src="engine/controller.js"></script>
+        <script>
+            var state;
+            var rowCount;
+            var columnCount;
+            var mineCount;
+            $(document).ready(function() {
+                createField();
+            });
+            $(window).unload(function() {
+                saveGame();
+            });
+        </script>
+    </body>
+</html>

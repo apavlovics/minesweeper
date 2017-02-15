@@ -1,0 +1,189 @@
+/* General */
+
+body {
+    margin: 0;
+    background: #eee;
+    color: #333;
+    font: 14px Helvetica, Arial, sans-serif;
+}
+
+div, table, tr, td {
+    margin: 0;
+    padding: 0;
+    border-style: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+#minesweeper {
+    margin: 2em;
+}
+
+/* Menu */
+
+td.menu {
+    padding-top: 3em;
+    min-width: 10em;
+    vertical-align: top;
+    text-align: left;
+    font-size: 12px;
+}
+
+button {
+    margin: 0 0 .5em 0;
+}
+
+#new-game {
+    margin: .5em 0 2em 0;
+}
+
+/* Game */
+
+table.field {
+    font-weight: bold;
+    cursor: default;
+}
+
+td.cell, td.cell-hover, td.cell-visited, td.cell-mine-visited, td.cell-mine-exploded, #mine-count-icon, #mine-count-bar {
+    min-width: 2em;
+    width: 2em;
+    height: 2em;
+    border: 1px solid #ccc;
+    background: #28c;
+    text-align: center;
+    font-weight: bold;
+}
+
+td.cell-hover {
+    background: #5ad;
+}
+
+td.cell-visited {
+    background: #fff;
+}
+
+td.cell-mine-visited {
+    background: #ddd;
+}
+
+td.cell-mine-exploded {
+    background-color: #fa6;
+    background-image: -webkit-radial-gradient(center, ellipse cover, #fa6 0, #f96 60%, #f54 100%);
+    background-image:    -moz-radial-gradient(center, ellipse cover, #fa6 0, #f96 60%, #f54 100%);
+    background-image:     -ms-radial-gradient(center, ellipse cover, #fa6 0, #f96 60%, #f54 100%);
+    background-image:      -o-radial-gradient(center, ellipse cover, #fa6 0, #f96 60%, #f54 100%);
+    background-image:         radial-gradient(ellipse at center, #fa6 0, #f96 60%, #f54 100%);
+}
+
+#notification-bar {
+    margin: 0;
+    padding: 0;
+    height: 2.5em;
+    border-style: none;
+    text-align: center;
+}
+
+#mine-count-icon {
+    border-style: none;
+    background: transparent;
+}
+
+#mine-count-bar {
+    border-style: none;
+    background: transparent;
+    text-align: left;
+}
+
+/* Mine */
+
+div.mine {
+    position: relative;
+    margin: auto;
+    width: 1em;
+    height: 1em;
+    border-radius: .1em;
+    background-color: #720;
+    background-image: -webkit-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
+    background-image:    -moz-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
+    background-image:     -ms-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
+    background-image:      -o-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
+    background-image:         radial-gradient(ellipse at center, #b64 1%, #720 100%);
+    text-align: center;
+}
+
+div.mine:before, div.mine:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1em;
+    height: 1em;
+    border-radius: .1em;
+    background-color: #720;
+    background-image: -webkit-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
+    background-image:    -moz-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
+    background-image:     -ms-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
+    background-image:      -o-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
+    background-image:         radial-gradient(ellipse at center, #b64 1%, #720 100%);
+    content: "";
+}
+
+div.mine:before {
+    -webkit-transform: rotate(30deg);
+       -moz-transform: rotate(30deg);
+        -ms-transform: rotate(30deg);
+         -o-transform: rotate(30deg);
+}
+
+div.mine:after {
+    -webkit-transform: rotate(60deg);
+       -moz-transform: rotate(60deg);
+        -ms-transform: rotate(60deg);
+         -o-transform: rotate(60deg);
+}
+
+div.mine-small-white, div.mine-small-white:before, div.mine-small-white:after {
+    width: .8em;
+    height: .8em;
+    background-color: #eee;
+    background-image: -webkit-radial-gradient(center, ellipse cover, #ccc 1%, #fff 100%);
+    background-image:    -moz-radial-gradient(center, ellipse cover, #ccc 1%, #fff 100%);
+    background-image:     -ms-radial-gradient(center, ellipse cover, #ccc 1%, #fff 100%);
+    background-image:      -o-radial-gradient(center, ellipse cover, #ccc 1%, #fff 100%);
+    background-image:         radial-gradient(ellipse at center, #ccc 1%, #fff 100%);
+}
+
+/* Flag */
+
+div.flag {
+    position: relative;
+    left: -.3em;
+    margin: auto;
+    width: .2em;
+    height: 1.3em;
+    background-color: #fff;
+    background-image: -webkit-linear-gradient(left, #fff 0, #fff 50%, #ddd 50%, #ddd 100%);
+    background-image:    -moz-linear-gradient(left, #fff 0, #fff 50%, #ddd 50%, #ddd 100%);
+    background-image:     -ms-linear-gradient(left, #fff 0, #fff 50%, #ddd 50%, #ddd 100%);
+    background-image:      -o-linear-gradient(left, #fff 0, #fff 50%, #ddd 50%, #ddd 100%);
+    background-image:         linear-gradient(to right, #fff 0, #fff 50%, #ddd 50%, #ddd 100%);
+    content: "";
+}
+
+div.flag:before {
+    position: absolute;
+    top: .1em;
+    left: .1em;
+    width: .9em;
+    height: .7em;
+    border-top-right-radius: .2em;
+    border-bottom-right-radius: .2em;
+    background-color: #f88;
+    background-image: -webkit-linear-gradient(top, #f88 0, #f55 45%, #f88 100%);
+    background-image:    -moz-linear-gradient(top, #f88 0, #f55 45%, #f88 100%);
+    background-image:     -ms-linear-gradient(top, #f88 0, #f55 45%, #f88 100%);
+    background-image:      -o-linear-gradient(top, #f88 0, #f55 45%, #f88 100%);
+    background-image:         linear-gradient(to bottom, #f88 0, #f55 45%, #f88 100%);
+    content: "";
+}
