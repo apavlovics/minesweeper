@@ -190,6 +190,11 @@ function prepareField() {
     // Adjusting bars
     getNotificationBar().attr('colspan', columnCount);
     getMineCountBar().attr('colspan', columnCount - 1);
+
+    // Setting frame size if located in iframe
+    if (self != top) {
+        parent.setFrameSize($('#minesweeper').outerWidth(true) + 'px', $('#minesweeper').outerHeight(true) + 'px');
+    }
 }
 
 function createField() {
