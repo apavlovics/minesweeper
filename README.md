@@ -4,10 +4,10 @@ The classic game of Minesweeper, implemented using modern web technologies. The 
 
 The game features:
 
-* 3 predefined difficulty levels
-* Support for tile flagging to mark the ones, which might contain mines
-* Cheat mode, which reveals the locations of the mines without ending the game
-* Autosave, which preserves the state of the game on exit and allows to continue from the exact same place on return
+* 3 difficulty levels;
+* support for tile flagging — mark the ones, which might contain mines;
+* cheat mode — reveal the locations of the mines without ending the game;
+* autosave — preserve the state of the game on exit and continue from the exact same place on return.
 
 Technologies used:
 
