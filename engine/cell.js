@@ -12,7 +12,8 @@ function Cell(value, visited, marked) {
     return value != false
   }
 
-  if (!visited || !marked) {
+  // Compare with false explicitly, as visited and marked may not be booleans
+  if (visited == false || marked == false) {
     this.visited = toBoolean(visited)
     this.marked = toBoolean(marked)
   }
