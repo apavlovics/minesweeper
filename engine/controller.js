@@ -59,7 +59,7 @@ function markUnmarkCell(td, cell, shouldChangeState) {
   }
 
   td.empty()
-  if (cell.marked == true) {
+  if (cell.marked) {
     td.append('<div class="flag"></div>')
     setMineCount(getMineCount() - 1)
   } else {
@@ -68,8 +68,8 @@ function markUnmarkCell(td, cell, shouldChangeState) {
 }
 
 function revealCell(td, cell) {
-  if (cell.hasMine() == true) {
-    if (cell.marked == true) {
+  if (cell.hasMine()) {
+    if (cell.marked) {
       cell.marked = false
       setMineCount(getMineCount() + 1)
     }
@@ -96,8 +96,9 @@ function setParameters() {
         }
       }
     )
-    if (wasChecked == false)
+    if (!wasChecked) {
       setNotification('Custom config, eh?')
+    }
   } else {
 
     // Restore level if possible
@@ -137,12 +138,12 @@ function prepareField() {
       }
 
       var cell = state.cells[y][x]
-      if (cell.visited == false) {
+      if (!cell.visited) {
 
         // Left mouse button clicked
         if (event.which == 1) {
-          if (cell.marked == false) {
-            if (cell.hasMine() == true || cell.value > 0) {
+          if (!cell.marked) {
+            if (cell.hasMine() || cell.value > 0) {
               visitCell($(this), cell, true, true)
             } else {
               var coordinates = state.calculateCoordinatesToVisit(y, x)
@@ -150,7 +151,7 @@ function prepareField() {
                 var currentY = coordinates[i][0]
                 var currentX = coordinates[i][1]
                 var currentCell = state.cells[currentY][currentX]
-                if (currentCell.visited == false) {
+                if (!currentCell.visited) {
                   var td = $('#cell-' + currentY + '-' + currentX)
                   visitCell(td, currentCell, false, true)
                 }
@@ -158,10 +159,8 @@ function prepareField() {
             }
 
             // Game over
-            if (cell.hasMine() == true)
-              visitField()
-            else
-              validateField(false)
+            if (cell.hasMine()) visitField()
+            else validateField(false)
           }
         }
 
@@ -192,8 +191,7 @@ function prepareField() {
 }
 
 function createField() {
-  if (loadGame() == false)
-    disableButtons()
+  if (!loadGame()) disableButtons()
 
   setParameters()
   setMineCount(mineCount)
@@ -215,12 +213,13 @@ function createField() {
         cells[x].addClass('cell')
       } else {
         var cell = state.cells[y][x]
-        if (cell.visited == true)
+        if (cell.visited) {
           visitCell(cells[x], cell, false, false)
-        else {
+        } else {
           cells[x].addClass('cell')
-          if (cell.marked == true)
+          if (cell.marked) {
             markUnmarkCell(cells[x], cell, false)
+          }
         }
       }
       rows[y].append(cells[x])
@@ -248,7 +247,7 @@ function visitField() {
   for (var y = 0; y < state.rowCount; y++) {
     for (var x = 0; x < state.columnCount; x++) {
       var cell = state.cells[y][x]
-      if (cell.visited == false) {
+      if (!cell.visited) {
         var td = $('#cell-' + y + '-' + x)
         visitCell(td, cell, false, true)
       }
@@ -257,7 +256,7 @@ function visitField() {
 }
 
 function validateField(shouldVisitField) {
-  if (state.isValid() == true) {
+  if (state.isValid()) {
     disableButtons()
     setNotification('Congrats, you won!')
 
@@ -266,13 +265,13 @@ function validateField(shouldVisitField) {
         var y = parseInt($(this).attr('data-row'))
         var x = parseInt($(this).attr('data-column'))
         var cell = state.cells[y][x]
-        if (cell.marked == false)
+        if (!cell.marked) {
           markUnmarkCell($(this), cell, true)
+        }
         $(this).unbind('mouseenter mouseleave mouseup')
       }
     )
-  } else if (shouldVisitField == true)
-    visitField()
+  } else if (shouldVisitField) visitField()
 }
 
 function revealField() {
@@ -282,7 +281,7 @@ function revealField() {
     var y = state.mineCoordinates[i][0]
     var x = state.mineCoordinates[i][1]
     var cell = state.cells[y][x]
-    if (cell.visited == false) {
+    if (!cell.visited) {
       var td = $('#cell-' + y + '-' + x)
       revealCell(td, cell)
     }

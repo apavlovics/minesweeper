@@ -4,7 +4,7 @@ function saveGame() {
 }
 
 function loadGame() {
-  if (loadState() == true) {
+  if (loadState()) {
       clearState()
       clearLevel()
       return true
@@ -19,7 +19,7 @@ var STATE_KEY = 'state'
 var EXPIRATION_PERIOD = 365
 
 function saveState() {
-  if (state != null && state.isVisited() == false && state.isValid() == false) {
+  if (state != null && !state.isVisited() && !state.isValid()) {
     $.cookie(STATE_KEY, state.toString(), {
       expires: EXPIRATION_PERIOD
     })
