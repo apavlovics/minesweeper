@@ -9,22 +9,14 @@ $.fn.disableSelection = function() {
 
 function getCellColor(value) {
   switch (value) {
-    case 1:
-      return '#09c'
-    case 2:
-      return '#3c3'
-    case 3:
-      return '#f30'
-    case 4:
-      return '#039'
-    case 5:
-      return '#900'
-    case 6:
-      return '#099'
-    case 7:
-      return '#c39'
-    default:
-      return '#000'
+    case 1:  return '#09c'
+    case 2:  return '#3c3'
+    case 3:  return '#f30'
+    case 4:  return '#039'
+    case 5:  return '#900'
+    case 6:  return '#099'
+    case 7:  return '#c39'
+    default: return '#000'
   }
 }
 
@@ -73,7 +65,6 @@ function revealCell(td, cell) {
       cell.marked = false
       setMineCount(getMineCount() + 1)
     }
-
     td.empty().append('<div class="mine mine-small-white"></div>')
   }
 }

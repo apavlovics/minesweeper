@@ -1,8 +1,8 @@
 // Coordinate must be an array of two elements
 function contains(coordinates, coordinate) {
   for (var i = 0; i < coordinates.length; i++) {
-    if (coordinates[i][0] == coordinate[0]
-        && coordinates[i][1] == coordinate[1]) {
+    if (coordinates[i][0] == coordinate[0] &&
+      coordinates[i][1] == coordinate[1]) {
       return true
     }
   }
@@ -126,16 +126,17 @@ State.fromString = function(string) {
   var mineCount = parseInt(attributes[index++])
 
   var mineCoordinatesArray = attributes[index++].split(State.MINE_COORDINATES_SEPARATOR)
-  if (mineCoordinatesArray.length / 2 != mineCount)
+  if (mineCoordinatesArray.length / 2 != mineCount) {
     throw 'Mine coordinate count is not valid: should be ' + mineCount
+  }
 
   var isY = true
   var coordinateY, coordinateX
   var mineCoordinates = new Array()
   for (var i = 0; i < mineCoordinatesArray.length; i++) {
-    if (isY)
+    if (isY) {
       coordinateY = mineCoordinatesArray[i]
-    else {
+    } else {
       coordinateX = mineCoordinatesArray[i]
       mineCoordinates[mineCoordinates.length] = [coordinateY, coordinateX]
     }
@@ -183,10 +184,11 @@ State.generateState = function(rowCount, columnCount, mineCount, baseCoordinates
   for (var y = 0; y < rowCount; y++) {
     var row = new Array(columnCount)
     for (var x = 0; x < columnCount; x++) {
-      if (contains(mineCoordinates, [y, x]))
+      if (contains(mineCoordinates, [y, x])) {
         row[x] = new Cell('M', false, false)
-      else
+      } else {
         row[x] = new Cell(countNeighborMines(mineCoordinates, y, x), false, false)
+      }
     }
     cells[y] = row
   }
