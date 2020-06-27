@@ -12,23 +12,11 @@ function State(cells, mineCoordinates) {
   this.mineCount = mineCoordinates.length
 
   this.isVisited = function() {
-    for (let y = 0; y < this.rowCount; y++) {
-      for (let x = 0; x < this.columnCount; x++) {
-        const cell = this.cells[y][x]
-        if (!cell.visited) return false
-      }
-    }
-    return true
+    return !this.cells.some(row => row.some(cell => !cell.visited))
   }
 
   this.isValid = function() {
-    for (let y = 0; y < this.rowCount; y++) {
-      for (let x = 0; x < this.columnCount; x++) {
-        const cell = this.cells[y][x]
-        if (cell.hasMine() == cell.visited) return false
-      }
-    }
-    return true
+    return !this.cells.some(row => row.some(cell => cell.hasMine() == cell.visited))
   }
 
   function addCoordinate(coordinates, coordinate) {
@@ -86,12 +74,9 @@ State.MINE_COORDINATES_SEPARATOR = ','
 
 State.prototype.toString = function() {
   let string = this.rowCount + State.STATE_SEPARATOR + this.columnCount + State.STATE_SEPARATOR
-  for (let y = 0; y < this.rowCount; y++) {
-    for (let x = 0; x < this.columnCount; x++) {
-      const cell = this.cells[y][x]
-      string += cell.toString() + State.STATE_SEPARATOR
-    }
-  }
+  this.cells.forEach(row => {
+    row.forEach(cell => string += cell.toString() + State.STATE_SEPARATOR)
+  })
   string += this.mineCount + State.STATE_SEPARATOR + this.mineCoordinates
   return string
 }
@@ -123,18 +108,16 @@ State.fromString = function(string) {
     throw 'Mine coordinate count is not valid: should be ' + mineCount
   }
 
-  let isY = true
   let coordinateY, coordinateX
   const mineCoordinates = Array()
-  for (const i of mineCoordinatesArray.keys()) {
-    if (isY) {
-      coordinateY = mineCoordinatesArray[i]
+  mineCoordinatesArray.forEach((coordinate, index) => {
+    if (index % 2 == 0) {
+      coordinateY = coordinate
     } else {
-      coordinateX = mineCoordinatesArray[i]
+      coordinateX = coordinate
       mineCoordinates[mineCoordinates.length] = [coordinateY, coordinateX]
     }
-    isY = !isY
-  }
+  })
 
   return new State(cells, mineCoordinates)
 }
