@@ -19,19 +19,17 @@ function State(cells, mineCoordinates) {
     return !this.cells.some(row => row.some(cell => cell.hasMine() == cell.visited))
   }
 
-  function addCoordinate(coordinates, coordinate) {
-    if (!contains(coordinates, coordinate)) {
-      coordinates[coordinates.length] = coordinate
-    }
-  }
-
-  const self = this
-
-  function addNeighborCoordinates(coordinates, index) {
+  this.addNeighborCoordinates = function(coordinates, index) {
     const y = coordinates[index][0]
     const x = coordinates[index][1]
 
-    if (self.cells[y][x].value == 0) {
+    function addCoordinate(coordinates, coordinate) {
+      if (!contains(coordinates, coordinate)) {
+        coordinates[coordinates.length] = coordinate
+      }
+    }
+
+    if (this.cells[y][x].value == 0) {
       if (y > 0)
         addCoordinate(coordinates, [y - 1, x])
       if (y < this.rowCount - 1)
@@ -60,7 +58,7 @@ function State(cells, mineCoordinates) {
       let i = 0
       coordinates[i] = [y, x]
       while (i < coordinates.length) {
-        addNeighborCoordinates(coordinates, i++)
+        this.addNeighborCoordinates(coordinates, i++)
       }
     } else {
       coordinates[0] = [y, x]
