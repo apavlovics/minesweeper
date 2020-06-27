@@ -19,8 +19,8 @@ function Cell(value, visited, marked) {
   this.toString = function() {
 
     // Convert boolean to integer
-    var visitedInt = +this.visited
-    var markedInt = +this.marked
+    const visitedInt = +this.visited
+    const markedInt = +this.marked
     return String(value) + String(visitedInt) + String(markedInt)
   }
 }
@@ -28,8 +28,8 @@ function Cell(value, visited, marked) {
 Cell.fromString = function(string) {
   if (string.length != 3) throw 'There must be 3 cell attributes'
 
-  var value = string.substr(0, 1)
-  var visited = string.substr(1, 1)
-  var marked = string.substr(2, 1)
+  const value = string.substr(0, 1)
+  const visited = string.substr(1, 1)
+  const marked = string.substr(2, 1)
   return new Cell(value, visited, marked)
 }

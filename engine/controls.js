@@ -1,6 +1,6 @@
 /* Radio Buttons */
 
-var LEVEL_RADIO_BUTTON_SELECTOR = 'input:radio[name="level"]'
+const LEVEL_RADIO_BUTTON_SELECTOR = 'input:radio[name="level"]'
 
 function getCheckedLevelRadioButton() {
   return $(LEVEL_RADIO_BUTTON_SELECTOR + ':checked')
@@ -15,14 +15,16 @@ function getLevel() {
 }
 
 function setLevel(level) {
-  var radioButton = $(LEVEL_RADIO_BUTTON_SELECTOR + '[value="' + level + '"]')
-  if (radioButton.length > 0) radioButton.attr('checked', true)
+  const radioButton = $(LEVEL_RADIO_BUTTON_SELECTOR + '[value="' + level + '"]')
+  if (radioButton.length > 0) {
+    radioButton.attr('checked', true)
+  }
 }
 
 /* Buttons */
 
-var VALIDATE_BUTTON_SELECTOR = '#validate'
-var CHEAT_BUTTON_SELECTOR = '#cheat'
+const VALIDATE_BUTTON_SELECTOR = '#validate'
+const CHEAT_BUTTON_SELECTOR = '#cheat'
 
 function enableButtons() {
   $(VALIDATE_BUTTON_SELECTOR).removeAttr('disabled')
@@ -36,8 +38,8 @@ function disableButtons() {
 
 /* Bars */
 
-var NOTIFICATION_BAR_SELECTOR = '#notification-bar'
-var MINE_COUNT_BAR_SELECTOR = '#mine-count-bar'
+const NOTIFICATION_BAR_SELECTOR = '#notification-bar'
+const MINE_COUNT_BAR_SELECTOR = '#mine-count-bar'
 
 function getNotificationBar() {
   return $(NOTIFICATION_BAR_SELECTOR)

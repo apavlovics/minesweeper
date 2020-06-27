@@ -1,12 +1,6 @@
 // Coordinate must be an array of two elements
 function contains(coordinates, coordinate) {
-  for (var i = 0; i < coordinates.length; i++) {
-    if (coordinates[i][0] == coordinate[0] &&
-      coordinates[i][1] == coordinate[1]) {
-      return true
-    }
-  }
-  return false
+  return coordinates.some(c => c[0] == coordinate[0] && c[1] == coordinate[1])
 }
 
 function State(cells, mineCoordinates) {

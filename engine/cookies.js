@@ -15,8 +15,8 @@ function loadGame() {
 
 /* State */
 
-var STATE_KEY = 'state'
-var EXPIRATION_PERIOD = 365
+const STATE_KEY = 'state'
+const EXPIRATION_PERIOD = 365
 
 function saveState() {
   if (state != null && !state.isVisited() && !state.isValid()) {
@@ -27,7 +27,7 @@ function saveState() {
 }
 
 function loadState() {
-  var stateString = $.cookie(STATE_KEY)
+  const stateString = $.cookie(STATE_KEY)
   if (stateString != null) {
     try {
       state = State.fromString(stateString)
@@ -46,7 +46,7 @@ function clearState() {
 
 /* Level */
 
-var LEVEL_KEY = 'level'
+const LEVEL_KEY = 'level'
 
 function saveLevel() {
   $.cookie(LEVEL_KEY, getLevel(), {

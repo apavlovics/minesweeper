@@ -2,9 +2,7 @@
 $.support.selectstart = 'onselectstart' in document.createElement('div')
 $.fn.disableSelection = function() {
   return this.bind(($.support.selectstart ? 'selectstart' : 'mousedown') +
-    '.ui-disableSelection', function(event) {
-      event.preventDefault()
-    })
+    '.ui-disableSelection', event => event.preventDefault())
 }
 
 function getCellColor(value) {
@@ -75,15 +73,14 @@ function setParameters() {
     columnCount = state.columnCount
     mineCount = state.mineCount
 
-    var wasChecked = false
+    let wasChecked = false
     getLevelRadioButtons().each(
       function() {
         if ($(this).attr('data-row-count') == rowCount &&
             $(this).attr('data-column-count') == columnCount &&
             $(this).attr('data-mine-count') == mineCount) {
-            $(this).attr('checked', true)
+          $(this).attr('checked', true)
           wasChecked = true
-          return false
         }
       }
     )
@@ -93,12 +90,12 @@ function setParameters() {
   } else {
 
     // Restore level if possible
-    var level = loadLevel()
+    const level = loadLevel()
     if (level != null) {
       clearLevel()
       setLevel(level)
     }
-    var radioButton = getCheckedLevelRadioButton()
+    const radioButton = getCheckedLevelRadioButton()
     rowCount = radioButton.attr('data-row-count')
     columnCount = radioButton.attr('data-column-count')
     mineCount = radioButton.attr('data-mine-count')
@@ -119,8 +116,8 @@ function prepareField() {
   // Add click to cells
   $(function() {
     $('.cell').mouseup(function(event) {
-      var y = parseInt($(this).attr('data-row'))
-      var x = parseInt($(this).attr('data-column'))
+      const y = parseInt($(this).attr('data-row'))
+      const x = parseInt($(this).attr('data-column'))
 
       // Generate new state if needed
       if (state == null) {
@@ -128,7 +125,7 @@ function prepareField() {
         enableButtons()
       }
 
-      var cell = state.cells[y][x]
+      const cell = state.cells[y][x]
       if (!cell.visited) {
 
         // Left mouse button clicked
@@ -137,13 +134,13 @@ function prepareField() {
             if (cell.hasMine() || cell.value > 0) {
               visitCell($(this), cell, true, true)
             } else {
-              var coordinates = state.calculateCoordinatesToVisit(y, x)
+              const coordinates = state.calculateCoordinatesToVisit(y, x)
               coordinates.forEach(function(coordinate) {
-                var currentY = coordinate[0]
-                var currentX = coordinate[1]
-                var currentCell = state.cells[currentY][currentX]
+                const currentY = coordinate[0]
+                const currentX = coordinate[1]
+                const currentCell = state.cells[currentY][currentX]
                 if (!currentCell.visited) {
-                  var td = $('#cell-' + currentY + '-' + currentX)
+                  const td = $('#cell-' + currentY + '-' + currentX)
                   visitCell(td, currentCell, false, true)
                 }
               })
@@ -187,13 +184,13 @@ function createField() {
   setParameters()
   setMineCount(mineCount)
 
-  var field = $('#field')
-  var rows = Array(rowCount)
-  var cells = Array(columnCount)
+  const field = $('#field')
+  const rows = Array(parseInt(rowCount))
+  const cells = Array(parseInt(columnCount))
 
-  for (var y = 0; y < rowCount; y++) {
+  for (const y of rows.keys()) {
     rows[y] = $('<tr></tr>')
-    for (var x = 0; x < columnCount; x++) {
+    for (const x of cells.keys()) {
       cells[x] = $('<td></td>')
       cells[x].attr('id', 'cell-' + y + '-' + x)
       cells[x].attr('data-row', y)
@@ -203,7 +200,7 @@ function createField() {
       if (state == null) {
         cells[x].addClass('cell')
       } else {
-        var cell = state.cells[y][x]
+        const cell = state.cells[y][x]
         if (cell.visited) {
           visitCell(cells[x], cell, false, false)
         } else {
@@ -238,7 +235,7 @@ function visitField() {
   state.cells.forEach(function(row, y) {
     row.forEach(function(cell, x) { 
       if (!cell.visited) {
-        var td = $('#cell-' + y + '-' + x)
+        const td = $('#cell-' + y + '-' + x)
         visitCell(td, cell, false, true)
       }
     })
@@ -251,9 +248,9 @@ function validateField(shouldVisitField) {
     setNotification('Congrats, you won!')
 
     $('.cell').each(function() {
-      var y = parseInt($(this).attr('data-row'))
-      var x = parseInt($(this).attr('data-column'))
-      var cell = state.cells[y][x]
+      const y = parseInt($(this).attr('data-row'))
+      const x = parseInt($(this).attr('data-column'))
+      const cell = state.cells[y][x]
       if (!cell.marked) {
         markUnmarkCell($(this), cell, true)
       }
@@ -266,11 +263,11 @@ function revealField() {
   setNotification('You, cheater!')
 
   state.mineCoordinates.forEach(function(mineCoordinate) {
-    var y = mineCoordinate[0]
-    var x = mineCoordinate[1]
-    var cell = state.cells[y][x]
+    const y = mineCoordinate[0]
+    const x = mineCoordinate[1]
+    const cell = state.cells[y][x]
     if (!cell.visited) {
-      var td = $('#cell-' + y + '-' + x)
+      const td = $('#cell-' + y + '-' + x)
       revealCell(td, cell)
     }
   })
