@@ -1,4 +1,5 @@
 class Cell {
+
   constructor(value, visited, marked) {
     if (value == 'M') {
       this.value = value

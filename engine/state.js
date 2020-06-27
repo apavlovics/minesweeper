@@ -1,30 +1,31 @@
-// Coordinate must be an array of two elements
-function contains(coordinates, coordinate) {
-  return coordinates.some(c => c[0] == coordinate[0] && c[1] == coordinate[1])
-}
+const STATE_SEPARATOR = ';'
+const MINE_COORDINATES_SEPARATOR = ','
 
-function State(cells, mineCoordinates) {
-  this.cells = cells
-  this.rowCount = cells.length
-  this.columnCount = cells[0].length
+class State {
 
-  this.mineCoordinates = mineCoordinates
-  this.mineCount = mineCoordinates.length
+  constructor(cells, mineCoordinates) {
+    this.cells = cells
+    this.rowCount = cells.length
+    this.columnCount = cells[0].length
 
-  this.isVisited = function() {
+    this.mineCoordinates = mineCoordinates
+    this.mineCount = mineCoordinates.length
+  }
+
+  isVisited() {
     return !this.cells.some(row => row.some(cell => !cell.visited))
   }
 
-  this.isValid = function() {
+  isValid() {
     return !this.cells.some(row => row.some(cell => cell.hasMine() == cell.visited))
   }
 
-  this.addNeighborCoordinates = function(coordinates, index) {
+  addNeighborCoordinates(coordinates, index) {
     const y = coordinates[index][0]
     const x = coordinates[index][1]
 
     function addCoordinate(coordinates, coordinate) {
-      if (!contains(coordinates, coordinate)) {
+      if (!State.contains(coordinates, coordinate)) {
         coordinates[coordinates.length] = coordinate
       }
     }
@@ -52,7 +53,7 @@ function State(cells, mineCoordinates) {
     }
   }
 
-  this.calculateCoordinatesToVisit = function(y, x) {
+  calculateCoordinatesToVisit(y, x) {
     const coordinates = Array()
     if (this.cells[y][x].value == 0) {
       let i = 0
@@ -65,106 +66,106 @@ function State(cells, mineCoordinates) {
     }
     return coordinates
   }
-}
 
-State.STATE_SEPARATOR = ';'
-State.MINE_COORDINATES_SEPARATOR = ','
-
-State.prototype.toString = function() {
-  let string = this.rowCount + State.STATE_SEPARATOR + this.columnCount + State.STATE_SEPARATOR
-  this.cells.forEach(row => {
-    row.forEach(cell => string += cell.toString() + State.STATE_SEPARATOR)
-  })
-  string += this.mineCount + State.STATE_SEPARATOR + this.mineCoordinates
-  return string
-}
-
-State.fromString = function(string) {
-  const attributes = string.split(State.STATE_SEPARATOR)
-
-  if (attributes.length < 5) {
-    throw 'State attribute count is not valid'
+  toString() {
+    let string = this.rowCount + STATE_SEPARATOR + this.columnCount + STATE_SEPARATOR
+    this.cells.forEach(row => {
+      row.forEach(cell => string += cell.toString() + STATE_SEPARATOR)
+    })
+    string += this.mineCount + STATE_SEPARATOR + this.mineCoordinates
+    return string
   }
 
-  let index = 0
-  const rowCount = parseInt(attributes[index++])
-  const columnCount = parseInt(attributes[index++])
-
-  const cells = Array(rowCount)
-  for (const y of cells.keys()) {
-    const row = Array(columnCount)
-    for (const x of row.keys()) {
-      row[x] = Cell.fromString(attributes[index++])
+  static fromString(string) {
+    const attributes = string.split(STATE_SEPARATOR)
+    if (attributes.length < 5) {
+      throw 'State attribute count is not valid'
     }
-    cells[y] = row
-  }
 
-  const mineCount = parseInt(attributes[index++])
+    let index = 0
+    const rowCount = parseInt(attributes[index++])
+    const columnCount = parseInt(attributes[index++])
 
-  const mineCoordinatesArray = attributes[index++].split(State.MINE_COORDINATES_SEPARATOR)
-  if (mineCoordinatesArray.length / 2 != mineCount) {
-    throw 'Mine coordinate count is not valid: should be ' + mineCount
-  }
-
-  let coordinateY, coordinateX
-  const mineCoordinates = Array()
-  mineCoordinatesArray.forEach((coordinate, index) => {
-    if (index % 2 == 0) {
-      coordinateY = coordinate
-    } else {
-      coordinateX = coordinate
-      mineCoordinates[mineCoordinates.length] = [coordinateY, coordinateX]
-    }
-  })
-
-  return new State(cells, mineCoordinates)
-}
-
-State.generateState = function(rowCount, columnCount, mineCount, baseCoordinates) {
-
-  // Generate mine positions
-  let mineRow, mineColumn
-  const mineCoordinates = Array(mineCount + 1)
-  mineCoordinates[0] = baseCoordinates
-
-  for (let i = 0; i < mineCount; i++) {
-    do {
-      mineRow = Math.floor(Math.random() * rowCount)
-      mineColumn = Math.floor(Math.random() * columnCount)
-    }
-    while (contains(mineCoordinates, [mineRow, mineColumn]))
-    mineCoordinates[i + 1] = [mineRow, mineColumn]
-  }
-  mineCoordinates.splice(0, 1)
-
-  function countNeighborMines(mineCoordinates, y, x) {
-    let mineCount = 0
-    if (contains(mineCoordinates, [y - 1, x])) mineCount++
-    if (contains(mineCoordinates, [y + 1, x])) mineCount++
-
-    if (contains(mineCoordinates, [y, x - 1])) mineCount++
-    if (contains(mineCoordinates, [y, x + 1])) mineCount++
-
-    if (contains(mineCoordinates, [y - 1, x - 1])) mineCount++
-    if (contains(mineCoordinates, [y + 1, x + 1])) mineCount++
-
-    if (contains(mineCoordinates, [y - 1, x + 1])) mineCount++
-    if (contains(mineCoordinates, [y + 1, x - 1])) mineCount++
-    return mineCount
-  }
-
-  // Generate state
-  const cells = Array(rowCount)
-  for (const y of cells.keys()) {
-    const row = Array(columnCount)
-    for (const x of row.keys()) {
-      if (contains(mineCoordinates, [y, x])) {
-        row[x] = new Cell('M', false, false)
-      } else {
-        row[x] = new Cell(countNeighborMines(mineCoordinates, y, x), false, false)
+    const cells = Array(rowCount)
+    for (const y of cells.keys()) {
+      const row = Array(columnCount)
+      for (const x of row.keys()) {
+        row[x] = Cell.fromString(attributes[index++])
       }
+      cells[y] = row
     }
-    cells[y] = row
+
+    const mineCount = parseInt(attributes[index++])
+
+    const mineCoordinatesArray = attributes[index++].split(MINE_COORDINATES_SEPARATOR)
+    if (mineCoordinatesArray.length / 2 != mineCount) {
+      throw 'Mine coordinate count is not valid: should be ' + mineCount
+    }
+
+    let coordinateY, coordinateX
+    const mineCoordinates = Array()
+    mineCoordinatesArray.forEach((coordinate, index) => {
+      if (index % 2 == 0) {
+        coordinateY = coordinate
+      } else {
+        coordinateX = coordinate
+        mineCoordinates[mineCoordinates.length] = [coordinateY, coordinateX]
+      }
+    })
+    return new State(cells, mineCoordinates)
   }
-  return new State(cells, mineCoordinates)
+
+  // Coordinate must be an array of two elements
+  static contains(coordinates, coordinate) {
+    return coordinates.some(c => c[0] == coordinate[0] && c[1] == coordinate[1])
+  }
+
+  static generateState(rowCount, columnCount, mineCount, baseCoordinates) {
+
+    // Generate mine positions
+    let mineRow, mineColumn
+    const mineCoordinates = Array(mineCount + 1)
+    mineCoordinates[0] = baseCoordinates
+
+    for (let i = 0; i < mineCount; i++) {
+      do {
+        mineRow = Math.floor(Math.random() * rowCount)
+        mineColumn = Math.floor(Math.random() * columnCount)
+      }
+      while (State.contains(mineCoordinates, [mineRow, mineColumn]))
+      mineCoordinates[i + 1] = [mineRow, mineColumn]
+    }
+    mineCoordinates.splice(0, 1)
+
+    function countNeighborMines(mineCoordinates, y, x) {
+      let mineCount = 0
+      if (State.contains(mineCoordinates, [y - 1, x])) mineCount++
+      if (State.contains(mineCoordinates, [y + 1, x])) mineCount++
+
+      if (State.contains(mineCoordinates, [y, x - 1])) mineCount++
+      if (State.contains(mineCoordinates, [y, x + 1])) mineCount++
+
+      if (State.contains(mineCoordinates, [y - 1, x - 1])) mineCount++
+      if (State.contains(mineCoordinates, [y + 1, x + 1])) mineCount++
+
+      if (State.contains(mineCoordinates, [y - 1, x + 1])) mineCount++
+      if (State.contains(mineCoordinates, [y + 1, x - 1])) mineCount++
+      return mineCount
+    }
+
+    // Generate state
+    const cells = Array(rowCount)
+    for (const y of cells.keys()) {
+      const row = Array(columnCount)
+      for (const x of row.keys()) {
+        if (State.contains(mineCoordinates, [y, x])) {
+          row[x] = new Cell('M', false, false)
+        } else {
+          row[x] = new Cell(countNeighborMines(mineCoordinates, y, x), false, false)
+        }
+      }
+      cells[y] = row
+    }
+    return new State(cells, mineCoordinates)
+  }
 }
