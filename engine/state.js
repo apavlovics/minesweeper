@@ -73,7 +73,7 @@ function State(cells, mineCoordinates) {
   }
 
   this.calculateCoordinatesToVisit = function(y, x) {
-    var coordinates = new Array()
+    var coordinates = Array()
     if (this.cells[y][x].value == 0) {
       var i = 0
       coordinates[i] = [y, x]
@@ -113,10 +113,10 @@ State.fromString = function(string) {
   var rowCount = parseInt(attributes[index++])
   var columnCount = parseInt(attributes[index++])
 
-  var cells = new Array(rowCount)
+  var cells = Array(rowCount)
   var cellArray
   for (var y = 0; y < rowCount; y++) {
-    var row = new Array(columnCount)
+    var row = Array(columnCount)
     for (var x = 0; x < columnCount; x++) {
       row[x] = Cell.fromString(attributes[index++])
     }
@@ -132,7 +132,7 @@ State.fromString = function(string) {
 
   var isY = true
   var coordinateY, coordinateX
-  var mineCoordinates = new Array()
+  var mineCoordinates = Array()
   for (var i = 0; i < mineCoordinatesArray.length; i++) {
     if (isY) {
       coordinateY = mineCoordinatesArray[i]
@@ -150,7 +150,7 @@ State.generateState = function(rowCount, columnCount, mineCount, baseCoordinates
 
   // Generate mine positions
   var mineRow, mineColumn
-  var mineCoordinates = new Array(mineCount + 1)
+  var mineCoordinates = Array(mineCount + 1)
   mineCoordinates[0] = baseCoordinates
 
   for (var i = 0; i < mineCount; i++) {
@@ -180,9 +180,9 @@ State.generateState = function(rowCount, columnCount, mineCount, baseCoordinates
   }
 
   // Generate state
-  var cells = new Array(rowCount)
+  var cells = Array(rowCount)
   for (var y = 0; y < rowCount; y++) {
-    var row = new Array(columnCount)
+    var row = Array(columnCount)
     for (var x = 0; x < columnCount; x++) {
       if (contains(mineCoordinates, [y, x])) {
         row[x] = new Cell('M', false, false)

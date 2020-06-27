@@ -188,8 +188,8 @@ function createField() {
   setMineCount(mineCount)
 
   var field = $('#field')
-  var rows = new Array(rowCount)
-  var cells = new Array(columnCount)
+  var rows = Array(rowCount)
+  var cells = Array(columnCount)
 
   for (var y = 0; y < rowCount; y++) {
     rows[y] = $('<tr></tr>')
