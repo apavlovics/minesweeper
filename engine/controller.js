@@ -138,15 +138,15 @@ function prepareField() {
               visitCell($(this), cell, true, true)
             } else {
               var coordinates = state.calculateCoordinatesToVisit(y, x)
-              for (var i = 0; i < coordinates.length; i++) {
-                var currentY = coordinates[i][0]
-                var currentX = coordinates[i][1]
+              coordinates.forEach(function(coordinate) {
+                var currentY = coordinate[0]
+                var currentX = coordinate[1]
                 var currentCell = state.cells[currentY][currentX]
                 if (!currentCell.visited) {
                   var td = $('#cell-' + currentY + '-' + currentX)
                   visitCell(td, currentCell, false, true)
                 }
-              }
+              })
             }
 
             // Game over
@@ -235,8 +235,8 @@ function visitField() {
   disableButtons()
   setNotification('Game over')
 
-  state.cells.map(function(row, y) {
-    row.map(function(cell, x) { 
+  state.cells.forEach(function(row, y) {
+    row.forEach(function(cell, x) { 
       if (!cell.visited) {
         var td = $('#cell-' + y + '-' + x)
         visitCell(td, cell, false, true)
@@ -250,30 +250,28 @@ function validateField(shouldVisitField) {
     disableButtons()
     setNotification('Congrats, you won!')
 
-    $('.cell').each(
-      function() {
-        var y = parseInt($(this).attr('data-row'))
-        var x = parseInt($(this).attr('data-column'))
-        var cell = state.cells[y][x]
-        if (!cell.marked) {
-          markUnmarkCell($(this), cell, true)
-        }
-        $(this).unbind('mouseenter mouseleave mouseup')
+    $('.cell').each(function() {
+      var y = parseInt($(this).attr('data-row'))
+      var x = parseInt($(this).attr('data-column'))
+      var cell = state.cells[y][x]
+      if (!cell.marked) {
+        markUnmarkCell($(this), cell, true)
       }
-    )
+      $(this).unbind('mouseenter mouseleave mouseup')
+    })
   } else if (shouldVisitField) visitField()
 }
 
 function revealField() {
   setNotification('You, cheater!')
 
-  for (var i = 0; i < state.mineCoordinates.length; i++) {
-    var y = state.mineCoordinates[i][0]
-    var x = state.mineCoordinates[i][1]
+  state.mineCoordinates.forEach(function(mineCoordinate) {
+    var y = mineCoordinate[0]
+    var x = mineCoordinate[1]
     var cell = state.cells[y][x]
     if (!cell.visited) {
       var td = $('#cell-' + y + '-' + x)
       revealCell(td, cell)
     }
-  }
+  })
 }
