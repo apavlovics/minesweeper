@@ -26,7 +26,7 @@ function Cell(value, visited, marked) {
 }
 
 Cell.fromString = function(string) {
-  if (string.length != 3) throw 'There should be 3 cell attributes'
+  if (string.length != 3) throw 'There must be 3 cell attributes'
 
   var value = string.substr(0, 1)
   var visited = string.substr(1, 1)

@@ -235,15 +235,14 @@ function visitField() {
   disableButtons()
   setNotification('Game over')
 
-  for (var y = 0; y < state.rowCount; y++) {
-    for (var x = 0; x < state.columnCount; x++) {
-      var cell = state.cells[y][x]
+  state.cells.map(function(row, y) {
+    row.map(function(cell, x) { 
       if (!cell.visited) {
         var td = $('#cell-' + y + '-' + x)
         visitCell(td, cell, false, true)
       }
-    }
-  }
+    })
+  })
 }
 
 function validateField(shouldVisitField) {

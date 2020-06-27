@@ -118,17 +118,11 @@ div.mine:before, div.mine:after {
 }
 
 div.mine:before {
-  -webkit-transform: rotate(30deg);
-     -moz-transform: rotate(30deg);
-      -ms-transform: rotate(30deg);
-       -o-transform: rotate(30deg);
+  transform: rotate(30deg);
 }
 
 div.mine:after {
-  -webkit-transform: rotate(60deg);
-     -moz-transform: rotate(60deg);
-      -ms-transform: rotate(60deg);
-       -o-transform: rotate(60deg);
+  transform: rotate(60deg);
 }
 
 div.mine-small-white, div.mine-small-white:before, div.mine-small-white:after {
