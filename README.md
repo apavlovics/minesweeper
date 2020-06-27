@@ -21,6 +21,5 @@ Technologies used:
 * jQuery Cookie
 
 To experience all the game features, including gradients and autosave, the recent versions of Chrome, Firefox
-or Safari should be used. The game, however, degrades well on older versions of these and other browsers,
-including IE and Opera. One thing to remember when the game is run locally in Chrome: file cookies should be
-enabled for autosave to work.
+or Safari should be used. The game, however, degrades well on older versions of these and other browsers. One
+thing to remember when the game is run locally in Chrome: file cookies should be enabled for autosave to work.

@@ -70,11 +70,7 @@ td.cell-mine-visited {
 
 td.cell-mine-exploded {
   background-color: #fa6;
-  background-image: -webkit-radial-gradient(center, ellipse cover, #fa6 0, #f96 60%, #f54 100%);
-  background-image:    -moz-radial-gradient(center, ellipse cover, #fa6 0, #f96 60%, #f54 100%);
-  background-image:     -ms-radial-gradient(center, ellipse cover, #fa6 0, #f96 60%, #f54 100%);
-  background-image:      -o-radial-gradient(center, ellipse cover, #fa6 0, #f96 60%, #f54 100%);
-  background-image:         radial-gradient(ellipse at center, #fa6 0, #f96 60%, #f54 100%);
+  background-image: radial-gradient(ellipse at center, #fa6 0, #f96 60%, #f54 100%);
 }
 
 #notification-bar {

@@ -8,16 +8,9 @@ function Cell(value, visited, marked) {
   }
 
   // Loosely convert to boolean
-  function toBoolean(value) {
-    return value != false
-  }
-
-  // Compare with false explicitly, as visited and marked may not be booleans
-  if (visited == false || marked == false) {
-    this.visited = toBoolean(visited)
-    this.marked = toBoolean(marked)
-  }
-  else throw 'Cell flags are not valid'
+  this.visited = visited == true
+  this.marked = marked == true
+  if (this.visited && this.marked) throw 'Cell flags are not valid'
 
   this.hasMine = function() {
     return this.value == 'M'
