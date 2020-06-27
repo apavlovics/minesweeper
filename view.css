@@ -105,11 +105,7 @@ div.mine {
   height: 1em;
   border-radius: .1em;
   background-color: #720;
-  background-image: -webkit-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
-  background-image:    -moz-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
-  background-image:     -ms-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
-  background-image:      -o-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
-  background-image:         radial-gradient(ellipse at center, #b64 1%, #720 100%);
+  background-image: radial-gradient(ellipse at center, #b64 1%, #720 100%);
   text-align: center;
 }
 
@@ -121,11 +117,7 @@ div.mine:before, div.mine:after {
   height: 1em;
   border-radius: .1em;
   background-color: #720;
-  background-image: -webkit-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
-  background-image:    -moz-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
-  background-image:     -ms-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
-  background-image:      -o-radial-gradient(center, ellipse cover, #b64 1%, #720 100%);
-  background-image:         radial-gradient(ellipse at center, #b64 1%, #720 100%);
+  background-image: radial-gradient(ellipse at center, #b64 1%, #720 100%);
   content: "";
 }
 
@@ -147,11 +139,7 @@ div.mine-small-white, div.mine-small-white:before, div.mine-small-white:after {
   width: .8em;
   height: .8em;
   background-color: #eee;
-  background-image: -webkit-radial-gradient(center, ellipse cover, #ccc 1%, #fff 100%);
-  background-image:    -moz-radial-gradient(center, ellipse cover, #ccc 1%, #fff 100%);
-  background-image:     -ms-radial-gradient(center, ellipse cover, #ccc 1%, #fff 100%);
-  background-image:      -o-radial-gradient(center, ellipse cover, #ccc 1%, #fff 100%);
-  background-image:         radial-gradient(ellipse at center, #ccc 1%, #fff 100%);
+  background-image: radial-gradient(ellipse at center, #ccc 1%, #fff 100%);
 }
 
 /* Flag */
@@ -163,11 +151,7 @@ div.flag {
   width: .2em;
   height: 1.3em;
   background-color: #fff;
-  background-image: -webkit-linear-gradient(left, #fff 0, #fff 50%, #ddd 50%, #ddd 100%);
-  background-image:    -moz-linear-gradient(left, #fff 0, #fff 50%, #ddd 50%, #ddd 100%);
-  background-image:     -ms-linear-gradient(left, #fff 0, #fff 50%, #ddd 50%, #ddd 100%);
-  background-image:      -o-linear-gradient(left, #fff 0, #fff 50%, #ddd 50%, #ddd 100%);
-  background-image:         linear-gradient(to right, #fff 0, #fff 50%, #ddd 50%, #ddd 100%);
+  background-image: linear-gradient(to right, #fff 0, #fff 50%, #ddd 50%, #ddd 100%);
   content: "";
 }
 
@@ -180,10 +164,6 @@ div.flag:before {
   border-top-right-radius: .2em;
   border-bottom-right-radius: .2em;
   background-color: #f88;
-  background-image: -webkit-linear-gradient(top, #f88 0, #f55 45%, #f88 100%);
-  background-image:    -moz-linear-gradient(top, #f88 0, #f55 45%, #f88 100%);
-  background-image:     -ms-linear-gradient(top, #f88 0, #f55 45%, #f88 100%);
-  background-image:      -o-linear-gradient(top, #f88 0, #f55 45%, #f88 100%);
-  background-image:         linear-gradient(to bottom, #f88 0, #f55 45%, #f88 100%);
+  background-image: linear-gradient(to bottom, #f88 0, #f55 45%, #f88 100%);
   content: "";
 }
