@@ -20,46 +20,46 @@ class State {
     return !this.cells.some(row => row.some(cell => cell.hasMine() == cell.visited))
   }
 
-  addNeighborCoordinates(coordinates, index) {
-    const y = coordinates[index][0]
-    const x = coordinates[index][1]
+  calculateCoordinatesToVisit(y, x) {
 
-    function addCoordinate(coordinates, coordinate) {
+    const addCoordinate = (coordinates, coordinate) => {
       if (!State.contains(coordinates, coordinate)) {
         coordinates[coordinates.length] = coordinate
       }
     }
 
-    if (this.cells[y][x].value == 0) {
-      if (y > 0)
-        addCoordinate(coordinates, [y - 1, x])
-      if (y < this.rowCount - 1)
-        addCoordinate(coordinates, [y + 1, x])
+    const addNeighborCoordinates = (coordinates, index) => {
+      const y = coordinates[index][0]
+      const x = coordinates[index][1]
+      if (this.cells[y][x].value == 0) {
+        if (y > 0)
+          addCoordinate(coordinates, [y - 1, x])
+        if (y < this.rowCount - 1)
+          addCoordinate(coordinates, [y + 1, x])
 
-      if (x > 0)
-        addCoordinate(coordinates, [y, x - 1])
-      if (x < this.columnCount - 1)
-        addCoordinate(coordinates, [y, x + 1])
+        if (x > 0)
+          addCoordinate(coordinates, [y, x - 1])
+        if (x < this.columnCount - 1)
+          addCoordinate(coordinates, [y, x + 1])
 
-      if (y > 0 && x > 0)
-        addCoordinate(coordinates, [y - 1, x - 1])
-      if (y < this.rowCount - 1 && x < this.columnCount - 1)
-        addCoordinate(coordinates, [y + 1, x + 1])
+        if (y > 0 && x > 0)
+          addCoordinate(coordinates, [y - 1, x - 1])
+        if (y < this.rowCount - 1 && x < this.columnCount - 1)
+          addCoordinate(coordinates, [y + 1, x + 1])
 
-      if (y > 0 && x < this.columnCount - 1)
-        addCoordinate(coordinates, [y - 1, x + 1])
-      if (y < this.rowCount - 1 && x > 0)
-        addCoordinate(coordinates, [y + 1, x - 1])
+        if (y > 0 && x < this.columnCount - 1)
+          addCoordinate(coordinates, [y - 1, x + 1])
+        if (y < this.rowCount - 1 && x > 0)
+          addCoordinate(coordinates, [y + 1, x - 1])
+      }
     }
-  }
 
-  calculateCoordinatesToVisit(y, x) {
     const coordinates = Array()
     if (this.cells[y][x].value == 0) {
       let i = 0
       coordinates[i] = [y, x]
       while (i < coordinates.length) {
-        this.addNeighborCoordinates(coordinates, i++)
+        addNeighborCoordinates(coordinates, i++)
       }
     } else {
       coordinates[0] = [y, x]
@@ -137,7 +137,7 @@ class State {
     }
     mineCoordinates.splice(0, 1)
 
-    function countNeighborMines(mineCoordinates, y, x) {
+    const countNeighborMines = (mineCoordinates, y, x) => {
       let mineCount = 0
       if (State.contains(mineCoordinates, [y - 1, x])) mineCount++
       if (State.contains(mineCoordinates, [y + 1, x])) mineCount++
