@@ -96,9 +96,9 @@ function setParameters() {
       setLevel(level)
     }
     const radioButton = getCheckedLevelRadioButton()
-    rowCount = radioButton.attr('data-row-count')
-    columnCount = radioButton.attr('data-column-count')
-    mineCount = radioButton.attr('data-mine-count')
+    rowCount = parseInt(radioButton.attr('data-row-count'))
+    columnCount = parseInt(radioButton.attr('data-column-count'))
+    mineCount = parseInt(radioButton.attr('data-mine-count'))
   }
 }
 
@@ -185,8 +185,8 @@ function createField() {
   setMineCount(mineCount)
 
   const field = $('#field')
-  const rows = Array(parseInt(rowCount))
-  const cells = Array(parseInt(columnCount))
+  const rows = Array(rowCount)
+  const cells = Array(columnCount)
 
   for (const y of rows.keys()) {
     rows[y] = $('<tr></tr>')

@@ -11,12 +11,10 @@ function State(cells, mineCoordinates) {
   this.mineCoordinates = mineCoordinates
   this.mineCount = mineCoordinates.length
 
-  var that = this
-
   this.isVisited = function() {
-    for (var y = 0; y < this.rowCount; y++) {
-      for (var x = 0; x < this.columnCount; x++) {
-        var cell = this.cells[y][x]
+    for (let y = 0; y < this.rowCount; y++) {
+      for (let x = 0; x < this.columnCount; x++) {
+        const cell = this.cells[y][x]
         if (!cell.visited) return false
       }
     }
@@ -24,9 +22,9 @@ function State(cells, mineCoordinates) {
   }
 
   this.isValid = function() {
-    for (var y = 0; y < this.rowCount; y++) {
-      for (var x = 0; x < this.columnCount; x++) {
-        var cell = this.cells[y][x]
+    for (let y = 0; y < this.rowCount; y++) {
+      for (let x = 0; x < this.columnCount; x++) {
+        const cell = this.cells[y][x]
         if (cell.hasMine() == cell.visited) return false
       }
     }
@@ -39,11 +37,13 @@ function State(cells, mineCoordinates) {
     }
   }
 
-  function addNeighborCoordinates(coordinates, index) {
-    var y = coordinates[index][0]
-    var x = coordinates[index][1]
+  const self = this
 
-    if (that.cells[y][x].value == 0) {
+  function addNeighborCoordinates(coordinates, index) {
+    const y = coordinates[index][0]
+    const x = coordinates[index][1]
+
+    if (self.cells[y][x].value == 0) {
       if (y > 0)
         addCoordinate(coordinates, [y - 1, x])
       if (y < this.rowCount - 1)
@@ -67,9 +67,9 @@ function State(cells, mineCoordinates) {
   }
 
   this.calculateCoordinatesToVisit = function(y, x) {
-    var coordinates = Array()
+    const coordinates = Array()
     if (this.cells[y][x].value == 0) {
-      var i = 0
+      let i = 0
       coordinates[i] = [y, x]
       while (i < coordinates.length) {
         addNeighborCoordinates(coordinates, i++)
@@ -85,10 +85,10 @@ State.STATE_SEPARATOR = ';'
 State.MINE_COORDINATES_SEPARATOR = ','
 
 State.prototype.toString = function() {
-  var string = this.rowCount + State.STATE_SEPARATOR + this.columnCount + State.STATE_SEPARATOR
-  for (var y = 0; y < this.rowCount; y++) {
-    for (var x = 0; x < this.columnCount; x++) {
-      var cell = this.cells[y][x]
+  let string = this.rowCount + State.STATE_SEPARATOR + this.columnCount + State.STATE_SEPARATOR
+  for (let y = 0; y < this.rowCount; y++) {
+    for (let x = 0; x < this.columnCount; x++) {
+      const cell = this.cells[y][x]
       string += cell.toString() + State.STATE_SEPARATOR
     }
   }
@@ -97,37 +97,36 @@ State.prototype.toString = function() {
 }
 
 State.fromString = function(string) {
-  var attributes = string.split(State.STATE_SEPARATOR)
+  const attributes = string.split(State.STATE_SEPARATOR)
 
   if (attributes.length < 5) {
     throw 'State attribute count is not valid'
   }
 
-  var index = 0
-  var rowCount = parseInt(attributes[index++])
-  var columnCount = parseInt(attributes[index++])
+  let index = 0
+  const rowCount = parseInt(attributes[index++])
+  const columnCount = parseInt(attributes[index++])
 
-  var cells = Array(rowCount)
-  var cellArray
-  for (var y = 0; y < rowCount; y++) {
-    var row = Array(columnCount)
-    for (var x = 0; x < columnCount; x++) {
+  const cells = Array(rowCount)
+  for (const y of cells.keys()) {
+    const row = Array(columnCount)
+    for (const x of row.keys()) {
       row[x] = Cell.fromString(attributes[index++])
     }
     cells[y] = row
   }
 
-  var mineCount = parseInt(attributes[index++])
+  const mineCount = parseInt(attributes[index++])
 
-  var mineCoordinatesArray = attributes[index++].split(State.MINE_COORDINATES_SEPARATOR)
+  const mineCoordinatesArray = attributes[index++].split(State.MINE_COORDINATES_SEPARATOR)
   if (mineCoordinatesArray.length / 2 != mineCount) {
     throw 'Mine coordinate count is not valid: should be ' + mineCount
   }
 
-  var isY = true
-  var coordinateY, coordinateX
-  var mineCoordinates = Array()
-  for (var i = 0; i < mineCoordinatesArray.length; i++) {
+  let isY = true
+  let coordinateY, coordinateX
+  const mineCoordinates = Array()
+  for (const i of mineCoordinatesArray.keys()) {
     if (isY) {
       coordinateY = mineCoordinatesArray[i]
     } else {
@@ -143,11 +142,11 @@ State.fromString = function(string) {
 State.generateState = function(rowCount, columnCount, mineCount, baseCoordinates) {
 
   // Generate mine positions
-  var mineRow, mineColumn
-  var mineCoordinates = Array(mineCount + 1)
+  let mineRow, mineColumn
+  const mineCoordinates = Array(mineCount + 1)
   mineCoordinates[0] = baseCoordinates
 
-  for (var i = 0; i < mineCount; i++) {
+  for (let i = 0; i < mineCount; i++) {
     do {
       mineRow = Math.floor(Math.random() * rowCount)
       mineColumn = Math.floor(Math.random() * columnCount)
@@ -158,7 +157,7 @@ State.generateState = function(rowCount, columnCount, mineCount, baseCoordinates
   mineCoordinates.splice(0, 1)
 
   function countNeighborMines(mineCoordinates, y, x) {
-    var mineCount = 0
+    let mineCount = 0
     if (contains(mineCoordinates, [y - 1, x])) mineCount++
     if (contains(mineCoordinates, [y + 1, x])) mineCount++
 
@@ -174,10 +173,10 @@ State.generateState = function(rowCount, columnCount, mineCount, baseCoordinates
   }
 
   // Generate state
-  var cells = Array(rowCount)
-  for (var y = 0; y < rowCount; y++) {
-    var row = Array(columnCount)
-    for (var x = 0; x < columnCount; x++) {
+  const cells = Array(rowCount)
+  for (const y of cells.keys()) {
+    const row = Array(columnCount)
+    for (const x of row.keys()) {
       if (contains(mineCoordinates, [y, x])) {
         row[x] = new Cell('M', false, false)
       } else {
