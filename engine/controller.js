@@ -74,16 +74,14 @@ function setParameters() {
     mineCount = state.mineCount
 
     let wasChecked = false
-    getLevelRadioButtons().each(
-      function() {
-        if ($(this).attr('data-row-count') == rowCount &&
-            $(this).attr('data-column-count') == columnCount &&
-            $(this).attr('data-mine-count') == mineCount) {
-          $(this).attr('checked', true)
-          wasChecked = true
-        }
+    getLevelRadioButtons().each((index, element) => {
+      if ($(element).attr('data-row-count') == rowCount &&
+          $(element).attr('data-column-count') == columnCount &&
+          $(element).attr('data-mine-count') == mineCount) {
+        $(element).attr('checked', true)
+        wasChecked = true
       }
-    )
+    })
     if (!wasChecked) {
       setNotification('Custom config, eh?')
     }
@@ -105,19 +103,20 @@ function setParameters() {
 function prepareField() {
 
   // Add hover to cells
-  $(function() {
-    $('.cell').hover(function() {
-      $(this).removeClass().addClass('cell-hover')
-    }, function() {
-      $(this).removeClass().addClass('cell')
+  $(() => {
+    $('.cell').hover(event => {
+      $(event.currentTarget).removeClass().addClass('cell-hover')
+    }, event => {
+      $(event.currentTarget).removeClass().addClass('cell')
     })
   })
 
   // Add click to cells
-  $(function() {
-    $('.cell').mouseup(function(event) {
-      const y = parseInt($(this).attr('data-row'))
-      const x = parseInt($(this).attr('data-column'))
+  $(() => {
+    $('.cell').mouseup(event => {
+      const element = event.currentTarget
+      const y = parseInt($(element).attr('data-row'))
+      const x = parseInt($(element).attr('data-column'))
 
       // Generate new state if needed
       if (state == null) {
@@ -132,10 +131,10 @@ function prepareField() {
         if (event.which == 1) {
           if (!cell.marked) {
             if (cell.hasMine() || cell.value > 0) {
-              visitCell($(this), cell, true, true)
+              visitCell($(element), cell, true, true)
             } else {
               const coordinates = state.calculateCoordinatesToVisit(y, x)
-              coordinates.forEach(function(coordinate) {
+              coordinates.forEach(coordinate => {
                 const currentY = coordinate[0]
                 const currentX = coordinate[1]
                 const currentCell = state.cells[currentY][currentX]
@@ -154,7 +153,7 @@ function prepareField() {
 
         // Right mouse button clicked
         else {
-          markUnmarkCell($(this), cell, true)
+          markUnmarkCell($(element), cell, true)
         }
       }
     })
@@ -164,9 +163,7 @@ function prepareField() {
   $('body').disableSelection()
 
   // Disable context menu
-  $('#field').bind('contextmenu', function(e) {
-    return false
-  })
+  $('#field').bind('contextmenu', event => false)
 
   // Adjust bars
   getNotificationBar().attr('colspan', columnCount)
@@ -232,8 +229,8 @@ function visitField() {
   disableButtons()
   setNotification('Game over')
 
-  state.cells.forEach(function(row, y) {
-    row.forEach(function(cell, x) { 
+  state.cells.forEach((row, y) => {
+    row.forEach((cell, x) => { 
       if (!cell.visited) {
         const td = $('#cell-' + y + '-' + x)
         visitCell(td, cell, false, true)
@@ -247,14 +244,14 @@ function validateField(shouldVisitField) {
     disableButtons()
     setNotification('Congrats, you won!')
 
-    $('.cell').each(function() {
-      const y = parseInt($(this).attr('data-row'))
-      const x = parseInt($(this).attr('data-column'))
+    $('.cell').each((index, element) => {
+      const y = parseInt($(element).attr('data-row'))
+      const x = parseInt($(element).attr('data-column'))
       const cell = state.cells[y][x]
       if (!cell.marked) {
-        markUnmarkCell($(this), cell, true)
+        markUnmarkCell($(element), cell, true)
       }
-      $(this).unbind('mouseenter mouseleave mouseup')
+      $(element).unbind('mouseenter mouseleave mouseup')
     })
   } else if (shouldVisitField) visitField()
 }
@@ -262,7 +259,7 @@ function validateField(shouldVisitField) {
 function revealField() {
   setNotification('You, cheater!')
 
-  state.mineCoordinates.forEach(function(mineCoordinate) {
+  state.mineCoordinates.forEach(mineCoordinate => {
     const y = mineCoordinate[0]
     const x = mineCoordinate[1]
     const cell = state.cells[y][x]

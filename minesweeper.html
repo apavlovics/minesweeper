@@ -7,7 +7,7 @@
     <title>Minesweeper</title>
 
     <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- jQuery Cookie -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -56,10 +56,10 @@
       var columnCount
       var mineCount
       $(document).ready(function() {
-          createField()
+        createField()
       })
-      $(window).unload(function() {
-          saveGame()
+      $(window).on('unload', function() {
+        saveGame()
       })
     </script>
   </body>
