@@ -1,62 +1,65 @@
 /* Radio Buttons */
 
-const LEVEL_RADIO_BUTTON_SELECTOR = 'input:radio[name="level"]'
+class Controls {
 
-function getCheckedLevelRadioButton() {
-  return $(LEVEL_RADIO_BUTTON_SELECTOR + ':checked')
-}
+  static get LEVEL_RADIO_BUTTON_SELECTOR() { return 'input:radio[name="level"]' }
 
-function getLevelRadioButtons() {
-  return $(LEVEL_RADIO_BUTTON_SELECTOR)
-}
-
-function getLevel() {
-  return getCheckedLevelRadioButton().val()
-}
-
-function setLevel(level) {
-  const radioButton = $(LEVEL_RADIO_BUTTON_SELECTOR + '[value="' + level + '"]')
-  if (radioButton.length > 0) {
-    radioButton.attr('checked', true)
+  static get checkedLevelRadioButton() {
+    return $(Controls.LEVEL_RADIO_BUTTON_SELECTOR + ':checked')
   }
-}
 
-/* Buttons */
+  static get levelRadioButtons() {
+    return $(Controls.LEVEL_RADIO_BUTTON_SELECTOR)
+  }
 
-const VALIDATE_BUTTON_SELECTOR = '#validate'
-const CHEAT_BUTTON_SELECTOR = '#cheat'
+  static get level() {
+    return Controls.checkedLevelRadioButton.val()
+  }
 
-function enableButtons() {
-  $(VALIDATE_BUTTON_SELECTOR).removeAttr('disabled')
-  $(CHEAT_BUTTON_SELECTOR).removeAttr('disabled')
-}
+  static set level(level) {
+    const radioButton = $(Controls.LEVEL_RADIO_BUTTON_SELECTOR + '[value="' + level + '"]')
+    if (radioButton.length > 0) {
+      radioButton.attr('checked', true)
+    }
+  }
 
-function disableButtons() {
-  $(VALIDATE_BUTTON_SELECTOR).attr('disabled', true)
-  $(CHEAT_BUTTON_SELECTOR).attr('disabled', true)
-}
+  /* Buttons */
 
-/* Bars */
+  static get VALIDATE_BUTTON_SELECTOR() { return '#validate' }
+  static get CHEAT_BUTTON_SELECTOR() { return '#cheat' }
 
-const NOTIFICATION_BAR_SELECTOR = '#notification-bar'
-const MINE_COUNT_BAR_SELECTOR = '#mine-count-bar'
+  static enableButtons() {
+    $(Controls.VALIDATE_BUTTON_SELECTOR).removeAttr('disabled')
+    $(Controls.CHEAT_BUTTON_SELECTOR).removeAttr('disabled')
+  }
 
-function getNotificationBar() {
-  return $(NOTIFICATION_BAR_SELECTOR)
-}
+  static disableButtons() {
+    $(Controls.VALIDATE_BUTTON_SELECTOR).attr('disabled', true)
+    $(Controls.CHEAT_BUTTON_SELECTOR).attr('disabled', true)
+  }
 
-function setNotification(notification) {
-  getNotificationBar().text(notification)
-}
+  /* Bars */
 
-function getMineCountBar() {
-  return $(MINE_COUNT_BAR_SELECTOR)
-}
+  static get NOTIFICATION_BAR_SELECTOR() { return '#notification-bar' }
+  static get MINE_COUNT_BAR_SELECTOR() { return '#mine-count-bar' }
 
-function getMineCount() {
-  return parseInt(getMineCountBar().text())
-}
+  static get notificationBar() {
+    return $(Controls.NOTIFICATION_BAR_SELECTOR)
+  }
 
-function setMineCount(mineCount) {
-  getMineCountBar().text(mineCount)
+  static set notification(notification) {
+    Controls.notificationBar.text(notification)
+  }
+
+  static get mineCountBar() {
+    return $(Controls.MINE_COUNT_BAR_SELECTOR)
+  }
+
+  static get mineCount() {
+    return parseInt(getMineCountBar().text())
+  }
+
+  static set mineCount(mineCount) {
+    Controls.mineCountBar.text(mineCount)
+  }
 }

@@ -55,7 +55,7 @@ class Controller {
   static createField() {
     let rowCount, columnCount, mineCount
 
-    const determineFieldParameters = () => {
+    const loadStateOrFieldParameters = () => {
       Controller.state = Cookies.loadState()
       if (Controller.state != null) {
         Cookies.clearState()
@@ -66,7 +66,7 @@ class Controller {
         mineCount = Controller.state.mineCount
 
         let wasChecked = false
-        getLevelRadioButtons().each((index, element) => {
+        Controls.levelRadioButtons.each((index, element) => {
           if ($(element).attr('data-row-count') == rowCount &&
               $(element).attr('data-column-count') == columnCount &&
               $(element).attr('data-mine-count') == mineCount) {
@@ -75,7 +75,7 @@ class Controller {
           }
         })
         if (!wasChecked) {
-          setNotification('Custom config, eh?')
+          Controls.notification = 'Custom config, eh?'
         }
       } else {
 
@@ -83,12 +83,12 @@ class Controller {
         const level = Cookies.loadLevel()
         if (level != null) {
           Cookies.clearLevel()
-          setLevel(level)
+          Controls.level = level
         }
-        const radioButton = getCheckedLevelRadioButton()
-        rowCount = parseInt(radioButton.attr('data-row-count'))
-        columnCount = parseInt(radioButton.attr('data-column-count'))
-        mineCount = parseInt(radioButton.attr('data-mine-count'))
+        const button = Controls.checkedLevelRadioButton
+        rowCount = parseInt(button.attr('data-row-count'))
+        columnCount = parseInt(button.attr('data-column-count'))
+        mineCount = parseInt(button.attr('data-mine-count'))
       }
     }
 
@@ -113,7 +113,7 @@ class Controller {
           // Generate new state if needed
           if (Controller.state == null) {
             Controller.state = State.generateState(rowCount, columnCount, mineCount, [y, x])
-            enableButtons()
+            Controls.enableButtons()
           }
 
           const cell = Controller.state.cells[y][x]
@@ -162,8 +162,8 @@ class Controller {
       $('#field').bind('contextmenu', event => false)
 
       // Adjust bars
-      getNotificationBar().attr('colspan', columnCount)
-      getMineCountBar().attr('colspan', columnCount - 1)
+      Controls.notificationBar.attr('colspan', columnCount)
+      Controls.mineCountBar.attr('colspan', columnCount - 1)
 
       // Set frame size if located in iframe
       if (self != top) {
@@ -171,8 +171,8 @@ class Controller {
       }
     }
 
-    determineFieldParameters()
-    setMineCount(mineCount)
+    loadStateOrFieldParameters()
+    Controls.mineCount = mineCount
 
     const field = $('#field')
     const rows = Array(rowCount)
@@ -188,7 +188,7 @@ class Controller {
 
         // Restore field state
         if (Controller.state == null) {
-          disableButtons()
+          Controls.disableButtons()
           cells[x].addClass('cell')
         } else {
           const cell = Controller.state.cells[y][x]
@@ -209,7 +209,7 @@ class Controller {
   }
 
   static resetField() {
-    setNotification('Minesweeper')
+    Controls.notification = 'Minesweeper'
 
     // Remove current state
     Controller.state = null
@@ -220,8 +220,8 @@ class Controller {
   }
 
   static visitField() {
-    disableButtons()
-    setNotification('Game over')
+    Controls.disableButtons()
+    Controls.notification = 'Game over'
 
     Controller.state.cells.forEach((row, y) => {
       row.forEach((cell, x) => { 
@@ -235,8 +235,8 @@ class Controller {
 
   static validateField(shouldVisitField) {
     if (Controller.state.isValid) {
-      disableButtons()
-      setNotification('Congrats, you won!')
+      Controls.disableButtons()
+      Controls.notification = 'Congrats, you won!'
 
       $('.cell').each((index, element) => {
         const y = parseInt($(element).attr('data-row'))
@@ -251,13 +251,13 @@ class Controller {
   }
 
   static revealField() {
-    setNotification('You, cheater!')
+    Controls.notification = 'You, cheater!'
 
     const revealCell = (td, cell) => {
       if (cell.hasMine) {
         if (cell.marked) {
           cell.marked = false
-          setMineCount(getMineCount() + 1)
+          setMineCount(Controls.mineCount + 1)
         }
         td.empty().append('<div class="mine mine-small-white"></div>')
       }
