@@ -1,6 +1,3 @@
-const STATE_SEPARATOR = ';'
-const MINE_COORDINATES_SEPARATOR = ','
-
 class State {
 
   constructor(cells, mineCoordinates) {
@@ -12,12 +9,12 @@ class State {
     this.mineCount = mineCoordinates.length
   }
 
-  isVisited() {
+  get isVisited() {
     return !this.cells.some(row => row.some(cell => !cell.visited))
   }
 
-  isValid() {
-    return !this.cells.some(row => row.some(cell => cell.hasMine() == cell.visited))
+  get isValid() {
+    return !this.cells.some(row => row.some(cell => cell.hasMine == cell.visited))
   }
 
   calculateCoordinatesToVisit(y, x) {
@@ -67,17 +64,20 @@ class State {
     return coordinates
   }
 
+  static get STATE_SEPARATOR() { return ';' }
+  static get MINE_COORDINATES_SEPARATOR() { return ',' }
+
   toString() {
-    let string = this.rowCount + STATE_SEPARATOR + this.columnCount + STATE_SEPARATOR
+    let string = this.rowCount + State.STATE_SEPARATOR + this.columnCount + State.STATE_SEPARATOR
     this.cells.forEach(row => {
-      row.forEach(cell => string += cell.toString() + STATE_SEPARATOR)
+      row.forEach(cell => string += cell.toString() + State.STATE_SEPARATOR)
     })
-    string += this.mineCount + STATE_SEPARATOR + this.mineCoordinates
+    string += this.mineCount + State.STATE_SEPARATOR + this.mineCoordinates
     return string
   }
 
   static fromString(string) {
-    const attributes = string.split(STATE_SEPARATOR)
+    const attributes = string.split(State.STATE_SEPARATOR)
     if (attributes.length < 5) {
       throw 'State attribute count is not valid'
     }
@@ -97,7 +97,7 @@ class State {
 
     const mineCount = parseInt(attributes[index++])
 
-    const mineCoordinatesArray = attributes[index++].split(MINE_COORDINATES_SEPARATOR)
+    const mineCoordinatesArray = attributes[index++].split(State.MINE_COORDINATES_SEPARATOR)
     if (mineCoordinatesArray.length / 2 != mineCount) {
       throw 'Mine coordinate count is not valid: should be ' + mineCount
     }

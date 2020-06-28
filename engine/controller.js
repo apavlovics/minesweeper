@@ -28,7 +28,7 @@ function visitCell(td, cell, hasExploded, shouldChangeState) {
   }
 
   td.unbind('mouseenter mouseleave mouseup').empty()
-  if (cell.hasMine()) {
+  if (cell.hasMine) {
     if (hasExploded) {
       td.removeClass().addClass('cell-mine-exploded')
     } else {
@@ -58,7 +58,7 @@ function markUnmarkCell(td, cell, shouldChangeState) {
 }
 
 function revealCell(td, cell) {
-  if (cell.hasMine()) {
+  if (cell.hasMine) {
     if (cell.marked) {
       cell.marked = false
       setMineCount(getMineCount() + 1)
@@ -130,7 +130,7 @@ function prepareField() {
         // Left mouse button clicked
         if (event.which == 1) {
           if (!cell.marked) {
-            if (cell.hasMine() || cell.value > 0) {
+            if (cell.hasMine || cell.value > 0) {
               visitCell($(element), cell, true, true)
             } else {
               const coordinates = state.calculateCoordinatesToVisit(y, x)
@@ -146,7 +146,7 @@ function prepareField() {
             }
 
             // Game over
-            if (cell.hasMine()) visitField()
+            if (cell.hasMine) visitField()
             else validateField(false)
           }
         }
@@ -240,7 +240,7 @@ function visitField() {
 }
 
 function validateField(shouldVisitField) {
-  if (state.isValid()) {
+  if (state.isValid) {
     disableButtons()
     setNotification('Congrats, you won!')
 

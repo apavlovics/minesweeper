@@ -17,7 +17,7 @@ class Cell {
     }
   }
 
-  hasMine() {
+  get hasMine() {
     return this.value == 'M'
   }
 

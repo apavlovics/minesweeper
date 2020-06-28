@@ -19,7 +19,7 @@ const STATE_KEY = 'state'
 const EXPIRATION_PERIOD = 365
 
 function saveState() {
-  if (state != null && !state.isVisited() && !state.isValid()) {
+  if (state != null && !state.isVisited && !state.isValid) {
     $.cookie(STATE_KEY, state.toString(), {
       expires: EXPIRATION_PERIOD
     })
