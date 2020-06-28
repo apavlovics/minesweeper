@@ -55,7 +55,7 @@ class Controller {
   static createField() {
     let rowCount, columnCount, mineCount
 
-    const setParameters = () => {
+    const determineFieldParameters = () => {
       Controller.state = Cookies.loadState()
       if (Controller.state != null) {
         Cookies.clearState()
@@ -171,7 +171,7 @@ class Controller {
       }
     }
 
-    setParameters()
+    determineFieldParameters()
     setMineCount(mineCount)
 
     const field = $('#field')

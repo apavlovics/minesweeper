@@ -1,10 +1,5 @@
 class Cookies {
 
-  static saveGame(state) {
-    Cookies.saveState(state)
-    Cookies.saveLevel()
-  }
-
   /* State */
 
   static get STATE_KEY() { return 'state' }
@@ -39,8 +34,8 @@ class Cookies {
 
   static get LEVEL_KEY() { return 'level' }
 
-  static saveLevel() {
-    $.cookie(Cookies.LEVEL_KEY, getLevel(), {
+  static saveLevel(level) {
+    $.cookie(Cookies.LEVEL_KEY, level, {
       expires: Cookies.EXPIRATION_PERIOD
     })
   }
