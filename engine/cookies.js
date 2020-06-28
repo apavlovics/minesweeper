@@ -1,63 +1,55 @@
-function saveGame() {
-  saveState()
-  saveLevel()
-}
+class Cookies {
 
-function loadGame() {
-  if (loadState()) {
-      clearState()
-      clearLevel()
-      return true
-  } else {
-    return false
+  static saveGame(state) {
+    Cookies.saveState(state)
+    Cookies.saveLevel()
   }
-}
 
-/* State */
+  /* State */
 
-const STATE_KEY = 'state'
-const EXPIRATION_PERIOD = 365
+  static get STATE_KEY() { return 'state' }
+  static get EXPIRATION_PERIOD() { return 365 }
 
-function saveState() {
-  if (Controller.state != null && !Controller.state.isVisited && !Controller.state.isValid) {
-    $.cookie(STATE_KEY, Controller.state.toString(), {
-      expires: EXPIRATION_PERIOD
+  static saveState(state) {
+    if (state != null && !state.isVisited && !state.isValid) {
+      $.cookie(Cookies.STATE_KEY, state.toString(), {
+        expires: Cookies.EXPIRATION_PERIOD
+      })
+    }
+  }
+
+  static loadState() {
+    const stateString = $.cookie(Cookies.STATE_KEY)
+    if (stateString != null) {
+      try {
+        return State.fromString(stateString)
+      }
+      catch (error) {
+        // Loading failed: will return null
+      }
+    }
+    return null
+  }
+
+  static clearState() {
+    $.cookie(Cookies.STATE_KEY, null)
+  }
+
+  /* Level */
+
+  static get LEVEL_KEY() { return 'level' }
+
+  static saveLevel() {
+    $.cookie(Cookies.LEVEL_KEY, getLevel(), {
+      expires: Cookies.EXPIRATION_PERIOD
     })
   }
-}
 
-function loadState() {
-  const stateString = $.cookie(STATE_KEY)
-  if (stateString != null) {
-    try {
-      Controller.state = State.fromString(stateString)
-      return true
-    }
-    catch (error) {
-      // Loading failed: will return false
-    }
+  static loadLevel() {
+    return $.cookie(Cookies.LEVEL_KEY)
   }
-  return false
-}
 
-function clearState() {
-  $.cookie(STATE_KEY, null)
-}
-
-/* Level */
-
-const LEVEL_KEY = 'level'
-
-function saveLevel() {
-  $.cookie(LEVEL_KEY, getLevel(), {
-    expires: EXPIRATION_PERIOD
-  })
-}
-
-function loadLevel() {
-  return $.cookie(LEVEL_KEY)
-}
-
-function clearLevel() {
-  $.cookie(LEVEL_KEY, null)
+  static clearLevel() {
+    $.cookie(Cookies.LEVEL_KEY, null)
+  }
 }

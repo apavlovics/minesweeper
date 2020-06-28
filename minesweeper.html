@@ -55,7 +55,7 @@
         Controller.createField()
       })
       $(window).on('unload', function() {
-        saveGame()
+        Cookies.saveGame(Controller.state)
       })
     </script>
   </body>

@@ -56,7 +56,11 @@ class Controller {
     let rowCount, columnCount, mineCount
 
     const setParameters = () => {
+      Controller.state = Cookies.loadState()
       if (Controller.state != null) {
+        Cookies.clearState()
+        Cookies.clearLevel()
+
         rowCount = Controller.state.rowCount
         columnCount = Controller.state.columnCount
         mineCount = Controller.state.mineCount
@@ -76,9 +80,9 @@ class Controller {
       } else {
 
         // Restore level if possible
-        const level = loadLevel()
+        const level = Cookies.loadLevel()
         if (level != null) {
-          clearLevel()
+          Cookies.clearLevel()
           setLevel(level)
         }
         const radioButton = getCheckedLevelRadioButton()
@@ -164,7 +168,6 @@ class Controller {
       }
     }
 
-    if (!loadGame()) disableButtons()
     setParameters()
     setMineCount(mineCount)
 
@@ -182,6 +185,7 @@ class Controller {
 
         // Restore field state
         if (Controller.state == null) {
+          disableButtons()
           cells[x].addClass('cell')
         } else {
           const cell = Controller.state.cells[y][x]
