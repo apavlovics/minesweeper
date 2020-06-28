@@ -1,5 +1,9 @@
 import {Cell} from './cell.js'
 
+Array.prototype.equals = function(other) {
+  return this.length == other.length && !this.some((element, index) => element != other[index])
+}
+
 export class State {
 
   constructor(cells, mineCoordinates) {
@@ -117,13 +121,8 @@ export class State {
     return new State(cells, mineCoordinates)
   }
 
-  // Coordinates must be arrays of two elements
-  static same(c1, c2) {
-    return c1[0] == c2[0] && c1[1] == c2[1]
-  }
-
   static contains(coordinates, coordinate) {
-    return coordinates.some(c => State.same(c, coordinate))
+    return coordinates.some(c => c.equals(coordinate))
   }
 
   static generateState(rowCount, columnCount, mineCount, baseCoordinates) {
@@ -135,7 +134,7 @@ export class State {
       do {
         mineCoordinate[0] = Math.floor(Math.random() * rowCount)
         mineCoordinate[1] = Math.floor(Math.random() * columnCount)
-      } while (State.same(baseCoordinates, mineCoordinate) || State.contains(mineCoordinates, mineCoordinate))
+      } while (baseCoordinates.equals(mineCoordinate) || State.contains(mineCoordinates, mineCoordinate))
       mineCoordinates[i] = mineCoordinate
     }
 

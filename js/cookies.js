@@ -17,7 +17,7 @@ export class Cookies {
 
   static loadState() {
     const stateString = $.cookie(Cookies.STATE_KEY)
-    if (stateString != null) {
+    if (stateString && stateString != 'null') {
       try {
         return State.fromString(stateString)
       }
