@@ -1,5 +1,5 @@
 import {State} from './state.js'
-import {Cookies} from './cookies.js'
+import {GameCookies} from './game-cookies.js'
 import {Controls} from './controls.js'
 
 export class Game {
@@ -10,8 +10,8 @@ export class Game {
       Game.createField()
     })
     $(window).on('unload', () => {
-      Cookies.saveState(Game.state)
-      Cookies.saveLevel(Controls.level)
+      GameCookies.saveState(Game.state)
+      GameCookies.saveLevel(Controls.level)
     })
   }
 
@@ -19,10 +19,10 @@ export class Game {
     let rowCount, columnCount, mineCount
 
     const loadStateOrFieldParameters = () => {
-      Game.state = Cookies.loadState()
+      Game.state = GameCookies.loadState()
       if (Game.state != null) {
-        Cookies.clearState()
-        Cookies.clearLevel()
+        GameCookies.clearState()
+        GameCookies.clearLevel()
 
         rowCount = Game.state.rowCount
         columnCount = Game.state.columnCount
@@ -43,9 +43,9 @@ export class Game {
       } else {
 
         // Restore level if possible
-        const level = Cookies.loadLevel()
+        const level = GameCookies.loadLevel()
         if (level != null) {
-          Cookies.clearLevel()
+          GameCookies.clearLevel()
           Controls.level = level
         }
         const button = Controls.checkedLevelRadioButton

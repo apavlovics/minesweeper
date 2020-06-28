@@ -1,6 +1,6 @@
 import {State} from './state.js'
 
-export class Cookies {
+export class GameCookies {
 
   /* State */
 
@@ -9,15 +9,15 @@ export class Cookies {
 
   static saveState(state) {
     if (state != null && !state.isVisited && !state.isValid) {
-      $.cookie(Cookies.STATE_KEY, state.toString(), {
-        expires: Cookies.EXPIRATION_PERIOD
+      Cookies.set(GameCookies.STATE_KEY, state.toString(), {
+        expires: GameCookies.EXPIRATION_PERIOD
       })
     }
   }
 
   static loadState() {
-    const stateString = $.cookie(Cookies.STATE_KEY)
-    if (stateString && stateString != 'null') {
+    const stateString = Cookies.get(GameCookies.STATE_KEY)
+    if (stateString != null) {
       try {
         return State.fromString(stateString)
       }
@@ -29,7 +29,7 @@ export class Cookies {
   }
 
   static clearState() {
-    $.cookie(Cookies.STATE_KEY, null)
+    Cookies.remove(GameCookies.STATE_KEY)
   }
 
   /* Level */
@@ -37,16 +37,16 @@ export class Cookies {
   static get LEVEL_KEY() { return 'level' }
 
   static saveLevel(level) {
-    $.cookie(Cookies.LEVEL_KEY, level, {
-      expires: Cookies.EXPIRATION_PERIOD
+    Cookies.set(GameCookies.LEVEL_KEY, level, {
+      expires: GameCookies.EXPIRATION_PERIOD
     })
   }
 
   static loadLevel() {
-    return $.cookie(Cookies.LEVEL_KEY)
+    return Cookies.get(GameCookies.LEVEL_KEY)
   }
 
   static clearLevel() {
-    $.cookie(Cookies.LEVEL_KEY, null)
+    Cookies.remove(GameCookies.LEVEL_KEY)
   }
 }
