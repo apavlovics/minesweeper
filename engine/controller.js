@@ -53,12 +53,13 @@ class Controller {
   }
 
   static createField() {
+    let rowCount, columnCount, mineCount
 
     const setParameters = () => {
-      if (state != null) {
-        rowCount = state.rowCount
-        columnCount = state.columnCount
-        mineCount = state.mineCount
+      if (Controller.state != null) {
+        rowCount = Controller.state.rowCount
+        columnCount = Controller.state.columnCount
+        mineCount = Controller.state.mineCount
 
         let wasChecked = false
         getLevelRadioButtons().each((index, element) => {
@@ -106,12 +107,12 @@ class Controller {
           const x = parseInt($(element).attr('data-column'))
 
           // Generate new state if needed
-          if (state == null) {
-            state = State.generateState(rowCount, columnCount, mineCount, [y, x])
+          if (Controller.state == null) {
+            Controller.state = State.generateState(rowCount, columnCount, mineCount, [y, x])
             enableButtons()
           }
 
-          const cell = state.cells[y][x]
+          const cell = Controller.state.cells[y][x]
           if (!cell.visited) {
 
             // Left mouse button clicked
@@ -120,11 +121,11 @@ class Controller {
                 if (cell.hasMine || cell.value > 0) {
                   Controller.visitCell($(element), cell, true, true)
                 } else {
-                  const coordinates = state.calculateCoordinatesToVisit(y, x)
+                  const coordinates = Controller.state.calculateCoordinatesToVisit(y, x)
                   coordinates.forEach(coordinate => {
                     const currentY = coordinate[0]
                     const currentX = coordinate[1]
-                    const currentCell = state.cells[currentY][currentX]
+                    const currentCell = Controller.state.cells[currentY][currentX]
                     if (!currentCell.visited) {
                       const td = $('#cell-' + currentY + '-' + currentX)
                       Controller.visitCell(td, currentCell, false, true)
@@ -180,10 +181,10 @@ class Controller {
         cells[x].attr('data-column', x)
 
         // Restore field state
-        if (state == null) {
+        if (Controller.state == null) {
           cells[x].addClass('cell')
         } else {
-          const cell = state.cells[y][x]
+          const cell = Controller.state.cells[y][x]
           if (cell.visited) {
             Controller.visitCell(cells[x], cell, false, false)
           } else {
@@ -204,7 +205,7 @@ class Controller {
     setNotification('Minesweeper')
 
     // Remove current state
-    state = null
+    Controller.state = null
 
     // Regenerate field
     $('#field').empty()
@@ -215,7 +216,7 @@ class Controller {
     disableButtons()
     setNotification('Game over')
 
-    state.cells.forEach((row, y) => {
+    Controller.state.cells.forEach((row, y) => {
       row.forEach((cell, x) => { 
         if (!cell.visited) {
           const td = $('#cell-' + y + '-' + x)
@@ -226,14 +227,14 @@ class Controller {
   }
 
   static validateField(shouldVisitField) {
-    if (state.isValid) {
+    if (Controller.state.isValid) {
       disableButtons()
       setNotification('Congrats, you won!')
 
       $('.cell').each((index, element) => {
         const y = parseInt($(element).attr('data-row'))
         const x = parseInt($(element).attr('data-column'))
-        const cell = state.cells[y][x]
+        const cell = Controller.state.cells[y][x]
         if (!cell.marked) {
           Controller.markUnmarkCell($(element), cell, true)
         }
@@ -255,10 +256,10 @@ class Controller {
       }
     }
 
-    state.mineCoordinates.forEach(mineCoordinate => {
+    Controller.state.mineCoordinates.forEach(mineCoordinate => {
       const y = mineCoordinate[0]
       const x = mineCoordinate[1]
-      const cell = state.cells[y][x]
+      const cell = Controller.state.cells[y][x]
       if (!cell.visited) {
         const td = $('#cell-' + y + '-' + x)
         revealCell(td, cell)

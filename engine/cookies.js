@@ -19,8 +19,8 @@ const STATE_KEY = 'state'
 const EXPIRATION_PERIOD = 365
 
 function saveState() {
-  if (state != null && !state.isVisited && !state.isValid) {
-    $.cookie(STATE_KEY, state.toString(), {
+  if (Controller.state != null && !Controller.state.isVisited && !Controller.state.isValid) {
+    $.cookie(STATE_KEY, Controller.state.toString(), {
       expires: EXPIRATION_PERIOD
     })
   }
@@ -30,7 +30,7 @@ function loadState() {
   const stateString = $.cookie(STATE_KEY)
   if (stateString != null) {
     try {
-      state = State.fromString(stateString)
+      Controller.state = State.fromString(stateString)
       return true
     }
     catch (error) {
