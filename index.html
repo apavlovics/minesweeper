@@ -7,10 +7,10 @@
     <title>Minesweeper</title>
 
     <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- jQuery Cookie -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
   </head>
   <body>
     <table id="minesweeper">
@@ -47,18 +47,7 @@
     <!-- Engine -->
     <script type="module">
       import {Game} from './engine/game.js'
-      import {Cookies} from './engine/cookies.js'
-      import {Controls} from './engine/controls.js'
-
-      window.Game = Game
-
-      $(document).ready(() => {
-        Game.createField()
-      })
-      $(window).on('unload', () => {
-        Cookies.saveState(Game.state)
-        Cookies.saveLevel(Controls.level)
-      })
+      Game.initialize()
     </script>
   </body>
 </html>

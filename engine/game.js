@@ -4,56 +4,15 @@ import {Controls} from './controls.js'
 
 export class Game {
 
-  static visitCell(td, cell, hasExploded, shouldChangeState) {
-    if (shouldChangeState) {
-      cell.visited = true
-      if (cell.marked) {
-        cell.marked = false
-        Controls.mineCount++
-      }
-    }
-
-    const getCellColor = value => {
-      switch (value) {
-        case 1:  return '#09c'
-        case 2:  return '#3c3'
-        case 3:  return '#f30'
-        case 4:  return '#039'
-        case 5:  return '#900'
-        case 6:  return '#099'
-        case 7:  return '#c39'
-        default: return '#000'
-      }
-    }
-
-    td.unbind('mouseenter mouseleave mouseup').empty()
-    if (cell.hasMine) {
-      if (hasExploded) {
-        td.removeClass().addClass('cell-mine-exploded')
-      } else {
-        td.removeClass().addClass('cell-mine-visited')
-      }
-      td.append('<div class="mine"></div>')
-    } else {
-      td.removeClass().addClass('cell-visited')
-      if (cell.value > 0) {
-        td.css('color', getCellColor(cell.value)).text(cell.value)
-      }
-    }
-  }
-
-  static markUnmarkCell(td, cell, shouldChangeState) {
-    if (shouldChangeState) {
-      cell.marked = !cell.marked
-    }
-
-    td.empty()
-    if (cell.marked) {
-      td.append('<div class="flag"></div>')
-      Controls.mineCount--
-    } else {
-      Controls.mineCount++
-    }
+  static initialize() {
+    window.Game = Game
+    $(document).ready(() => {
+      Game.createField()
+    })
+    $(window).on('unload', () => {
+      Cookies.saveState(Game.state)
+      Cookies.saveLevel(Controls.level)
+    })
   }
 
   static createField() {
@@ -276,5 +235,57 @@ export class Game {
         revealCell(td, cell)
       }
     })
+  }
+
+  static visitCell(td, cell, hasExploded, shouldChangeState) {
+    if (shouldChangeState) {
+      cell.visited = true
+      if (cell.marked) {
+        cell.marked = false
+        Controls.mineCount++
+      }
+    }
+
+    const getCellColor = value => {
+      switch (value) {
+        case 1:  return '#09c'
+        case 2:  return '#3c3'
+        case 3:  return '#f30'
+        case 4:  return '#039'
+        case 5:  return '#900'
+        case 6:  return '#099'
+        case 7:  return '#c39'
+        default: return '#000'
+      }
+    }
+
+    td.unbind('mouseenter mouseleave mouseup').empty()
+    if (cell.hasMine) {
+      if (hasExploded) {
+        td.removeClass().addClass('cell-mine-exploded')
+      } else {
+        td.removeClass().addClass('cell-mine-visited')
+      }
+      td.append('<div class="mine"></div>')
+    } else {
+      td.removeClass().addClass('cell-visited')
+      if (cell.value > 0) {
+        td.css('color', getCellColor(cell.value)).text(cell.value)
+      }
+    }
+  }
+
+  static markUnmarkCell(td, cell, shouldChangeState) {
+    if (shouldChangeState) {
+      cell.marked = !cell.marked
+    }
+
+    td.empty()
+    if (cell.marked) {
+      td.append('<div class="flag"></div>')
+      Controls.mineCount--
+    } else {
+      Controls.mineCount++
+    }
   }
 }

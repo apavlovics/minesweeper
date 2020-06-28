@@ -124,7 +124,7 @@ export class State {
 
   static generateState(rowCount, columnCount, mineCount, baseCoordinates) {
 
-    // Generate mine positions
+    // Generate mine positions excluding base coordinates
     let mineRow, mineColumn
     const mineCoordinates = Array(mineCount + 1)
     mineCoordinates[0] = baseCoordinates
