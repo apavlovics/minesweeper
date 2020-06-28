@@ -1,4 +1,8 @@
-class Controller {
+import {State} from './state.js'
+import {Cookies} from './cookies.js'
+import {Controls} from './controls.js'
+
+export class Controller {
 
   static visitCell(td, cell, hasExploded, shouldChangeState) {
     if (shouldChangeState) {

@@ -1,4 +1,6 @@
-class Cookies {
+import {State} from './state.js'
+
+export class Cookies {
 
   /* State */
 
@@ -20,7 +22,7 @@ class Cookies {
         return State.fromString(stateString)
       }
       catch (error) {
-        // Loading failed: will return null
+        console.error(error)
       }
     }
     return null

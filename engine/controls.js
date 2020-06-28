@@ -1,6 +1,6 @@
-/* Radio Buttons */
+export class Controls {
 
-class Controls {
+  /* Radio Buttons */
 
   static get LEVEL_RADIO_BUTTON_SELECTOR() { return 'input:radio[name="level"]' }
 

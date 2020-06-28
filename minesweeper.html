@@ -45,12 +45,13 @@
     </table>
 
     <!-- Engine -->
-    <script src="engine/cell.js"></script>
-    <script src="engine/state.js"></script>
-    <script src="engine/cookies.js"></script>
-    <script src="engine/controls.js"></script>
-    <script src="engine/controller.js"></script>
-    <script>
+    <script type="module">
+      import {Controller} from './engine/controller.js'
+      import {Cookies} from './engine/cookies.js'
+      import {Controls} from './engine/controls.js'
+
+      window.Controller = Controller
+
       $(document).ready(() => {
         Controller.createField()
       })

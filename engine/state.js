@@ -1,4 +1,6 @@
-class State {
+import {Cell} from './cell.js'
+
+export class State {
 
   constructor(cells, mineCoordinates) {
     this.cells = cells

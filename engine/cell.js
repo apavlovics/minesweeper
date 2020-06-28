@@ -1,4 +1,4 @@
-class Cell {
+export class Cell {
 
   constructor(value, visited, marked) {
     if (value == 'M') {
