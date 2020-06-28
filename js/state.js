@@ -117,26 +117,27 @@ export class State {
     return new State(cells, mineCoordinates)
   }
 
-  // Coordinate must be an array of two elements
+  // Coordinates must be arrays of two elements
+  static same(c1, c2) {
+    return c1[0] == c2[0] && c1[1] == c2[1]
+  }
+
   static contains(coordinates, coordinate) {
-    return coordinates.some(c => c[0] == coordinate[0] && c[1] == coordinate[1])
+    return coordinates.some(c => State.same(c, coordinate))
   }
 
   static generateState(rowCount, columnCount, mineCount, baseCoordinates) {
 
     // Generate mine positions excluding base coordinates
-    let mineRow, mineColumn
-    const mineCoordinates = Array(mineCount + 1)
-    mineCoordinates[0] = baseCoordinates
-
-    for (let i = 0; i < mineCount; i++) {
+    const mineCoordinates = Array(mineCount)
+    for (const i of mineCoordinates.keys()) {
+      const mineCoordinate = Array(2)
       do {
-        mineRow = Math.floor(Math.random() * rowCount)
-        mineColumn = Math.floor(Math.random() * columnCount)
-      } while (State.contains(mineCoordinates, [mineRow, mineColumn]))
-      mineCoordinates[i + 1] = [mineRow, mineColumn]
+        mineCoordinate[0] = Math.floor(Math.random() * rowCount)
+        mineCoordinate[1] = Math.floor(Math.random() * columnCount)
+      } while (State.same(baseCoordinates, mineCoordinate) || State.contains(mineCoordinates, mineCoordinate))
+      mineCoordinates[i] = mineCoordinate
     }
-    mineCoordinates.splice(0, 1)
 
     const countNeighborMines = (mineCoordinates, y, x) => {
       let mineCount = 0
