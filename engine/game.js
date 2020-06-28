@@ -2,7 +2,7 @@ import {State} from './state.js'
 import {Cookies} from './cookies.js'
 import {Controls} from './controls.js'
 
-export class Controller {
+export class Game {
 
   static visitCell(td, cell, hasExploded, shouldChangeState) {
     if (shouldChangeState) {
@@ -60,14 +60,14 @@ export class Controller {
     let rowCount, columnCount, mineCount
 
     const loadStateOrFieldParameters = () => {
-      Controller.state = Cookies.loadState()
-      if (Controller.state != null) {
+      Game.state = Cookies.loadState()
+      if (Game.state != null) {
         Cookies.clearState()
         Cookies.clearLevel()
 
-        rowCount = Controller.state.rowCount
-        columnCount = Controller.state.columnCount
-        mineCount = Controller.state.mineCount
+        rowCount = Game.state.rowCount
+        columnCount = Game.state.columnCount
+        mineCount = Game.state.mineCount
 
         let wasChecked = false
         Controls.levelRadioButtons.each((index, element) => {
@@ -115,44 +115,44 @@ export class Controller {
           const x = parseInt($(element).attr('data-column'))
 
           // Generate new state if needed
-          if (Controller.state == null) {
-            Controller.state = State.generateState(rowCount, columnCount, mineCount, [y, x])
+          if (Game.state == null) {
+            Game.state = State.generateState(rowCount, columnCount, mineCount, [y, x])
             Controls.enableButtons()
           }
 
-          const cell = Controller.state.cells[y][x]
+          const cell = Game.state.cells[y][x]
           if (!cell.visited) {
 
             // Left mouse button clicked
             if (event.which == 1) {
               if (!cell.marked) {
                 if (cell.hasMine || cell.value > 0) {
-                  Controller.visitCell($(element), cell, true, true)
+                  Game.visitCell($(element), cell, true, true)
                 } else {
-                  const coordinates = Controller.state.calculateCoordinatesToVisit(y, x)
+                  const coordinates = Game.state.calculateCoordinatesToVisit(y, x)
                   coordinates.forEach(coordinate => {
                     const currentY = coordinate[0]
                     const currentX = coordinate[1]
-                    const currentCell = Controller.state.cells[currentY][currentX]
+                    const currentCell = Game.state.cells[currentY][currentX]
                     if (!currentCell.visited) {
                       const td = $('#cell-' + currentY + '-' + currentX)
-                      Controller.visitCell(td, currentCell, false, true)
+                      Game.visitCell(td, currentCell, false, true)
                     }
                   })
                 }
 
                 // Game over
                 if (cell.hasMine) {
-                  Controller.visitField()
+                  Game.visitField()
                 } else {
-                  Controller.validateField(false)
+                  Game.validateField(false)
                 }
               }
             }
 
             // Right mouse button clicked
             else {
-              Controller.markUnmarkCell($(element), cell, true)
+              Game.markUnmarkCell($(element), cell, true)
             }
           }
         })
@@ -191,17 +191,17 @@ export class Controller {
         cells[x].attr('data-column', x)
 
         // Restore field state
-        if (Controller.state == null) {
+        if (Game.state == null) {
           Controls.disableButtons()
           cells[x].addClass('cell')
         } else {
-          const cell = Controller.state.cells[y][x]
+          const cell = Game.state.cells[y][x]
           if (cell.visited) {
-            Controller.visitCell(cells[x], cell, false, false)
+            Game.visitCell(cells[x], cell, false, false)
           } else {
             cells[x].addClass('cell')
             if (cell.marked) {
-              Controller.markUnmarkCell(cells[x], cell, false)
+              Game.markUnmarkCell(cells[x], cell, false)
             }
           }
         }
@@ -216,42 +216,42 @@ export class Controller {
     Controls.notification = 'Minesweeper'
 
     // Remove current state
-    Controller.state = null
+    Game.state = null
 
     // Regenerate field
     $('#field').empty()
-    Controller.createField()
+    Game.createField()
   }
 
   static visitField() {
     Controls.disableButtons()
     Controls.notification = 'Game over'
 
-    Controller.state.cells.forEach((row, y) => {
+    Game.state.cells.forEach((row, y) => {
       row.forEach((cell, x) => { 
         if (!cell.visited) {
           const td = $('#cell-' + y + '-' + x)
-          Controller.visitCell(td, cell, false, true)
+          Game.visitCell(td, cell, false, true)
         }
       })
     })
   }
 
   static validateField(shouldVisitField) {
-    if (Controller.state.isValid) {
+    if (Game.state.isValid) {
       Controls.disableButtons()
       Controls.notification = 'Congrats, you won!'
 
       $('.cell').each((index, element) => {
         const y = parseInt($(element).attr('data-row'))
         const x = parseInt($(element).attr('data-column'))
-        const cell = Controller.state.cells[y][x]
+        const cell = Game.state.cells[y][x]
         if (!cell.marked) {
-          Controller.markUnmarkCell($(element), cell, true)
+          Game.markUnmarkCell($(element), cell, true)
         }
         $(element).unbind('mouseenter mouseleave mouseup')
       })
-    } else if (shouldVisitField) Controller.visitField()
+    } else if (shouldVisitField) Game.visitField()
   }
 
   static revealField() {
@@ -267,10 +267,10 @@ export class Controller {
       }
     }
 
-    Controller.state.mineCoordinates.forEach(mineCoordinate => {
+    Game.state.mineCoordinates.forEach(mineCoordinate => {
       const y = mineCoordinate[0]
       const x = mineCoordinate[1]
-      const cell = Controller.state.cells[y][x]
+      const cell = Game.state.cells[y][x]
       if (!cell.visited) {
         const td = $('#cell-' + y + '-' + x)
         revealCell(td, cell)

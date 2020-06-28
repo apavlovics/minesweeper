@@ -19,8 +19,8 @@
           <input type="radio" name="level" value="easy"   data-row-count="8"  data-column-count="8"  data-mine-count="10" checked> Easy<br>
           <input type="radio" name="level" value="medium" data-row-count="8"  data-column-count="16" data-mine-count="25"> Medium<br>
           <input type="radio" name="level" value="hard"   data-row-count="16" data-column-count="16" data-mine-count="45"> Hard<br>
-          <button id="new-game" onclick="Controller.resetField()">New Game</button><br>
-          <button id="cheat" onclick="Controller.revealField()">Cheat</button><br>
+          <button id="new-game" onclick="Game.resetField()">New Game</button><br>
+          <button id="cheat" onclick="Game.revealField()">Cheat</button><br>
         </td>
         <td>
           <table>
@@ -46,17 +46,17 @@
 
     <!-- Engine -->
     <script type="module">
-      import {Controller} from './engine/controller.js'
+      import {Game} from './engine/game.js'
       import {Cookies} from './engine/cookies.js'
       import {Controls} from './engine/controls.js'
 
-      window.Controller = Controller
+      window.Game = Game
 
       $(document).ready(() => {
-        Controller.createField()
+        Game.createField()
       })
       $(window).on('unload', () => {
-        Cookies.saveState(Controller.state)
+        Cookies.saveState(Game.state)
         Cookies.saveLevel(Controls.level)
       })
     </script>
