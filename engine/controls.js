@@ -56,7 +56,7 @@ class Controls {
   }
 
   static get mineCount() {
-    return parseInt(getMineCountBar().text())
+    return parseInt(Controls.mineCountBar.text())
   }
 
   static set mineCount(mineCount) {

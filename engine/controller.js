@@ -5,7 +5,7 @@ class Controller {
       cell.visited = true
       if (cell.marked) {
         cell.marked = false
-        setMineCount(getMineCount() + 1)
+        Controls.mineCount++
       }
     }
 
@@ -46,9 +46,9 @@ class Controller {
     td.empty()
     if (cell.marked) {
       td.append('<div class="flag"></div>')
-      setMineCount(getMineCount() - 1)
+      Controls.mineCount--
     } else {
-      setMineCount(getMineCount() + 1)
+      Controls.mineCount++
     }
   }
 
@@ -156,10 +156,10 @@ class Controller {
 
       // Disable selection
       $.support.selectstart = 'onselectstart' in document.createElement('div')
-      $('body').bind(($.support.selectstart ? 'selectstart' : 'mousedown') + '.ui-disableSelection', event => false)
+      $('body').bind(($.support.selectstart ? 'selectstart' : 'mousedown') + '.ui-disableSelection', () => false)
 
       // Disable context menu
-      $('#field').bind('contextmenu', event => false)
+      $('#field').bind('contextmenu', () => false)
 
       // Adjust bars
       Controls.notificationBar.attr('colspan', columnCount)
@@ -257,7 +257,7 @@ class Controller {
       if (cell.hasMine) {
         if (cell.marked) {
           cell.marked = false
-          setMineCount(Controls.mineCount + 1)
+          Controls.mineCount++
         }
         td.empty().append('<div class="mine mine-small-white"></div>')
       }

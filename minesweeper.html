@@ -51,10 +51,10 @@
     <script src="engine/controls.js"></script>
     <script src="engine/controller.js"></script>
     <script>
-      $(document).ready(function() {
+      $(document).ready(() => {
         Controller.createField()
       })
-      $(window).on('unload', function() {
+      $(window).on('unload', () => {
         Cookies.saveState(Controller.state)
         Cookies.saveLevel(Controls.level)
       })
