@@ -21,4 +21,4 @@ Technologies used:
 * jQuery Cookie
 
 To experience all the game features moderately recent versions of Chrome, Firefox or Safari should be used.
-The game must be run in the web server (`file://` protocol is not supported).
+The game must be deployed on the web server (`file://` protocol is not supported).
