@@ -5,8 +5,11 @@ class Cell {
       this.value = value
     } else {
       value = parseInt(value)
-      if (value >= 0 && value <= 8) this.value = value
-      else throw 'Cell value is not valid'
+      if (value >= 0 && value <= 8) {
+        this.value = value
+      } else {
+        throw 'Cell value is not valid'
+      }
     }
 
     // Loosely convert to boolean

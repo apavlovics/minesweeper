@@ -131,8 +131,7 @@ class State {
       do {
         mineRow = Math.floor(Math.random() * rowCount)
         mineColumn = Math.floor(Math.random() * columnCount)
-      }
-      while (State.contains(mineCoordinates, [mineRow, mineColumn]))
+      } while (State.contains(mineCoordinates, [mineRow, mineColumn]))
       mineCoordinates[i + 1] = [mineRow, mineColumn]
     }
     mineCoordinates.splice(0, 1)

@@ -138,8 +138,11 @@ class Controller {
                 }
 
                 // Game over
-                if (cell.hasMine) Controller.visitField()
-                else Controller.validateField(false)
+                if (cell.hasMine) {
+                  Controller.visitField()
+                } else {
+                  Controller.validateField(false)
+                }
               }
             }
 
