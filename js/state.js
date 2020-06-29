@@ -60,10 +60,10 @@ export class State {
 
     const coordinates = Array()
     if (this.cells[y][x].value == 0) {
-      let i = 0
-      coordinates[i] = [y, x]
-      while (i < coordinates.length) {
-        addNeighborCoordinates(coordinates, i++)
+      let index = 0
+      coordinates[index] = [y, x]
+      while (index < coordinates.length) {
+        addNeighborCoordinates(coordinates, index++)
       }
     } else {
       coordinates[0] = [y, x]
@@ -130,13 +130,13 @@ export class State {
 
     // Generate mine positions excluding base coordinates
     const mineCoordinates = Array(mineCount)
-    for (const i of mineCoordinates.keys()) {
+    for (const index of mineCoordinates.keys()) {
       const mineCoordinate = Array(2)
       do {
         mineCoordinate[0] = Math.floor(Math.random() * rowCount)
         mineCoordinate[1] = Math.floor(Math.random() * columnCount)
       } while (baseCoordinates.equals(mineCoordinate) || State.contains(mineCoordinates, mineCoordinate))
-      mineCoordinates[i] = mineCoordinate
+      mineCoordinates[index] = mineCoordinate
     }
 
     const countNeighborMines = (mineCoordinates, y, x) => {
