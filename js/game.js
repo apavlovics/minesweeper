@@ -40,6 +40,7 @@ export class Game {
         if (!wasChecked) {
           Controls.notification = 'Custom config, eh?'
         }
+        Controls.enableCheatButton()
       } else {
 
         // Restore level if possible
@@ -76,7 +77,7 @@ export class Game {
           // Generate new state if needed
           if (Game.state == null) {
             Game.state = State.generateState(rowCount, columnCount, mineCount, [y, x])
-            Controls.enableButtons()
+            Controls.enableCheatButton()
           }
 
           const cell = Game.state.cells[y][x]
@@ -144,7 +145,6 @@ export class Game {
 
         // Restore field state
         if (Game.state == null) {
-          Controls.disableButtons()
           cells[x].addClass('cell')
         } else {
           const cell = Game.state.cells[y][x]
@@ -165,6 +165,7 @@ export class Game {
   }
 
   static resetField() {
+    Controls.disableCheatButton()
     Controls.notification = 'Minesweeper'
 
     // Remove current state
@@ -176,7 +177,7 @@ export class Game {
   }
 
   static visitField() {
-    Controls.disableButtons()
+    Controls.disableCheatButton()
     Controls.notification = 'Game over'
 
     Game.state.cells.forEach((row, y) => {
@@ -191,7 +192,7 @@ export class Game {
 
   static validateField(shouldVisitField) {
     if (Game.state.isValid) {
-      Controls.disableButtons()
+      Controls.disableCheatButton()
       Controls.notification = 'Congrats, you won!'
 
       $('.cell').each((index, element) => {

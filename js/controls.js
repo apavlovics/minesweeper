@@ -25,16 +25,13 @@ export class Controls {
 
   /* Buttons */
 
-  static get VALIDATE_BUTTON() { return '#validate' }
   static get CHEAT_BUTTON() { return '#cheat' }
 
-  static enableButtons() {
-    $(Controls.VALIDATE_BUTTON).removeAttr('disabled')
+  static enableCheatButton() {
     $(Controls.CHEAT_BUTTON).removeAttr('disabled')
   }
 
-  static disableButtons() {
-    $(Controls.VALIDATE_BUTTON).attr('disabled', true)
+  static disableCheatButton() {
     $(Controls.CHEAT_BUTTON).attr('disabled', true)
   }
 

@@ -144,6 +144,7 @@ td.cell-mine-exploded {
 }
 
 #mine-count-bar div:first-child {
+  margin-top: .55em;
   margin-right: 0;
 }
 
