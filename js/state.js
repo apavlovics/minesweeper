@@ -1,8 +1,8 @@
 import {Cell} from './cell.js'
 
-// Determine if two arrays are equal (i.e. have the same number of loosely equal elements)
+// Determine if two arrays are equal (i.e. have the same number of strictly equal elements)
 Array.prototype.equals = function(other) {
-  return this.length == other.length && !this.some((element, index) => element != other[index])
+  return this.length == other.length && !this.some((element, index) => element !== other[index])
 }
 
 export class State {
