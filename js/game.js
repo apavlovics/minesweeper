@@ -117,10 +117,6 @@ export class Game {
         })
       })
 
-      // Disable selection
-      $.support.selectstart = 'onselectstart' in document.createElement('div')
-      $('body').bind(($.support.selectstart ? 'selectstart' : 'mousedown') + '.ui-disableSelection', () => false)
-
       // Disable context menu
       $('#field').bind('contextmenu', () => false)
 
@@ -130,7 +126,8 @@ export class Game {
 
       // Set frame size if located in iframe
       if (self != top) {
-        parent.setFrameSize($('#minesweeper').outerWidth(true) + 'px', $('#minesweeper').outerHeight(true) + 'px')
+        const minesweeper = $('#minesweeper')
+        parent.setFrameSize(minesweeper.outerWidth(true) + 'px', minesweeper.outerHeight(true) + 'px')
       }
     }
 

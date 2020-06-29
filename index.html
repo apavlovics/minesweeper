@@ -13,38 +13,33 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
   </head>
   <body>
-    <table id="minesweeper">
-      <tr>
-        <td class="menu">
-          <input type="radio" name="level" value="easy"   data-row-count="8"  data-column-count="8"  data-mine-count="10" checked> Easy<br>
-          <input type="radio" name="level" value="medium" data-row-count="8"  data-column-count="16" data-mine-count="25"> Medium<br>
-          <input type="radio" name="level" value="hard"   data-row-count="16" data-column-count="16" data-mine-count="45"> Hard<br>
-          <button id="new-game" onclick="Game.resetField()">New Game</button><br>
-          <button id="cheat" onclick="Game.revealField()">Cheat</button><br>
-        </td>
-        <td>
-          <table>
-            <thead>
-              <tr>
-                <th id="notification-bar">Minesweeper</th>
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-                <td id="mine-count-icon">
-                  <div class="mine"></div>
-                </td>
-                <td id="mine-count-bar"></td>
-              </tr>
-            </tfoot>
-            <tbody id="field"></tbody>
-          </table>
-        </td>
-        <td class="menu"></td>
-      </tr>
-    </table>
+    <div id="minesweeper">
+      <div class="menu">
+        <input type="radio" name="level" value="easy"   data-row-count="8"  data-column-count="8"  data-mine-count="10" checked> Easy<br>
+        <input type="radio" name="level" value="medium" data-row-count="8"  data-column-count="16" data-mine-count="25"> Medium<br>
+        <input type="radio" name="level" value="hard"   data-row-count="16" data-column-count="16" data-mine-count="45"> Hard<br>
+        <button id="new-game" onclick="Game.resetField()">New Game</button><br>
+        <button id="cheat" onclick="Game.revealField()">Cheat</button><br>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th id="notification-bar">Minesweeper</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td id="mine-count-icon">
+              <div class="mine"></div>
+            </td>
+            <td id="mine-count-bar"></td>
+          </tr>
+        </tfoot>
+        <tbody id="field"></tbody>
+      </table>
+    </div>
 
-    <!-- Engine -->
+    <!-- Initialize Minesweeper -->
     <script type="module">
       import {Game} from './js/game.js'
       Game.initialize()

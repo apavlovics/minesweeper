@@ -18,12 +18,16 @@ table {
 }
 
 #minesweeper {
+  display: flex;
+  flex-flow: row nowrap;
   margin: 2em;
+  -webkit-user-select: none;
+          user-select: none;
 }
 
 /* Menu */
 
-td.menu {
+.menu {
   padding-top: 3em;
   min-width: 10em;
   vertical-align: top;
