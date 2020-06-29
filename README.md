@@ -16,7 +16,7 @@ Technologies used:
 * HTML5
 * CSS3
 * JavaScript ES6
-* [jQuery](https://jquery.com/)
+* [jQuery](https://jquery.com)
 * [JavaScript Cookie](https://github.com/js-cookie/js-cookie)
 
 To experience all the game features moderately recent versions of Chrome, Firefox or Safari should be used.
