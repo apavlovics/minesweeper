@@ -7,10 +7,16 @@ body {
   font: 14px Helvetica, Arial, sans-serif;
 }
 
-div, table, tr, td {
+div, h2, table, tr, td {
   margin: 0;
   padding: 0;
   border-style: none;
+}
+
+h2 {
+  margin-top: .5em;
+  margin-bottom: .5em;
+  text-align: center;
 }
 
 table {
@@ -28,7 +34,7 @@ table {
 /* Menu */
 
 .menu {
-  padding-top: 3em;
+  padding-top: 3.5em;
   min-width: 10em;
   vertical-align: top;
   text-align: left;
@@ -45,19 +51,17 @@ button {
 
 /* Game */
 
-table.field {
+#field {
+  text-align: center;
   font-weight: bold;
   cursor: default;
 }
 
-td.cell, td.cell-hover, td.cell-visited, td.cell-mine-visited, td.cell-mine-exploded, #mine-count-icon, #mine-count-bar {
-  min-width: 2em;
+td.cell, td.cell-hover, td.cell-visited, td.cell-mine-visited, td.cell-mine-exploded {
   width: 2em;
   height: 2em;
   border: 1px solid #ccc;
   background: #28c;
-  text-align: center;
-  font-weight: bold;
 }
 
 td.cell-hover {
@@ -77,23 +81,16 @@ td.cell-mine-exploded {
   background-image: radial-gradient(ellipse at center, #fa6 0, #f96 60%, #f54 100%);
 }
 
-#notification-bar {
-  margin: 0;
-  padding: 0;
-  height: 2.5em;
-  border-style: none;
-  text-align: center;
-}
-
-#mine-count-icon {
-  border-style: none;
-  background: transparent;
-}
-
 #mine-count-bar {
-  border-style: none;
-  background: transparent;
+  display: flex;
+  flex-flow: row nowrap;
   text-align: left;
+  width: max-content;
+  font-weight: bold;
+}
+
+#mine-count-bar div {
+  margin: .5em;
 }
 
 /* Mine */

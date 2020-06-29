@@ -120,10 +120,6 @@ export class Game {
       // Disable context menu
       $('#field').bind('contextmenu', () => false)
 
-      // Adjust bars
-      Controls.notificationBar.attr('colspan', columnCount)
-      Controls.mineCountBar.attr('colspan', columnCount - 1)
-
       // Set frame size if located in iframe
       if (self != top) {
         const minesweeper = $('#minesweeper')

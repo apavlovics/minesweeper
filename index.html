@@ -21,22 +21,14 @@
         <button id="new-game" onclick="Game.resetField()">New Game</button><br>
         <button id="cheat" onclick="Game.revealField()">Cheat</button><br>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th id="notification-bar">Minesweeper</th>
-          </tr>
-        </thead>
-        <tfoot>
-          <tr>
-            <td id="mine-count-icon">
-              <div class="mine"></div>
-            </td>
-            <td id="mine-count-bar"></td>
-          </tr>
-        </tfoot>
-        <tbody id="field"></tbody>
-      </table>
+      <div>
+        <h2 id="notification-bar">Minesweeper</h2>
+        <table id="field"></table>
+        <div id="mine-count-bar">
+          <div class="mine"></div>
+          <div id="mine-count"></div>
+        </div>
+      </div>
     </div>
 
     <!-- Initialize Minesweeper -->

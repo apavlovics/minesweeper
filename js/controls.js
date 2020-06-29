@@ -41,25 +41,17 @@ export class Controls {
   /* Bars */
 
   static get NOTIFICATION_BAR_SELECTOR() { return '#notification-bar' }
-  static get MINE_COUNT_BAR_SELECTOR() { return '#mine-count-bar' }
-
-  static get notificationBar() {
-    return $(Controls.NOTIFICATION_BAR_SELECTOR)
-  }
+  static get MINE_COUNT_SELECTOR() { return '#mine-count' }
 
   static set notification(notification) {
-    Controls.notificationBar.text(notification)
-  }
-
-  static get mineCountBar() {
-    return $(Controls.MINE_COUNT_BAR_SELECTOR)
+    $(Controls.NOTIFICATION_BAR_SELECTOR).text(notification)
   }
 
   static get mineCount() {
-    return parseInt(Controls.mineCountBar.text())
+    return parseInt($(Controls.MINE_COUNT_SELECTOR).text())
   }
 
   static set mineCount(mineCount) {
-    Controls.mineCountBar.text(mineCount)
+    $(Controls.MINE_COUNT_SELECTOR).text(mineCount)
   }
 }
