@@ -1,21 +1,44 @@
-/* General */
+:root {
+  --blue-color: 0, 162, 255;
+  --gray-color: 230, 230, 230;
 
-body {
-  margin: 0;
-  background: #eee;
-  color: #333;
-  font: 14px Helvetica, Arial, sans-serif;
+  --dark-foreground-color: 0, 0, 0;
+  --light-foreground-color: 255, 255, 255;
+
+  --body-background-color: 255, 255, 255;
+  --cell-background-color: var(--blue-color);
+  --cell-mine-visited-background-color: var(--gray-color);
+  --cell-border-color: var(--gray-color);
+
+  --hover-opacity: .8;
+
+  --normal-font-size: 18px;
+
+  --normal-font-weight: 400;
+  --bold-font-weight: 700;
 }
 
-div, h2, table, tr, td {
+/* General */
+
+* {
   margin: 0;
   padding: 0;
+}
+
+body {
+  background-color: rgb(var(--body-foreground-color));
+  color: rgb(var(--dark-foreground-color));
+  font: var(--normal-font-weight) var(--normal-font-size) Helvetica, Arial, sans-serif;
+}
+
+table, tr, td {
   border-style: none;
 }
 
 h2 {
-  margin-top: .5em;
   margin-bottom: .5em;
+  font-size: var(--normal-font-size);
+  font-weight: var(--normal-font-weight);
   text-align: center;
 }
 
@@ -27,22 +50,24 @@ table {
   display: flex;
   flex-flow: row nowrap;
   margin: 2em;
-  -webkit-user-select: none;
-          user-select: none;
+  user-select: none; -webkit-user-select: none;
 }
 
 /* Menu */
 
 .menu {
-  padding-top: 3.5em;
+  padding-top: 1.5em;
   min-width: 10em;
-  vertical-align: top;
-  text-align: left;
-  font-size: 12px;
 }
 
 button {
+  padding: .5em .8em;
+  font-size: var(--normal-font-size);
   margin: 0 0 .5em 0;
+  background-color: rgb(0, 162, 255);
+  color: rgb(var(--light-foreground-color));
+  border-style: none;
+  border-radius: .5em;
 }
 
 #new-game {
@@ -53,27 +78,27 @@ button {
 
 #field {
   text-align: center;
-  font-weight: bold;
+  font-weight: var(--bold-font-weight);
   cursor: default;
 }
 
 td.cell, td.cell-hover, td.cell-visited, td.cell-mine-visited, td.cell-mine-exploded {
   width: 2em;
   height: 2em;
-  border: 1px solid #ccc;
-  background: #28c;
+  border: 1px solid rgb(var(--cell-border-color));
+  background-color: rgb(var(--cell-background-color));
 }
 
 td.cell-hover {
-  background: #5ad;
+  background-color: rgba(var(--cell-background-color), var(--hover-opacity));
 }
 
 td.cell-visited {
-  background: #fff;
+  background-color: rgb(var(--body-foreground-color));
 }
 
 td.cell-mine-visited {
-  background: #ddd;
+  background-color: rgb(var(--cell-mine-visited-background-color));
 }
 
 td.cell-mine-exploded {
@@ -86,11 +111,14 @@ td.cell-mine-exploded {
   flex-flow: row nowrap;
   text-align: left;
   width: max-content;
-  font-weight: bold;
 }
 
 #mine-count-bar div {
   margin: .5em;
+}
+
+#mine-count-bar div:first-child {
+  margin-right: 0;
 }
 
 /* Mine */
