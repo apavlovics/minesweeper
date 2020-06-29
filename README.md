@@ -14,11 +14,10 @@ The game features:
 Technologies used:
 
 * HTML5
-* CSS3 Shapes
-* CSS3 Gradients
-* JavaScript
-* jQuery
-* jQuery Cookie
+* CSS3
+* JavaScript ES6
+* [jQuery](https://jquery.com/)
+* [JavaScript Cookie](https://github.com/js-cookie/js-cookie)
 
 To experience all the game features moderately recent versions of Chrome, Firefox or Safari should be used.
 The game must be deployed on the web server (`file://` protocol is not supported).
