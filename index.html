@@ -16,35 +16,16 @@
     <div id="minesweeper">
       <div id="menu">
         <div>
-          <input
-              type="radio"
-              name="level"
-              value="easy"
-              data-row-count="8"
-              data-column-count="8"
-              data-mine-count="10"
-              checked>
-          <label>Easy</label>
+          <input type="radio" id="easy" name="level" value="easy" checked
+              data-row-count="8" data-column-count="8" data-mine-count="10"><label for="easy"> Easy</label>
         </div>
         <div>
-          <input
-              type="radio"
-              name="level"
-              value="medium"
-              data-row-count="8"
-              data-column-count="16"
-              data-mine-count="25">
-          <label>Medium</label>
+          <input type="radio" id="medium" name="level" value="medium"
+              data-row-count="8" data-column-count="16" data-mine-count="25"><label for="medium"> Medium</label>
         </div>
         <div>
-          <input
-              type="radio"
-              name="level"
-              value="hard"
-              data-row-count="16"
-              data-column-count="16"
-              data-mine-count="45">
-          <label>Hard</label>
+          <input type="radio" id="hard" name="level" value="hard"
+              data-row-count="16" data-column-count="16" data-mine-count="45"><label for="hard"> Hard</label>
         </div>
         <button id="new-game" onclick="Game.resetField()">New Game</button><br>
         <button id="cheat" onclick="Game.revealField()" disabled>Cheat</button><br>

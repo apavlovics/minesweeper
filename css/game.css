@@ -71,6 +71,10 @@ button:disabled {
   cursor: default;
 }
 
+button:focus {
+  outline: none;
+}
+
 input[type=radio] {
   font-size: var(--normal-font-size);
 }
