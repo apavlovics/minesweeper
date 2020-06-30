@@ -106,7 +106,7 @@ export class State {
 
     const mineCoordinatesArray = attributes[index++].split(State.MINE_COORDINATES_SEPARATOR)
     if (mineCoordinatesArray.length / 2 != mineCount) {
-      throw 'Mine coordinate count is not valid: should be ' + mineCount
+      throw `Mine coordinate count is not valid: should be ${mineCount}`
     }
 
     let coordinateY, coordinateX

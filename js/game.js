@@ -124,7 +124,7 @@ export class Game {
       // Set frame size if located in iframe
       if (self != top) {
         const minesweeper = $('#minesweeper')
-        parent.setFrameSize(minesweeper.outerWidth(true) + 'px', minesweeper.outerHeight(true) + 'px')
+        parent.setFrameSize(`${minesweeper.outerWidth(true)}px`, `${minesweeper.outerHeight(true)}px`)
       }
     }
 

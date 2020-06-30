@@ -5,7 +5,7 @@ export class Controls {
   static get LEVEL_RADIO_BUTTON() { return 'input:radio[name="level"]' }
 
   static get checkedLevelRadioButton() {
-    return $(Controls.LEVEL_RADIO_BUTTON + ':checked')
+    return $(`${Controls.LEVEL_RADIO_BUTTON}:checked`)
   }
 
   static get levelRadioButtons() {
@@ -17,7 +17,7 @@ export class Controls {
   }
 
   static set level(level) {
-    const radioButton = $(Controls.LEVEL_RADIO_BUTTON + '[value="' + level + '"]')
+    const radioButton = $(`${Controls.LEVEL_RADIO_BUTTON}[value="${level}"]`)
     if (radioButton.length > 0) {
       radioButton.attr('checked', true)
     }
