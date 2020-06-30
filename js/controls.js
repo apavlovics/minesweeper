@@ -1,6 +1,6 @@
 export class Controls {
 
-  /* Radio Buttons */
+  /* Level Radio Buttons */
 
   static get LEVEL_RADIO_BUTTON() { return 'input:radio[name="level"]' }
 
@@ -23,7 +23,7 @@ export class Controls {
     }
   }
 
-  /* Buttons */
+  /* Cheat Button */
 
   static get CHEAT_BUTTON() { return '#cheat' }
 
@@ -35,14 +35,17 @@ export class Controls {
     $(Controls.CHEAT_BUTTON).attr('disabled', true)
   }
 
-  /* Bars */
+  /* Notification */
 
-  static get NOTIFICATION_BAR() { return '#notification-bar' }
-  static get MINE_COUNT() { return '#mine-count' }
+  static get NOTIFICATION() { return '#notification' }
 
   static set notification(notification) {
-    $(Controls.NOTIFICATION_BAR).text(notification)
+    $(Controls.NOTIFICATION).text(notification)
   }
+
+  /* Mine Count */
+
+  static get MINE_COUNT() { return '#mine-count' }
 
   static get mineCount() {
     return parseInt($(Controls.MINE_COUNT).text())

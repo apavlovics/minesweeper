@@ -178,7 +178,7 @@ export class Game {
 
   static visitField() {
     Controls.disableCheatButton()
-    Controls.notification = 'Game over'
+    Controls.notification = 'Game Over'
 
     Game.state.cells.forEach((row, y) => {
       row.forEach((cell, x) => { 
@@ -193,7 +193,7 @@ export class Game {
   static validateField(shouldVisitField) {
     if (Game.state.isValid) {
       Controls.disableCheatButton()
-      Controls.notification = 'Congrats, you won!'
+      Controls.notification = 'Victory!'
 
       $('.cell').each((index, element) => {
         const y = parseInt($(element).attr('data-row'))
@@ -208,7 +208,7 @@ export class Game {
   }
 
   static revealField() {
-    Controls.notification = 'You, cheater!'
+    Controls.notification = 'Cheater!'
 
     const revealCell = (td, cell) => {
       if (cell.hasMine) {
