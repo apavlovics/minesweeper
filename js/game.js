@@ -242,7 +242,7 @@ export class Game {
 
     const getCellColor = value => {
       switch (value) {
-        case 1:  return '#09c'
+        case 1:  return '#0af'
         case 2:  return '#3c3'
         case 3:  return '#f30'
         case 4:  return '#039'
