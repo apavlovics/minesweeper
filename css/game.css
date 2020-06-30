@@ -2,6 +2,8 @@
   --white: 255, 255, 255;
   --black: 0, 0, 0;
   --blue: 0, 153, 255;
+  --light-blue: 85, 187, 255;
+  --dark-blue: 0, 109, 204;
   --gray: 230, 230, 230;
 
   --dark-foreground-color: var(--black);
@@ -9,12 +11,13 @@
 
   --body-background-color: var(--white);
   --button-background-color: var(--blue);
+  --button-hover-background-color: var(--light-blue);
+  --button-active-background-color: var(--dark-blue);
   --button-disabled-background-color: var(--gray);
   --cell-background-color: var(--blue);
+  --cell-hover-background-color: var(--light-blue);
   --cell-mine-visited-background-color: var(--gray);
   --cell-border-color: var(--gray);
-
-  --hover-opacity: .8;
 
   --normal-font-size: 18px;
 
@@ -30,7 +33,7 @@
 }
 
 body {
-  background-color: rgb(var(--body-foreground-color));
+  background-color: rgb(var(--body-background-color));
   color: rgb(var(--dark-foreground-color));
   font: var(--normal-font-weight) var(--normal-font-size) Helvetica, Arial, sans-serif;
 }
@@ -62,8 +65,12 @@ button {
 }
 
 button:hover {
-  background-color: rgba(var(--button-background-color), var(--hover-opacity));
+  background-color: rgb(var(--button-hover-background-color));
   transition-duration: 0s;
+}
+
+button:active {
+  background-color: rgb(var(--button-active-background-color));
 }
 
 button:disabled {
@@ -120,11 +127,11 @@ input[type=radio] + label {
 }
 
 .cell-hover {
-  background-color: rgba(var(--cell-background-color), var(--hover-opacity));
+  background-color: rgb(var(--cell-hover-background-color));
 }
 
 .cell-visited {
-  background-color: rgb(var(--body-foreground-color));
+  background-color: rgb(var(--body-background-color));
 }
 
 .cell-mine-visited {
