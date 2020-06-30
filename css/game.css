@@ -3,7 +3,12 @@
   --black: 0, 0, 0;
   --blue: 0, 153, 255;
   --light-blue: 85, 187, 255;
-  --dark-blue: 0, 109, 204;
+  --dark-blue: 0, 90, 169;
+  --green: 51, 204, 51;
+  --red: 255, 90, 25;
+  --dark-red: 153, 0, 0;
+  --teal: 0, 153, 153;
+  --purple: 204, 51, 153;
   --gray: 230, 230, 230;
 
   --dark-foreground-color: var(--black);

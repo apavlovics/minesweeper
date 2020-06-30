@@ -95,7 +95,7 @@ export class Game {
                     const currentX = coordinate[1]
                     const currentCell = Game.state.cells[currentY][currentX]
                     if (!currentCell.visited) {
-                      const td = $('#cell-' + currentY + '-' + currentX)
+                      const td = $(`#cell-${currentY}-${currentX}`)
                       Game.visitCell(td, currentCell, false, true)
                     }
                   })
@@ -139,7 +139,7 @@ export class Game {
       rows[y] = $('<tr></tr>')
       for (const x of cells.keys()) {
         cells[x] = $('<td></td>')
-        cells[x].attr('id', 'cell-' + y + '-' + x)
+        cells[x].attr('id', `cell-${y}-${x}`)
         cells[x].attr('data-row', y)
         cells[x].attr('data-column', x)
 
@@ -183,7 +183,7 @@ export class Game {
     Game.state.cells.forEach((row, y) => {
       row.forEach((cell, x) => { 
         if (!cell.visited) {
-          const td = $('#cell-' + y + '-' + x)
+          const td = $(`#cell-${y}-${x}`)
           Game.visitCell(td, cell, false, true)
         }
       })
@@ -225,7 +225,7 @@ export class Game {
       const x = mineCoordinate[1]
       const cell = Game.state.cells[y][x]
       if (!cell.visited) {
-        const td = $('#cell-' + y + '-' + x)
+        const td = $(`#cell-${y}-${x}`)
         revealCell(td, cell)
       }
     })
@@ -242,14 +242,15 @@ export class Game {
 
     const getCellColor = value => {
       switch (value) {
-        case 1:  return '#09f'
-        case 2:  return '#3c3'
-        case 3:  return '#f30'
-        case 4:  return '#039'
-        case 5:  return '#900'
-        case 6:  return '#099'
-        case 7:  return '#c39'
-        default: return '#000'
+        // See :root CSS variables for color definitions
+        case 1:  return 'blue'
+        case 2:  return 'green'
+        case 3:  return 'red'
+        case 4:  return 'dark-blue'
+        case 5:  return 'dark-red'
+        case 6:  return 'teal'
+        case 7:  return 'purple'
+        default: return 'black'
       }
     }
 
@@ -264,7 +265,7 @@ export class Game {
     } else {
       td.removeClass().addClass('cell-visited')
       if (cell.value > 0) {
-        td.css('color', getCellColor(cell.value)).text(cell.value)
+        td.css('color', `rgb(var(--${getCellColor(cell.value)}))`).text(cell.value)
       }
     }
   }
