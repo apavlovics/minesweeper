@@ -28,7 +28,7 @@ export class Cell {
     // Convert boolean to integer
     const visitedInt = +this.visited
     const markedInt = +this.marked
-    return `${this.value}${visitedInt}${markedInt}`
+    return String(this.value) + visitedInt + markedInt
   }
 
   static fromString(string) {
