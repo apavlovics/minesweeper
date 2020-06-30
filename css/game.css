@@ -107,7 +107,7 @@ input[type=radio] + label {
   cursor: default;
 }
 
-td.cell, td.cell-hover, td.cell-visited, td.cell-mine-visited, td.cell-mine-exploded {
+.cell, .cell-hover, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
   width: 2em;
   height: 2em;
   border: 1px solid rgb(var(--cell-border-color));
@@ -115,23 +115,23 @@ td.cell, td.cell-hover, td.cell-visited, td.cell-mine-visited, td.cell-mine-expl
   transition-duration: .5s;
 }
 
-td.cell-hover, td.cell-visited, td.cell-mine-visited, td.cell-mine-exploded {
+.cell-hover, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
   transition-duration: 0s;
 }
 
-td.cell-hover {
+.cell-hover {
   background-color: rgba(var(--cell-background-color), var(--hover-opacity));
 }
 
-td.cell-visited {
+.cell-visited {
   background-color: rgb(var(--body-foreground-color));
 }
 
-td.cell-mine-visited {
+.cell-mine-visited {
   background-color: rgb(var(--cell-mine-visited-background-color));
 }
 
-td.cell-mine-exploded {
+.cell-mine-exploded {
   background-color: #fa6;
   background-image: radial-gradient(ellipse at center, #fa6 0, #f96 60%, #f54 100%);
 }
@@ -154,7 +154,7 @@ td.cell-mine-exploded {
 
 /* Mine */
 
-div.mine {
+.mine {
   position: relative;
   margin: auto;
   width: 1em;
@@ -165,7 +165,7 @@ div.mine {
   text-align: center;
 }
 
-div.mine:before, div.mine:after {
+.mine:before, .mine:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -177,15 +177,15 @@ div.mine:before, div.mine:after {
   content: "";
 }
 
-div.mine:before {
+.mine:before {
   transform: rotate(30deg);
 }
 
-div.mine:after {
+.mine:after {
   transform: rotate(60deg);
 }
 
-div.mine-small-white, div.mine-small-white:before, div.mine-small-white:after {
+.mine-small-white, .mine-small-white:before, .mine-small-white:after {
   width: 1em;
   height: 1em;
   background-color: #eee;
@@ -194,7 +194,7 @@ div.mine-small-white, div.mine-small-white:before, div.mine-small-white:after {
 
 /* Flag */
 
-div.flag {
+.flag {
   position: relative;
   left: -.3em;
   margin: auto;
@@ -205,7 +205,7 @@ div.flag {
   content: "";
 }
 
-div.flag:before {
+.flag:before {
   position: absolute;
   top: .1em;
   left: .1em;
