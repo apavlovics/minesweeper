@@ -1,26 +1,27 @@
 :root {
   --white: 255, 255, 255;
   --black: 0, 0, 0;
-  --blue: 0, 153, 255;
-  --light-blue: 85, 187, 255;
-  --dark-blue: 0, 90, 169;
+  --blue: 0, 162, 255;
+  --lighter-blue: 51, 180, 255;
+  --darker-blue: 0, 128, 202;
+  --dark-blue: 0, 51, 153;
   --green: 51, 204, 51;
   --red: 255, 90, 25;
   --dark-red: 153, 0, 0;
   --teal: 0, 153, 153;
   --purple: 204, 51, 153;
-  --gray: 230, 230, 230;
+  --gray: 235, 235, 235;
 
   --dark-foreground-color: var(--black);
   --light-foreground-color: var(--white);
 
   --body-background-color: var(--white);
   --button-background-color: var(--blue);
-  --button-hover-background-color: var(--light-blue);
-  --button-active-background-color: var(--dark-blue);
+  --button-hover-background-color: var(--lighter-blue);
+  --button-active-background-color: var(--darker-blue);
   --button-disabled-background-color: var(--gray);
   --cell-background-color: var(--blue);
-  --cell-hover-background-color: var(--light-blue);
+  --cell-hover-background-color: var(--lighter-blue);
   --cell-mine-visited-background-color: var(--gray);
   --cell-border-color: var(--gray);
 

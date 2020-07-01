@@ -255,15 +255,16 @@ export class Game {
     }
 
     td.unbind('mouseenter mouseleave mouseup').empty()
+    td.removeClass()
     if (cell.hasMine) {
       if (hasExploded) {
-        td.removeClass().addClass('cell-mine-exploded')
+        td.addClass('cell-mine-exploded')
       } else {
-        td.removeClass().addClass('cell-mine-visited')
+        td.addClass('cell-mine-visited')
       }
       td.append('<div class="mine"></div>')
     } else {
-      td.removeClass().addClass('cell-visited')
+      td.addClass('cell-visited')
       if (cell.value > 0) {
         td.css('color', `rgb(var(--${getCellColor(cell.value)}))`).text(cell.value)
       }
