@@ -21,10 +21,6 @@
   --button-hover-background-color: var(--lighter-blue);
   --button-active-background-color: var(--darker-blue);
   --button-disabled-background-color: var(--gray);
-  --cell-background-color: var(--blue);
-  --cell-hover-background-color: var(--lighter-blue);
-  --cell-mine-visited-background-color: var(--gray);
-  --cell-border-color: var(--gray);
 
   --normal-font-size: 18px;
 
@@ -124,8 +120,8 @@ input[type=radio] + label {
 .cell, .cell-hover, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
   width: 2em;
   height: 2em;
-  border: 1px solid rgb(var(--cell-border-color));
-  background-color: rgb(var(--cell-background-color));
+  border: 1px solid rgb(var(--gray));
+  background-color: rgb(var(--blue));
   transition-duration: .5s;
 }
 
@@ -134,15 +130,15 @@ input[type=radio] + label {
 }
 
 .cell-hover {
-  background-color: rgb(var(--cell-hover-background-color));
+  background-color: rgb(var(--lighter-blue));
 }
 
 .cell-visited {
-  background-color: rgb(var(--body-background-color));
+  background-color: rgb(var(--white));
 }
 
 .cell-mine-visited {
-  background-color: rgb(var(--cell-mine-visited-background-color));
+  background-color: rgb(var(--gray));
 }
 
 .cell-mine-exploded {
@@ -214,7 +210,7 @@ input[type=radio] + label {
   margin: auto;
   width: .2em;
   height: 1.3em;
-  background-color: #fff;
+  background-color: rgb(var(--white));
   background-image: linear-gradient(to right, #fff 0, #fff 50%, #ddd 50%, #ddd 100%);
   content: "";
 }
