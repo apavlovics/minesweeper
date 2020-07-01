@@ -45,8 +45,9 @@ table {
   border-collapse: collapse;
 }
 
-table, tr, td {
-  border-style: none;
+td {
+  border: 1px solid rgb(var(--gray));
+  vertical-align: middle;
 }
 
 h2 {
@@ -120,7 +121,6 @@ input[type=radio] + label {
 .cell, .cell-hover, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
   width: 2em;
   height: 2em;
-  border: 1px solid rgb(var(--gray));
   background-color: rgb(var(--blue));
   transition-duration: .5s;
 }
@@ -162,8 +162,6 @@ input[type=radio] + label {
   margin-right: 0;
 }
 
-/* Mine */
-
 .mine {
   position: relative;
   margin: auto;
@@ -195,9 +193,7 @@ input[type=radio] + label {
   transform: rotate(60deg);
 }
 
-.mine-small-white, .mine-small-white:before, .mine-small-white:after {
-  width: 1em;
-  height: 1em;
+.mine-revealed, .mine-revealed:before, .mine-revealed:after {
   background-color: #eee;
   background-image: radial-gradient(ellipse at center, #ccc 1%, #fff 100%);
 }

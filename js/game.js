@@ -216,7 +216,7 @@ export class Game {
           cell.marked = false
           Controls.mineCount++
         }
-        td.empty().append('<div class="mine mine-small-white"></div>')
+        td.empty().append('<div class="mine mine-revealed"></div>')
       }
     }
 
