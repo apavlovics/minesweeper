@@ -46,6 +46,8 @@ table {
 }
 
 td {
+  width: 2em;
+  height: 2em;
   border: 1px solid rgb(var(--gray));
   vertical-align: middle;
 }
@@ -119,8 +121,6 @@ input[type=radio] + label {
 }
 
 .cell, .cell-hover, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
-  width: 2em;
-  height: 2em;
   background-color: rgb(var(--blue));
   transition-duration: .5s;
 }
@@ -153,13 +153,15 @@ input[type=radio] + label {
   width: max-content;
 }
 
-#mine-count-bar div {
-  margin: .5em;
+#mine-count-bar .mine {
+  width: 1em;
+  height: 1em;
+  margin-top: .7em;
+  margin-right: .3em;
 }
 
-#mine-count-bar div:first-child {
-  margin-top: .55em;
-  margin-right: 0;
+#mine-count {
+  margin-top: .6em;
 }
 
 .mine, .mine-revealed, .flag {
