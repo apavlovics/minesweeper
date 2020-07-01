@@ -15,7 +15,7 @@ Technologies used:
 
 * HTML5
 * CSS3
-* JavaScript ES6
+* JavaScript
 * [jQuery](https://jquery.com)
 * [JavaScript Cookie](https://github.com/js-cookie/js-cookie)
 

@@ -202,28 +202,11 @@ input[type=radio] + label {
   background-image: radial-gradient(ellipse at center, #ccc 1%, #fff 100%);
 }
 
-/* Flag */
-
 .flag {
-  position: relative;
-  left: -.3em;
+  width: 80%;
+  height: 80%;
   margin: auto;
-  width: .2em;
-  height: 1.3em;
-  background-color: rgb(var(--white));
-  background-image: linear-gradient(to right, #fff 0, #fff 50%, #ddd 50%, #ddd 100%);
-  content: "";
-}
-
-.flag:before {
-  position: absolute;
-  top: .1em;
-  left: .1em;
-  width: .9em;
-  height: .7em;
-  border-top-right-radius: .2em;
-  border-bottom-right-radius: .2em;
-  background-color: #f88;
-  background-image: linear-gradient(to bottom, #f88 0, #f55 45%, #f88 100%);
-  content: "";
+  background-image: url('../assets/icons/flag.svg');
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
