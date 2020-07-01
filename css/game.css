@@ -162,47 +162,24 @@ input[type=radio] + label {
   margin-right: 0;
 }
 
-.mine {
-  position: relative;
+.mine, .mine-revealed, .flag {
+  width: 65%;
+  height: 65%;
   margin: auto;
-  width: 1em;
-  height: 1em;
-  border-radius: .1em;
-  background-color: #720;
-  background-image: radial-gradient(ellipse at center, #b64 1%, #720 100%);
-  text-align: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
-.mine:before, .mine:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1em;
-  height: 1em;
-  border-radius: .1em;
-  background-color: #720;
-  background-image: radial-gradient(ellipse at center, #b64 1%, #720 100%);
-  content: "";
+.mine {
+  background-image: url('../assets/icons/mine.svg');
 }
 
-.mine:before {
-  transform: rotate(30deg);
-}
-
-.mine:after {
-  transform: rotate(60deg);
-}
-
-.mine-revealed, .mine-revealed:before, .mine-revealed:after {
-  background-color: #eee;
-  background-image: radial-gradient(ellipse at center, #ccc 1%, #fff 100%);
+.mine-revealed {
+  background-image: url('../assets/icons/mine-revealed.svg');
 }
 
 .flag {
-  width: 80%;
-  height: 80%;
-  margin: auto;
+  width: 75%;
+  height: 75%;
   background-image: url('../assets/icons/flag.svg');
-  background-repeat: no-repeat;
-  background-size: 100%;
 }
