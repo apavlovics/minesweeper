@@ -8,6 +8,7 @@
   --green: 51, 204, 51;
   --red: 255, 90, 25;
   --dark-red: 153, 0, 0;
+  --orange: 255, 170, 102;
   --teal: 0, 153, 153;
   --purple: 204, 51, 153;
   --gray: 235, 235, 235;
@@ -145,8 +146,8 @@ input[type=radio] + label {
 }
 
 .cell-mine-exploded {
-  background-color: #fa6;
-  background-image: radial-gradient(ellipse at center, #fa6 0, #f96 60%, #f54 100%);
+  background-color: rgb(var(--orange));
+  background-image: radial-gradient(ellipse at center, rgb(var(--orange)) 50%, rgb(var(--red)) 100%);
 }
 
 #mine-count-bar {
