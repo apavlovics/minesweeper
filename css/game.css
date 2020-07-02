@@ -146,20 +146,6 @@ input[type=radio] + label {
   background-image: radial-gradient(ellipse at center, rgb(var(--orange)) 50%, rgb(var(--red)) 100%);
 }
 
-#mine-count-bar {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  width: max-content;
-  margin-top: .5em;
-}
-
-#mine-count-bar .mine {
-  width: 1em;
-  height: 1em;
-  margin-right: .3em;
-}
-
 .mine, .mine-revealed, .flag {
   width: 65%;
   height: 65%;
@@ -180,4 +166,18 @@ input[type=radio] + label {
   width: 75%;
   height: 75%;
   background-image: url('../assets/icons/flag.svg');
+}
+
+#mine-count-bar {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  width: max-content;
+  margin-top: .5em;
+}
+
+#mine-count-bar .mine {
+  width: 1em;
+  height: 1em;
+  margin-right: .3em;
 }
