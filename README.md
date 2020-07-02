@@ -1,8 +1,7 @@
 # Minesweeper
 
-The classic game of Minesweeper, implemented using modern web technologies. The game does not use any external
-image files. All UI elements, including the field, the mines and the flags, are rendered directly by the
-browser. The demo is available [on the project web page](https://continuum.lv/projects/minesweeper/).
+The classic game of Minesweeper, implemented using modern web technologies. The demo is available [on the
+project web page](https://continuum.lv/projects/minesweeper/).
 
 The game features:
 
