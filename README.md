@@ -13,12 +13,12 @@ The game features:
 
 Technologies used:
 
-* HTML5
-* CSS3
-* SVG
+* HTML
+* CSS
 * JavaScript
 * [jQuery](https://jquery.com)
 * [JavaScript Cookie](https://github.com/js-cookie/js-cookie)
+* SVG
 
 The game is tested on moderately recent versions of Chrome, Firefox or Safari. The game must be deployed on
 the web server to work correctly (`file://` protocol is not supported).
