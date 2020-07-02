@@ -1,7 +1,6 @@
 # Minesweeper
 
-The classic game of Minesweeper, implemented using modern web technologies. The demo is available [on the
-project web page](https://continuum.lv/projects/minesweeper/).
+The classic game of Minesweeper, implemented using modern web technologies.
 
 The game features:
 
@@ -9,6 +8,8 @@ The game features:
 * support for tile flagging — mark the ones, which might contain mines;
 * cheat mode — reveal the locations of the mines without ending the game;
 * autosave — preserve the state of the game on exit and continue from the exact same place on return.
+
+The demo is available [on the project web page](https://continuum.lv/projects/minesweeper/).
 
 Technologies used:
 
