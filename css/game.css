@@ -149,19 +149,15 @@ input[type=radio] + label {
 #mine-count-bar {
   display: flex;
   flex-flow: row nowrap;
-  text-align: left;
+  align-items: center;
   width: max-content;
+  margin-top: .5em;
 }
 
 #mine-count-bar .mine {
   width: 1em;
   height: 1em;
-  margin-top: .7em;
   margin-right: .3em;
-}
-
-#mine-count {
-  margin-top: .6em;
 }
 
 .mine, .mine-revealed, .flag {
