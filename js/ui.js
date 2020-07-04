@@ -14,14 +14,14 @@ export class UI {
 
   // Level radio buttons
 
-  static get LEVEL_RADIO_BUTTON() { return 'input:radio[name="level"]' }
-
-  static get checkedLevelRadioButton() {
-    return $(`${UI.LEVEL_RADIO_BUTTON}:checked`)
-  }
+  static get LEVEL_RADIO_BUTTONS() { return 'input:radio[name="level"]' }
 
   static get levelRadioButtons() {
-    return $(UI.LEVEL_RADIO_BUTTON)
+    return $(UI.LEVEL_RADIO_BUTTONS)
+  }
+
+  static get checkedLevelRadioButton() {
+    return $(`${UI.LEVEL_RADIO_BUTTONS}:checked`)
   }
 
   static get level() {
@@ -29,7 +29,7 @@ export class UI {
   }
 
   static set level(level) {
-    const radioButton = $(`${UI.LEVEL_RADIO_BUTTON}[value="${level}"]`)
+    const radioButton = $(`${UI.LEVEL_RADIO_BUTTONS}[value="${level}"]`)
     if (radioButton.length > 0) {
       radioButton.attr('checked', true)
     }
@@ -37,14 +37,12 @@ export class UI {
 
   // Cheat button
 
-  static get CHEAT_BUTTON() { return '#cheat' }
-
   static enableCheatButton() {
-    $(UI.CHEAT_BUTTON).removeAttr('disabled')
+    $('#cheat').removeAttr('disabled')
   }
 
   static disableCheatButton() {
-    $(UI.CHEAT_BUTTON).attr('disabled', true)
+    $('#cheat').attr('disabled', true)
   }
 
   // Title
@@ -55,13 +53,11 @@ export class UI {
 
   // Mine count
 
-  static get MINE_COUNT() { return '#mine-count' }
-
   static get mineCount() {
-    return parseInt($(UI.MINE_COUNT).text())
+    return parseInt($('#mine-count').text())
   }
 
   static set mineCount(mineCount) {
-    $(UI.MINE_COUNT).text(mineCount)
+    $('#mine-count').text(mineCount)
   }
 }

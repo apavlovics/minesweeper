@@ -1,7 +1,9 @@
 export class Cell {
 
+  static get MINE() { return 'M' }
+
   constructor(value, visited, marked) {
-    if (value == 'M') {
+    if (value == Cell.MINE) {
       this.value = value
     } else {
       value = parseInt(value)
@@ -21,7 +23,7 @@ export class Cell {
   }
 
   get hasMine() {
-    return this.value == 'M'
+    return this.value == Cell.MINE
   }
 
   toString() {
