@@ -7,6 +7,31 @@ export class Game {
   static initialize() {
     window.Game = Game
     $(document).ready(() => {
+      Controls.minesweeper.append(`
+        <div id="menu">
+          <div>
+            <input type="radio" id="easy" name="level" value="easy" checked
+                data-row-count="8" data-column-count="8" data-mine-count="10"><label for="easy"> Easy</label>
+          </div>
+          <div>
+            <input type="radio" id="medium" name="level" value="medium"
+                data-row-count="8" data-column-count="16" data-mine-count="25"><label for="medium"> Medium</label>
+          </div>
+          <div>
+            <input type="radio" id="hard" name="level" value="hard"
+                data-row-count="16" data-column-count="16" data-mine-count="45"><label for="hard"> Hard</label>
+          </div>
+          <button id="new-game" onclick="Game.resetField()">New Game</button><br>
+          <button id="cheat" onclick="Game.revealField()" disabled>Cheat</button><br>
+        </div>
+        <div>
+          <h2 id="title">Minesweeper</h2>
+          <table id="field"></table>
+          <div id="mine-count-bar">
+            <div class="mine"></div>
+            <div id="mine-count"></div>
+          </div>
+        </div>`)
       Game.createField()
     })
     $(window).on('unload', () => {
@@ -38,7 +63,7 @@ export class Game {
           }
         })
         if (!wasChecked) {
-          Controls.notification = 'Custom config, eh?'
+          Controls.title = 'Custom config, eh?'
         }
         Controls.enableCheatButton()
       } else {
@@ -119,11 +144,11 @@ export class Game {
       })
 
       // Disable context menu
-      $('#field').bind('contextmenu', () => false)
+      Controls.field.bind('contextmenu', () => false)
 
       // Set frame size if located in iframe
       if (self != top) {
-        const minesweeper = $('#minesweeper')
+        const minesweeper = Controls.minesweeper
         parent.setFrameSize(`${minesweeper.outerWidth(true)}px`, `${minesweeper.outerHeight(true)}px`)
       }
     }
@@ -131,7 +156,7 @@ export class Game {
     loadStateOrFieldParameters()
     Controls.mineCount = mineCount
 
-    const field = $('#field')
+    const field = Controls.field
     const rows = Array(rowCount)
     const cells = Array(columnCount)
 
@@ -166,19 +191,19 @@ export class Game {
 
   static resetField() {
     Controls.disableCheatButton()
-    Controls.notification = 'Minesweeper'
+    Controls.title = 'Minesweeper'
 
     // Remove current state
     Game.state = null
 
     // Regenerate field
-    $('#field').empty()
+    Controls.field.empty()
     Game.createField()
   }
 
   static visitField() {
     Controls.disableCheatButton()
-    Controls.notification = 'Game Over'
+    Controls.title = 'Game Over'
 
     Game.state.cells.forEach((row, y) => {
       row.forEach((cell, x) => { 
@@ -193,7 +218,7 @@ export class Game {
   static validateField(shouldVisitField) {
     if (Game.state.isValid) {
       Controls.disableCheatButton()
-      Controls.notification = 'Victory!'
+      Controls.title = 'Victory!'
 
       $('.cell').each((index, element) => {
         const y = parseInt($(element).attr('data-row'))
@@ -208,7 +233,7 @@ export class Game {
   }
 
   static revealField() {
-    Controls.notification = 'Cheater!'
+    Controls.title = 'Cheater!'
 
     const revealCell = (td, cell) => {
       if (cell.hasMine) {

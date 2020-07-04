@@ -1,6 +1,18 @@
 export class Controls {
 
-  /* Level Radio Buttons */
+  // Minesweeper
+
+  static get minesweeper() {
+    return $('#minesweeper')
+  }
+
+  // Field
+
+  static get field() {
+    return $('#field')
+  }
+
+  // Level radio buttons
 
   static get LEVEL_RADIO_BUTTON() { return 'input:radio[name="level"]' }
 
@@ -23,7 +35,7 @@ export class Controls {
     }
   }
 
-  /* Cheat Button */
+  // Cheat button
 
   static get CHEAT_BUTTON() { return '#cheat' }
 
@@ -35,15 +47,13 @@ export class Controls {
     $(Controls.CHEAT_BUTTON).attr('disabled', true)
   }
 
-  /* Notification */
+  // Title
 
-  static get NOTIFICATION() { return '#notification' }
-
-  static set notification(notification) {
-    $(Controls.NOTIFICATION).text(notification)
+  static set title(title) {
+    $('#title').text(title)
   }
 
-  /* Mine Count */
+  // Mine count
 
   static get MINE_COUNT() { return '#mine-count' }
 
