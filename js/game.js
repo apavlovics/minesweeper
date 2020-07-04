@@ -1,13 +1,13 @@
 import {State} from './state.js'
 import {CookieManager} from './cookie-manager.js'
-import {Controls} from './controls.js'
+import {UI} from './ui.js'
 
 export class Game {
 
   static initialize() {
     window.Game = Game
     $(document).ready(() => {
-      Controls.minesweeper.append(`
+      UI.minesweeper.empty().append(`
         <div id="menu">
           <div>
             <input type="radio" id="easy" name="level" value="easy" checked
@@ -36,7 +36,7 @@ export class Game {
     })
     $(window).on('unload', () => {
       CookieManager.saveState(Game.state)
-      CookieManager.saveLevel(Controls.level)
+      CookieManager.saveLevel(UI.level)
     })
   }
 
@@ -54,7 +54,7 @@ export class Game {
         mineCount = Game.state.mineCount
 
         let wasChecked = false
-        Controls.levelRadioButtons.each((index, element) => {
+        UI.levelRadioButtons.each((index, element) => {
           if ($(element).attr('data-row-count') == rowCount &&
               $(element).attr('data-column-count') == columnCount &&
               $(element).attr('data-mine-count') == mineCount) {
@@ -63,18 +63,18 @@ export class Game {
           }
         })
         if (!wasChecked) {
-          Controls.title = 'Custom config, eh?'
+          UI.title = 'Custom config, eh?'
         }
-        Controls.enableCheatButton()
+        UI.enableCheatButton()
       } else {
 
         // Restore level if possible
         const level = CookieManager.loadLevel()
         if (level != null) {
           CookieManager.clearLevel()
-          Controls.level = level
+          UI.level = level
         }
-        const button = Controls.checkedLevelRadioButton
+        const button = UI.checkedLevelRadioButton
         rowCount = parseInt(button.attr('data-row-count'))
         columnCount = parseInt(button.attr('data-column-count'))
         mineCount = parseInt(button.attr('data-mine-count'))
@@ -102,7 +102,7 @@ export class Game {
           // Generate new state if needed
           if (Game.state == null) {
             Game.state = State.generateState(rowCount, columnCount, mineCount, [y, x])
-            Controls.enableCheatButton()
+            UI.enableCheatButton()
           }
 
           const cell = Game.state.cells[y][x]
@@ -144,19 +144,19 @@ export class Game {
       })
 
       // Disable context menu
-      Controls.field.bind('contextmenu', () => false)
+      UI.field.bind('contextmenu', () => false)
 
       // Set frame size if located in iframe
       if (self != top) {
-        const minesweeper = Controls.minesweeper
+        const minesweeper = UI.minesweeper
         parent.setFrameSize(`${minesweeper.outerWidth(true)}px`, `${minesweeper.outerHeight(true)}px`)
       }
     }
 
     loadStateOrFieldParameters()
-    Controls.mineCount = mineCount
+    UI.mineCount = mineCount
 
-    const field = Controls.field
+    const field = UI.field
     const rows = Array(rowCount)
     const cells = Array(columnCount)
 
@@ -190,20 +190,20 @@ export class Game {
   }
 
   static resetField() {
-    Controls.disableCheatButton()
-    Controls.title = 'Minesweeper'
+    UI.disableCheatButton()
+    UI.title = 'Minesweeper'
 
     // Remove current state
     Game.state = null
 
     // Regenerate field
-    Controls.field.empty()
+    UI.field.empty()
     Game.createField()
   }
 
   static visitField() {
-    Controls.disableCheatButton()
-    Controls.title = 'Game Over'
+    UI.disableCheatButton()
+    UI.title = 'Game Over'
 
     Game.state.cells.forEach((row, y) => {
       row.forEach((cell, x) => { 
@@ -217,8 +217,8 @@ export class Game {
 
   static validateField(shouldVisitField) {
     if (Game.state.isValid) {
-      Controls.disableCheatButton()
-      Controls.title = 'Victory!'
+      UI.disableCheatButton()
+      UI.title = 'Victory!'
 
       $('.cell').each((index, element) => {
         const y = parseInt($(element).attr('data-row'))
@@ -233,13 +233,13 @@ export class Game {
   }
 
   static revealField() {
-    Controls.title = 'Cheater!'
+    UI.title = 'Cheater!'
 
     const revealCell = (td, cell) => {
       if (cell.hasMine) {
         if (cell.marked) {
           cell.marked = false
-          Controls.mineCount++
+          UI.mineCount++
         }
         td.empty().append('<div class="mine-revealed"></div>')
       }
@@ -261,7 +261,7 @@ export class Game {
       cell.visited = true
       if (cell.marked) {
         cell.marked = false
-        Controls.mineCount++
+        UI.mineCount++
       }
     }
 
@@ -304,9 +304,9 @@ export class Game {
     td.empty()
     if (cell.marked) {
       td.append('<div class="flag"></div>')
-      Controls.mineCount--
+      UI.mineCount--
     } else {
-      Controls.mineCount++
+      UI.mineCount++
     }
   }
 }

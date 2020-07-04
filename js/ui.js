@@ -1,4 +1,4 @@
-export class Controls {
+export class UI {
 
   // Minesweeper
 
@@ -17,19 +17,19 @@ export class Controls {
   static get LEVEL_RADIO_BUTTON() { return 'input:radio[name="level"]' }
 
   static get checkedLevelRadioButton() {
-    return $(`${Controls.LEVEL_RADIO_BUTTON}:checked`)
+    return $(`${UI.LEVEL_RADIO_BUTTON}:checked`)
   }
 
   static get levelRadioButtons() {
-    return $(Controls.LEVEL_RADIO_BUTTON)
+    return $(UI.LEVEL_RADIO_BUTTON)
   }
 
   static get level() {
-    return Controls.checkedLevelRadioButton.val()
+    return UI.checkedLevelRadioButton.val()
   }
 
   static set level(level) {
-    const radioButton = $(`${Controls.LEVEL_RADIO_BUTTON}[value="${level}"]`)
+    const radioButton = $(`${UI.LEVEL_RADIO_BUTTON}[value="${level}"]`)
     if (radioButton.length > 0) {
       radioButton.attr('checked', true)
     }
@@ -40,11 +40,11 @@ export class Controls {
   static get CHEAT_BUTTON() { return '#cheat' }
 
   static enableCheatButton() {
-    $(Controls.CHEAT_BUTTON).removeAttr('disabled')
+    $(UI.CHEAT_BUTTON).removeAttr('disabled')
   }
 
   static disableCheatButton() {
-    $(Controls.CHEAT_BUTTON).attr('disabled', true)
+    $(UI.CHEAT_BUTTON).attr('disabled', true)
   }
 
   // Title
@@ -58,10 +58,10 @@ export class Controls {
   static get MINE_COUNT() { return '#mine-count' }
 
   static get mineCount() {
-    return parseInt($(Controls.MINE_COUNT).text())
+    return parseInt($(UI.MINE_COUNT).text())
   }
 
   static set mineCount(mineCount) {
-    $(Controls.MINE_COUNT).text(mineCount)
+    $(UI.MINE_COUNT).text(mineCount)
   }
 }
