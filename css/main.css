@@ -52,6 +52,14 @@
   min-width: 10em;
 }
 
+#menu input[type=radio] {
+  font-size: var(--normal-font-size);
+}
+
+#menu input[type=radio] + label {
+  line-height: 140%;
+}
+
 #menu button {
   padding: .5em .8em;
   font-size: var(--normal-font-size);
@@ -79,14 +87,6 @@
 
 #menu button:focus {
   outline: none;
-}
-
-#menu input[type=radio] {
-  font-size: var(--normal-font-size);
-}
-
-#menu input[type=radio] + label {
-  line-height: 140%;
 }
 
 #new-game {
