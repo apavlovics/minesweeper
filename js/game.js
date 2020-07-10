@@ -25,7 +25,7 @@ export class Game {
           <button id="cheat" onclick="Game.revealField()" disabled>Cheat</button><br>
         </div>
         <div>
-          <h2 id="title">Minesweeper</h2>
+          <div id="title">Minesweeper</div>
           <table id="field"></table>
           <div id="mine-count-bar">
             <div class="mine"></div>

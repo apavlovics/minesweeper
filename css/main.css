@@ -52,13 +52,6 @@ td {
   vertical-align: middle;
 }
 
-h2 {
-  margin-bottom: .5em;
-  font-size: var(--normal-font-size);
-  font-weight: var(--normal-font-weight);
-  text-align: center;
-}
-
 button {
   padding: .5em .8em;
   font-size: var(--normal-font-size);
@@ -112,6 +105,11 @@ input[type=radio] + label {
 
 #new-game {
   margin: .5em 0 2em 0;
+}
+
+#title {
+  margin-bottom: .5em;
+  text-align: center;
 }
 
 #field {
