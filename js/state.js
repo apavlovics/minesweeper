@@ -1,10 +1,5 @@
 import {Cell} from './cell.js'
 
-// Determine if two arrays are equal (i.e. have the same number of strictly equal elements)
-Array.prototype.equals = function(other) {
-  return this.length == other.length && !this.some((element, index) => element !== other[index])
-}
-
 export class State {
 
   constructor(cells, mineCoordinates) {
@@ -122,8 +117,14 @@ export class State {
     return new State(cells, mineCoordinates)
   }
 
+  // Determine if two coordinates are the same (i.e. have the same number of strictly equal values)
+  static same(coordinate1, coordinate2) {
+    return coordinate1.length == coordinate2.length &&
+        !coordinate1.some((element, index) => element !== coordinate2[index])
+  }
+
   static contains(coordinates, coordinate) {
-    return coordinates.some(c => c.equals(coordinate))
+    return coordinates.some(c => State.same(c, coordinate))
   }
 
   static generateState(rowCount, columnCount, mineCount, baseCoordinates) {
@@ -135,7 +136,7 @@ export class State {
       do {
         mineCoordinate[0] = Math.floor(Math.random() * rowCount)
         mineCoordinate[1] = Math.floor(Math.random() * columnCount)
-      } while (baseCoordinates.equals(mineCoordinate) || State.contains(mineCoordinates, mineCoordinate))
+      } while (State.same(baseCoordinates, mineCoordinate) || State.contains(mineCoordinates, mineCoordinate))
       mineCoordinates[index] = mineCoordinate
     }
 
