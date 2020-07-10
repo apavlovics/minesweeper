@@ -1,4 +1,4 @@
-:root {
+#minesweeper {
   --white: 255, 255, 255;
   --black: 0, 0, 0;
   --blue: 0, 162, 255;
@@ -35,24 +35,24 @@
   padding: 0;
 }
 
-body {
+/* Game */
+
+#minesweeper {
   background-color: rgb(var(--body-background-color));
   color: rgb(var(--dark-foreground-color));
   font: var(--normal-font-weight) var(--normal-font-size) Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 2em;
+  user-select: none; -webkit-user-select: none;
 }
 
-table {
-  border-collapse: collapse;
+#menu {
+  padding-top: 1.5em;
+  min-width: 10em;
 }
 
-td {
-  width: 2em;
-  height: 2em;
-  border: 1px solid rgb(var(--gray));
-  vertical-align: middle;
-}
-
-button {
+#menu button {
   padding: .5em .8em;
   font-size: var(--normal-font-size);
   background-color: rgb(var(--button-background-color));
@@ -63,44 +63,30 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+#menu button:hover {
   background-color: rgb(var(--button-hover-background-color));
   transition-duration: 0s;
 }
 
-button:active {
+#menu button:active {
   background-color: rgb(var(--button-active-background-color));
 }
 
-button:disabled {
+#menu button:disabled {
   background-color: rgb(var(--button-disabled-background-color));
   cursor: default;
 }
 
-button:focus {
+#menu button:focus {
   outline: none;
 }
 
-input[type=radio] {
+#menu input[type=radio] {
   font-size: var(--normal-font-size);
 }
 
-input[type=radio] + label {
+#menu input[type=radio] + label {
   line-height: 140%;
-}
-
-/* Game */
-
-#minesweeper {
-  display: flex;
-  flex-flow: row nowrap;
-  margin: 2em;
-  user-select: none; -webkit-user-select: none;
-}
-
-#menu {
-  padding-top: 1.5em;
-  min-width: 10em;
 }
 
 #new-game {
@@ -116,6 +102,14 @@ input[type=radio] + label {
   text-align: center;
   font-weight: var(--bold-font-weight);
   cursor: default;
+  border-collapse: collapse;
+}
+
+#field td {
+  width: 2em;
+  height: 2em;
+  border: 1px solid rgb(var(--gray));
+  vertical-align: middle;
 }
 
 .cell, .cell-hover, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
