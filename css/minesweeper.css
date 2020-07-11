@@ -36,6 +36,7 @@
 
 #menu input[type=radio] {
   font-size: var(--normal-font-size);
+  margin-left: .2em;
 }
 
 #menu input[type=radio] + label {
