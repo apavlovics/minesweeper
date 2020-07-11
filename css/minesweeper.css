@@ -25,7 +25,7 @@
   background-color: rgb(var(--minesweeper-background-color));
   color: rgb(var(--dark-foreground-color));
   user-select: none; -webkit-user-select: none;
-  min-width: 34em;
+  min-width: 35em;
 }
 
 #menu {
