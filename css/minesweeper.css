@@ -21,9 +21,7 @@
   --button-hover-background-color: var(--lighter-blue);
   --button-active-background-color: var(--darker-blue);
   --button-disabled-background-color: var(--gray);
-}
 
-#minesweeper {
   background-color: rgb(var(--minesweeper-background-color));
   color: rgb(var(--dark-foreground-color));
   display: flex;
