@@ -24,6 +24,7 @@
 
   background-color: rgb(var(--minesweeper-background-color));
   color: rgb(var(--dark-foreground-color));
+  font-size: var(--normal-font-size);
   user-select: none; -webkit-user-select: none;
   min-width: 35em;
 }
