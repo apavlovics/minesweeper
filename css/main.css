@@ -13,5 +13,6 @@
 }
 
 body {
-  font: var(--normal-font-weight) var(--normal-font-size) Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: var(--normal-font-weight);
 }
