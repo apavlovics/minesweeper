@@ -24,23 +24,24 @@
 
   background-color: rgb(var(--minesweeper-background-color));
   color: rgb(var(--dark-foreground-color));
-  display: flex;
-  flex-flow: row nowrap;
   user-select: none; -webkit-user-select: none;
+  min-width: 34em;
 }
 
 #menu {
-  padding-top: 1.5em;
-  min-width: 10em;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  width: max-content;
+  margin: 1em auto;
 }
 
 #menu input[type=radio] {
   font-size: var(--normal-font-size);
-  margin-left: .2em;
 }
 
-#menu input[type=radio] + label {
-  line-height: 140%;
+#menu input[type=radio] + label, #new-game {
+  margin-right: 1em;
 }
 
 #menu button {
@@ -69,12 +70,8 @@
   cursor: default;
 }
 
-#menu button:focus, #menu input[type=radio]:focus {
+#menu input[type=radio]:focus, #menu button:focus {
   outline: none;
-}
-
-#new-game {
-  margin: .5em 0 2em 0;
 }
 
 #title {
@@ -87,6 +84,7 @@
   font-weight: var(--bold-font-weight);
   cursor: default;
   border-collapse: collapse;
+  margin: 0 auto 0;
 }
 
 #field td {
@@ -150,7 +148,7 @@
   flex-flow: row nowrap;
   align-items: center;
   width: max-content;
-  margin-top: .5em;
+  margin: .5em auto 1em;
 }
 
 #mine-count-bar .mine {
