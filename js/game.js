@@ -7,6 +7,31 @@ export class Game {
   static initialize() {
     window.Game = Game
     $(document).ready(() => {
+      UI.minesweeper.empty().append(`
+        <div id="menu">
+          <div>
+            <input type="radio" id="easy" name="level" value="easy" checked
+                data-row-count="8" data-column-count="8" data-mine-count="10"><label for="easy"> Easy</label>
+          </div>
+          <div>
+            <input type="radio" id="medium" name="level" value="medium"
+                data-row-count="8" data-column-count="16" data-mine-count="25"><label for="medium"> Medium</label>
+          </div>
+          <div>
+            <input type="radio" id="hard" name="level" value="hard"
+                data-row-count="16" data-column-count="16" data-mine-count="45"><label for="hard"> Hard</label>
+          </div>
+          <button id="new-game" onclick="Game.resetField()">New Game</button>
+          <button id="cheat" onclick="Game.revealField()" disabled>Cheat</button>
+        </div>
+        <div>
+          <div id="title">Minesweeper</div>
+          <table id="field"></table>
+          <div id="mine-count-bar">
+            <div class="mine"></div>
+            <div id="mine-count"></div>
+          </div>
+        </div>`)
       Game.createField()
     })
     $(window).on('unload', () => {
