@@ -22,9 +22,11 @@
   --button-active-background-color: var(--darker-blue);
   --button-disabled-background-color: var(--gray);
 
+  --minesweeper-font-size: 18px;
+
   background-color: rgb(var(--minesweeper-background-color));
   color: rgb(var(--dark-foreground-color));
-  font-size: var(--normal-font-size);
+  font-size: var(--minesweeper-font-size);
   user-select: none; -webkit-user-select: none;
   min-width: 35em;
 }
@@ -38,7 +40,7 @@
 }
 
 #menu input[type=radio] {
-  font-size: var(--normal-font-size);
+  font-size: var(--minesweeper-font-size);
 }
 
 #menu input[type=radio] + label, #new-game {
@@ -48,7 +50,7 @@
 #menu button {
   display: block;
   padding: .5em .8em;
-  font-size: var(--normal-font-size);
+  font-size: var(--minesweeper-font-size);
   background-color: rgb(var(--button-background-color));
   color: rgb(var(--light-foreground-color));
   border-style: none;
@@ -82,7 +84,7 @@
 
 #field {
   text-align: center;
-  font-weight: var(--bold-font-weight);
+  font-weight: bold;
   cursor: default;
   border-collapse: collapse;
   margin: 0 auto 0;
