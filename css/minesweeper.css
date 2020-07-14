@@ -39,6 +39,7 @@
   margin: 1em auto;
 }
 
+/* TODO: Define custom radio button styles */
 #menu input[type=radio] {
   font-size: var(--minesweeper-font-size);
 }
