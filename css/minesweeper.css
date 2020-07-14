@@ -43,11 +43,12 @@
 #menu input[type=radio] + label::before {
   box-sizing: border-box;
   position: absolute;
-  left: -1.1em;
-  height: 1.1em;
-  width: 1.1em;
+  top: calc(50% - .5em);
+  left: -1em;
+  height: 1em;
+  width: 1em;
   content: "";
-  border: .4em solid rgb(var(--gray));
+  border: .35em solid rgb(var(--gray));
   background-color: rgb(var(--gray));
   border-radius: 50%;
 }
