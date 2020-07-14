@@ -39,9 +39,35 @@
   margin: 1em auto;
 }
 
-/* TODO: Define custom radio button styles */
 #menu input[type=radio] {
   font-size: var(--minesweeper-font-size);
+  visibility: hidden;
+}
+
+#menu input[type=radio] + label {
+  position: relative;
+  cursor: pointer;
+}
+
+#menu input[type=radio] + label::before {
+  box-sizing: border-box;
+  position: absolute;
+  left: -1.1em;
+  height: 1.1em;
+  width: 1.1em;
+  content: "";
+  border: .4em solid rgb(var(--gray));
+  background-color: rgb(var(--gray));
+  border-radius: 50%;
+}
+
+#menu input[type=radio]:hover + label::before {
+  background-color: rgb(var(--white));
+}
+
+#menu input[type=radio]:checked + label::before {
+  background-color: rgb(var(--white));
+  border-color: rgb(var(--blue));
 }
 
 #menu input[type=radio] + label, #new-game {
