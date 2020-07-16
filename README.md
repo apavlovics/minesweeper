@@ -9,7 +9,7 @@ The game features:
 * cheat mode — reveal the locations of the mines without ending the game;
 * autosave — preserve the state of the game on exit and continue from the exact same place on return.
 
-The demo is available [on the project web page](https://continuum.lv/projects/minesweeper/).
+The demo is available [on the project web page](https://continuum.lv/minesweeper/).
 
 Technologies used:
 
