@@ -7,7 +7,7 @@ export class Game {
   static initialize() {
     window.Game = Game
     $(document).ready(() => {
-      UI.minesweeper.empty().append(`
+      UI.minesweeper.html(`
         <div id="menu">
           <div>
             <input type="radio" id="easy" name="level" value="easy" checked
@@ -55,10 +55,11 @@ export class Game {
 
         let wasChecked = false
         UI.levelRadioButtons.each((index, element) => {
-          if ($(element).attr('data-row-count') == rowCount &&
-              $(element).attr('data-column-count') == columnCount &&
-              $(element).attr('data-mine-count') == mineCount) {
-            $(element).attr('checked', true)
+          const button = $(element)
+          if (button.attr('data-row-count') == rowCount &&
+              button.attr('data-column-count') == columnCount &&
+              button.attr('data-mine-count') == mineCount) {
+            button.attr('checked', true)
             wasChecked = true
           }
         })
@@ -84,63 +85,60 @@ export class Game {
     const prepareField = () => {
 
       // Add hover to cells
-      $(() => {
-        $('.cell').hover(event => {
-          $(event.currentTarget).removeClass().addClass('cell-hover')
-        }, event => {
-          $(event.currentTarget).removeClass().addClass('cell')
-        })
+      const tds = $('.cell')
+      tds.hover(event => {
+        $(event.currentTarget).removeClass('cell').addClass('cell-hover')
+      }, event => {
+        $(event.currentTarget).removeClass('cell-hover').addClass('cell')
       })
 
       // Add click to cells
-      $(() => {
-        $('.cell').mouseup(event => {
-          const element = event.currentTarget
-          const y = parseInt($(element).attr('data-row'))
-          const x = parseInt($(element).attr('data-column'))
+      tds.mouseup(event => {
+        const td = $(event.currentTarget)
+        const y = parseInt(td.attr('data-row'))
+        const x = parseInt(td.attr('data-column'))
 
-          // Generate new state if needed
-          if (Game.state == null) {
-            Game.state = State.generateState(rowCount, columnCount, mineCount, [y, x])
-            UI.enableCheatButton()
-          }
+        // Generate new state if needed
+        if (Game.state == null) {
+          Game.state = State.generateState(rowCount, columnCount, mineCount, [y, x])
+          UI.enableCheatButton()
+        }
 
-          const cell = Game.state.cells[y][x]
-          if (!cell.visited) {
+        const cell = Game.state.cells[y][x]
+        if (!cell.visited) {
 
-            // Left mouse button clicked
-            if (event.which == 1) {
-              if (!cell.marked) {
-                if (cell.hasMine || cell.value > 0) {
-                  Game.visitCell($(element), cell, true, true)
-                } else {
-                  const coordinates = Game.state.calculateCoordinatesToVisit(y, x)
-                  coordinates.forEach(coordinate => {
-                    const currentY = coordinate[0]
-                    const currentX = coordinate[1]
-                    const currentCell = Game.state.cells[currentY][currentX]
-                    if (!currentCell.visited) {
-                      const td = $(`#cell-${currentY}-${currentX}`)
-                      Game.visitCell(td, currentCell, false, true)
-                    }
-                  })
-                }
+          // Left mouse button clicked
+          if (event.which == 1) {
+            if (!cell.marked) {
+              if (cell.hasMine || cell.value > 0) {
+                Game.visitCell(td, cell, true, true)
+              } else {
+                const coordinates = Game.state.calculateCoordinatesToVisit(y, x)
+                coordinates.forEach(coordinate => {
+                  const currentY = coordinate[0]
+                  const currentX = coordinate[1]
+                  const currentCell = Game.state.cells[currentY][currentX]
+                  if (!currentCell.visited) {
+                    const td = $(`#cell-${currentY}-${currentX}`)
+                    Game.visitCell(td, currentCell, false, true)
+                  }
+                })
+              }
 
-                // Game over
-                if (cell.hasMine) {
-                  Game.visitField()
-                } else {
-                  Game.validateField(false)
-                }
+              // Game over
+              if (cell.hasMine) {
+                Game.visitField()
+              } else {
+                Game.validateField(false)
               }
             }
-
-            // Right mouse button clicked
-            else {
-              Game.markUnmarkCell($(element), cell, true)
-            }
           }
-        })
+
+          // Right mouse button clicked
+          else {
+            Game.markUnmarkCell(td, cell, true)
+          }
+        }
       })
 
       // Disable context menu
@@ -221,13 +219,14 @@ export class Game {
       UI.title = 'Victory!'
 
       $('.cell').each((index, element) => {
-        const y = parseInt($(element).attr('data-row'))
-        const x = parseInt($(element).attr('data-column'))
+        const td = $(element)
+        const y = parseInt(td.attr('data-row'))
+        const x = parseInt(td.attr('data-column'))
         const cell = Game.state.cells[y][x]
         if (!cell.marked) {
-          Game.markUnmarkCell($(element), cell, true)
+          Game.markUnmarkCell(td, cell, true)
         }
-        $(element).unbind('mouseenter mouseleave mouseup')
+        td.unbind('mouseenter mouseleave mouseup')
       })
     } else if (shouldVisitField) Game.visitField()
   }
@@ -241,7 +240,7 @@ export class Game {
           cell.marked = false
           UI.mineCount++
         }
-        td.empty().append('<div class="mine-revealed"></div>')
+        td.html('<div class="mine-revealed"></div>')
       }
     }
 
@@ -279,7 +278,7 @@ export class Game {
       }
     }
 
-    td.unbind('mouseenter mouseleave mouseup').empty()
+    td.unbind('mouseenter mouseleave mouseup')
     td.removeClass()
     if (cell.hasMine) {
       if (hasExploded) {
@@ -287,9 +286,10 @@ export class Game {
       } else {
         td.addClass('cell-mine-visited')
       }
-      td.append('<div class="mine"></div>')
+      td.html('<div class="mine"></div>')
     } else {
       td.addClass('cell-visited')
+      td.empty()
       if (cell.value > 0) {
         td.css('color', `rgb(var(--${getCellColor(cell.value)}))`).text(cell.value)
       }
@@ -301,11 +301,11 @@ export class Game {
       cell.marked = !cell.marked
     }
 
-    td.empty()
     if (cell.marked) {
-      td.append('<div class="flag"></div>')
+      td.html('<div class="flag"></div>')
       UI.mineCount--
     } else {
+      td.empty()
       UI.mineCount++
     }
   }
