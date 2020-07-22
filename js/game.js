@@ -84,15 +84,18 @@ export class Game {
 
     const prepareField = () => {
 
-      // Add hover to cells
+      // Simulate :hover
       const tds = $('.cell')
       tds.hover(event => {
         $(event.currentTarget).removeClass('cell').addClass('cell-hover')
       }, event => {
-        $(event.currentTarget).removeClass('cell-hover').addClass('cell')
+        $(event.currentTarget).removeClass('cell-hover cell-active').addClass('cell')
       })
 
-      // Add click to cells
+      // Simulate :active
+      tds.mousedown(event => $(event.currentTarget).addClass('cell-active'))
+
+      // Handle clicks
       tds.mouseup(event => {
         const td = $(event.currentTarget)
         const y = parseInt(td.attr('data-row'))
