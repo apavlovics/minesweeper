@@ -84,6 +84,7 @@ export class Game {
 
     const prepareField = () => {
       $('.cell')
+        // Active mode works better via JavaScript than via CSS
         .mousedown(event => {
           $(event.currentTarget).removeClass('cell').addClass('cell-active')
         })
