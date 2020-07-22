@@ -83,53 +83,62 @@ export class Game {
     }
 
     const prepareField = () => {
-      $('.cell').mouseup(event => {
-        const td = $(event.currentTarget)
-        const y = parseInt(td.attr('data-row'))
-        const x = parseInt(td.attr('data-column'))
+      $('.cell')
+        .mousedown(event => {
+          $(event.currentTarget).removeClass('cell').addClass('cell-active')
+        })
+        .mouseleave(event => {
+          $(event.currentTarget).removeClass('cell-active').addClass('cell')
+        })
+        .mouseup(event => {
+          const td = $(event.currentTarget)
+          td.removeClass('cell-active').addClass('cell')
 
-        // Generate new state if needed
-        if (Game.state == null) {
-          Game.state = State.generateState(rowCount, columnCount, mineCount, [y, x])
-          UI.enableCheatButton()
-        }
+          const y = parseInt(td.attr('data-row'))
+          const x = parseInt(td.attr('data-column'))
 
-        const cell = Game.state.cells[y][x]
-        if (!cell.visited) {
+          // Generate new state if needed
+          if (Game.state == null) {
+            Game.state = State.generateState(rowCount, columnCount, mineCount, [y, x])
+            UI.enableCheatButton()
+          }
 
-          // Left mouse button clicked
-          if (event.which == 1) {
-            if (!cell.marked) {
-              if (cell.hasMine || cell.value > 0) {
-                Game.visitCell(td, cell, true, true)
-              } else {
-                const coordinates = Game.state.calculateCoordinatesToVisit(y, x)
-                coordinates.forEach(coordinate => {
-                  const currentY = coordinate[0]
-                  const currentX = coordinate[1]
-                  const currentCell = Game.state.cells[currentY][currentX]
-                  if (!currentCell.visited) {
-                    const td = $(`#cell-${currentY}-${currentX}`)
-                    Game.visitCell(td, currentCell, false, true)
-                  }
-                })
-              }
+          const cell = Game.state.cells[y][x]
+          if (!cell.visited) {
 
-              // Game over
-              if (cell.hasMine) {
-                Game.visitField()
-              } else {
-                Game.validateField(false)
+            // Left mouse button clicked
+            if (event.which == 1) {
+              if (!cell.marked) {
+                if (cell.hasMine || cell.value > 0) {
+                  Game.visitCell(td, cell, true, true)
+                } else {
+                  const coordinates = Game.state.calculateCoordinatesToVisit(y, x)
+                  coordinates.forEach(coordinate => {
+                    const currentY = coordinate[0]
+                    const currentX = coordinate[1]
+                    const currentCell = Game.state.cells[currentY][currentX]
+                    if (!currentCell.visited) {
+                      const td = $(`#cell-${currentY}-${currentX}`)
+                      Game.visitCell(td, currentCell, false, true)
+                    }
+                  })
+                }
+
+                // Game over
+                if (cell.hasMine) {
+                  Game.visitField()
+                } else {
+                  Game.validateField(false)
+                }
               }
             }
-          }
 
-          // Right mouse button clicked
-          else {
-            Game.markUnmarkCell(td, cell, true)
+            // Right mouse button clicked
+            else {
+              Game.markUnmarkCell(td, cell, true)
+            }
           }
-        }
-      })
+        })
 
       // Disable context menu
       UI.field.bind('contextmenu', () => false)
@@ -216,7 +225,7 @@ export class Game {
         if (!cell.marked) {
           Game.markUnmarkCell(td, cell, true)
         }
-        td.unbind('mouseenter mouseleave mouseup')
+        td.unbind()
       })
     } else if (shouldVisitField) Game.visitField()
   }
@@ -268,7 +277,7 @@ export class Game {
       }
     }
 
-    td.unbind('mouseenter mouseleave mouseup')
+    td.unbind()
     td.removeClass()
     if (cell.hasMine) {
       if (hasExploded) {

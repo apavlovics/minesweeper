@@ -127,7 +127,7 @@
   transition-duration: .5s;
 }
 
-.cell:hover, .cell:active, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
+.cell:hover, .cell-active, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
   transition-duration: 0s;
 }
 
@@ -135,7 +135,7 @@
   background-color: rgb(var(--lighter-blue));
 }
 
-.cell:active {
+.cell-active {
   background-color: rgb(var(--darker-blue));
 }
 
