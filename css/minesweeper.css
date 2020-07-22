@@ -122,20 +122,20 @@
   vertical-align: middle;
 }
 
-.cell, .cell-hover, .cell-active, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
+.cell, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
   background-color: rgb(var(--blue));
   transition-duration: .5s;
 }
 
-.cell-hover, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
+.cell:hover, .cell:active, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
   transition-duration: 0s;
 }
 
-.cell-hover {
+.cell:hover {
   background-color: rgb(var(--lighter-blue));
 }
 
-.cell-active {
+.cell:active {
   background-color: rgb(var(--darker-blue));
 }
 
