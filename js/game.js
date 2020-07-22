@@ -83,8 +83,6 @@ export class Game {
     }
 
     const prepareField = () => {
-
-      // Handle cell clicks
       $('.cell').mouseup(event => {
         const td = $(event.currentTarget)
         const y = parseInt(td.attr('data-row'))
