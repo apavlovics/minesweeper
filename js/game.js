@@ -87,14 +87,8 @@ export class Game {
         // Active mode works better via JavaScript than via CSS
         .mousedown(event => {
           const td = $(event.currentTarget)
-
-          let marked = false
-          if (Game.state != null) {
-            const y = parseInt(td.attr('data-row'))
-            const x = parseInt(td.attr('data-column'))
-            const cell = Game.state.cells[y][x]
-            marked = cell.marked
-          }
+          const cell = Game.resolveCell(td)
+          const marked = cell != null ? cell.marked : false
           if (!marked) {
             td.removeClass('cell').addClass('cell-active')
           }
@@ -104,10 +98,8 @@ export class Game {
         })
         .mouseup(event => {
           const td = $(event.currentTarget)
+          const [y, x] = Game.resolveCoordinates(td)
           td.removeClass('cell-active').addClass('cell')
-
-          const y = parseInt(td.attr('data-row'))
-          const x = parseInt(td.attr('data-column'))
 
           // Generate new state if needed
           if (Game.state == null) {
@@ -126,8 +118,7 @@ export class Game {
                 } else {
                   const coordinates = Game.state.calculateCoordinatesToVisit(y, x)
                   coordinates.forEach(coordinate => {
-                    const currentY = coordinate[0]
-                    const currentX = coordinate[1]
+                    const [currentY, currentX] = coordinate
                     const currentCell = Game.state.cells[currentY][currentX]
                     if (!currentCell.visited) {
                       const td = $(`#cell-${currentY}-${currentX}`)
@@ -231,9 +222,7 @@ export class Game {
 
       $('.cell').each((index, element) => {
         const td = $(element)
-        const y = parseInt(td.attr('data-row'))
-        const x = parseInt(td.attr('data-column'))
-        const cell = Game.state.cells[y][x]
+        const cell = Game.resolveCell(td)
         if (!cell.marked) {
           Game.markUnmarkCell(td, cell, true)
         }
@@ -256,8 +245,7 @@ export class Game {
     }
 
     Game.state.mineCoordinates.forEach(mineCoordinate => {
-      const y = mineCoordinate[0]
-      const x = mineCoordinate[1]
+      const [y, x] = mineCoordinate
       const cell = Game.state.cells[y][x]
       if (!cell.visited) {
         const td = $(`#cell-${y}-${x}`)
@@ -317,5 +305,16 @@ export class Game {
       td.empty()
       UI.mineCount++
     }
+  }
+
+  static resolveCoordinates(td) {
+    const y = parseInt(td.attr('data-row'))
+    const x = parseInt(td.attr('data-column'))
+    return [y, x]
+  }
+
+  static resolveCell(td) {
+    const [y, x] = Game.resolveCoordinates(td)
+    return Game.state != null ? Game.state.cells[y][x] : null
   }
 }

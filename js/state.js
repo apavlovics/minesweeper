@@ -28,8 +28,7 @@ export class State {
     }
 
     const addNeighborCoordinates = (coordinates, index) => {
-      const y = coordinates[index][0]
-      const x = coordinates[index][1]
+      const [y, x] = coordinates[index]
       if (this.cells[y][x].value == 0) {
         if (y > 0)
           addCoordinate(coordinates, [y - 1, x])
