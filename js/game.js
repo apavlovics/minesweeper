@@ -89,7 +89,7 @@ export class Game {
           const td = $(event.currentTarget)
           const cell = Game.resolveCell(td)
           const marked = cell != null ? cell.marked : false
-          if (!marked) {
+          if (!marked || event.which == 3) {
             td.removeClass('cell').addClass('cell-active')
           }
         })
@@ -137,7 +137,7 @@ export class Game {
             }
 
             // Right mouse button clicked
-            else {
+            else if (event.which == 3) {
               Game.markUnmarkCell(td, cell, true)
             }
           }
