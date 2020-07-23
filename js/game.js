@@ -86,7 +86,18 @@ export class Game {
       $('.cell')
         // Active mode works better via JavaScript than via CSS
         .mousedown(event => {
-          $(event.currentTarget).removeClass('cell').addClass('cell-active')
+          const td = $(event.currentTarget)
+
+          let marked = false
+          if (Game.state != null) {
+            const y = parseInt(td.attr('data-row'))
+            const x = parseInt(td.attr('data-column'))
+            const cell = Game.state.cells[y][x]
+            marked = cell.marked
+          }
+          if (!marked) {
+            td.removeClass('cell').addClass('cell-active')
+          }
         })
         .mouseleave(event => {
           $(event.currentTarget).removeClass('cell-active').addClass('cell')
@@ -278,8 +289,7 @@ export class Game {
       }
     }
 
-    td.unbind()
-    td.removeClass()
+    td.unbind().removeClass()
     if (cell.hasMine) {
       if (hasExploded) {
         td.addClass('cell-mine-exploded')
@@ -288,8 +298,7 @@ export class Game {
       }
       td.html('<div class="mine"></div>')
     } else {
-      td.addClass('cell-visited')
-      td.empty()
+      td.addClass('cell-visited').empty()
       if (cell.value > 0) {
         td.css('color', `rgb(var(--${getCellColor(cell.value)}))`).text(cell.value)
       }
