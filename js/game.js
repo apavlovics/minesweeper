@@ -98,47 +98,51 @@ export class Game {
         })
         .mouseup(event => {
           const td = $(event.currentTarget)
-          const [y, x] = Game.resolveCoordinates(td)
-          td.removeClass('cell-active').addClass('cell')
 
-          // Generate new state if needed
-          if (Game.state == null) {
-            Game.state = State.generateState(rowCount, columnCount, mineCount, [y, x])
-            UI.enableCheatButton()
-          }
+          // Handle mouse button releases only on active cells
+          if (td.hasClass('cell-active')) {
+            td.removeClass('cell-active').addClass('cell')
 
-          const cell = Game.state.cells[y][x]
-          if (!cell.visited) {
-
-            // Left mouse button clicked
-            if (event.which == 1) {
-              if (!cell.marked) {
-                if (cell.hasMine || cell.value > 0) {
-                  Game.visitCell(td, cell, true, true)
-                } else {
-                  const coordinates = Game.state.calculateCoordinatesToVisit(y, x)
-                  coordinates.forEach(coordinate => {
-                    const [currentY, currentX] = coordinate
-                    const currentCell = Game.state.cells[currentY][currentX]
-                    if (!currentCell.visited) {
-                      const td = $(`#cell-${currentY}-${currentX}`)
-                      Game.visitCell(td, currentCell, false, true)
-                    }
-                  })
-                }
-
-                // Game over
-                if (cell.hasMine) {
-                  Game.visitField()
-                } else {
-                  Game.validateField(false)
-                }
-              }
+            // Generate new state if needed
+            const [y, x] = Game.resolveCoordinates(td)
+            if (Game.state == null) {
+              Game.state = State.generateState(rowCount, columnCount, mineCount, [y, x])
+              UI.enableCheatButton()
             }
 
-            // Right mouse button clicked
-            else if (event.which == 3) {
-              Game.markUnmarkCell(td, cell, true)
+            const cell = Game.state.cells[y][x]
+            if (!cell.visited) {
+
+              // Left mouse button released
+              if (event.which == 1) {
+                if (!cell.marked) {
+                  if (cell.hasMine || cell.value > 0) {
+                    Game.visitCell(td, cell, true, true)
+                  } else {
+                    const coordinates = Game.state.calculateCoordinatesToVisit(y, x)
+                    coordinates.forEach(coordinate => {
+                      const [currentY, currentX] = coordinate
+                      const currentCell = Game.state.cells[currentY][currentX]
+                      if (!currentCell.visited) {
+                        const td = $(`#cell-${currentY}-${currentX}`)
+                        Game.visitCell(td, currentCell, false, true)
+                      }
+                    })
+                  }
+
+                  // Game over
+                  if (cell.hasMine) {
+                    Game.visitField()
+                  } else {
+                    Game.validateField(false)
+                  }
+                }
+              }
+
+              // Right mouse button released
+              else if (event.which == 3) {
+                Game.markUnmarkCell(td, cell, true)
+              }
             }
           }
         })
