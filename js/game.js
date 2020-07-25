@@ -84,7 +84,6 @@ export class Game {
 
     const prepareField = () => {
       $('.cell')
-        // Active mode works better via JavaScript than via CSS
         .mousedown(event => {
           const td = $(event.currentTarget)
           const cell = Game.resolveCell(td)
