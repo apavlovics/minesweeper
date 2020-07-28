@@ -22,3 +22,17 @@ Technologies used:
 
 The game is tested on moderately recent versions of Chrome, Firefox or Safari. The game must be deployed on
 the web server to work correctly (`file://` protocol is not supported).
+
+## JavaScript Code Compression
+
+There is a script that bundles all JavaScript files into one and minifies the code. The script uses
+[Rollup](https://rollupjs.org/) for bundling and [Terser](https://github.com/terser/terser) for minification.
+Both tools must be available as global command line tools for the script to work. To run the script, go to the
+root folder of the project and execute:
+
+    scripts/compress.sh
+
+As a result of running the script two files are generated:
+
+* *minesweeper.js* with bundled code;
+* *minesweeper.min.js* with bundled and minified code.
