@@ -34,5 +34,5 @@ root folder of the project and execute:
 
 As a result of running the script two files are generated:
 
-* *minesweeper.js* with bundled code;
-* *minesweeper.min.js* with bundled and minified code.
+* *minesweeper.js* with the bundled code;
+* *minesweeper.min.js* with the bundled and minified code.
