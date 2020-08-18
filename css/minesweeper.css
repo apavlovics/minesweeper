@@ -32,40 +32,37 @@
 }
 
 #menu input[type=radio] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+
   font-size: var(--minesweeper-font-size);
-  visibility: hidden;
-}
-
-#menu input[type=radio] + label {
   position: relative;
-  cursor: pointer;
-}
-
-#menu input[type=radio] + label::before {
   box-sizing: border-box;
-  position: absolute;
-  top: calc(50% - .5em);
-  left: -1em;
+  top: .1em;
   height: 1em;
   width: 1em;
-  content: "";
   border: .35em solid rgb(var(--gray));
   background-color: rgb(var(--gray));
   border-radius: 50%;
 }
 
-#menu input[type=radio]:hover + label::before {
+#menu input[type=radio]:hover {
   background-color: rgb(var(--white));
 }
 
-#menu input[type=radio]:active + label::before {
+#menu input[type=radio]:active {
   background-color: rgb(var(--white));
   border-color: rgb(var(--darker-blue));
 }
 
-#menu input[type=radio]:checked + label::before {
+#menu input[type=radio]:checked {
   background-color: rgb(var(--white));
   border-color: rgb(var(--blue));
+}
+
+#menu input[type=radio], #menu input[type=radio] + label {
+  cursor: pointer;
 }
 
 #menu input[type=radio] + label, #new-game {
@@ -99,6 +96,8 @@
 }
 
 #menu input[type=radio]:focus, #menu button:focus {
+  border-color: rgb(var(--blue));
+  box-shadow: 0 0 10px rgb(var(--blue));
   outline: none;
 }
 
