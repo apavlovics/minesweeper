@@ -21,34 +21,26 @@ export class State {
 
   calculateCoordinatesToVisit(y, x) {
 
-    const addCoordinate = (coordinates, coordinate) => {
-      if (!State.contains(coordinates, coordinate)) {
-        coordinates[coordinates.length] = coordinate
-      }
-    }
-
     const addNeighborCoordinates = (coordinates, index) => {
+      const addCoordinate = (coordinate) => {
+        const inBounds = coordinate[0] >= 0 &&
+            coordinate[0] < this.rowCount &&
+            coordinate[1] >= 0 &&
+            coordinate[1] < this.columnCount
+        if (inBounds && !State.contains(coordinates, coordinate)) {
+          coordinates[coordinates.length] = coordinate
+        }
+      }
       const [y, x] = coordinates[index]
       if (this.cells[y][x].value == 0) {
-        if (y > 0)
-          addCoordinate(coordinates, [y - 1, x])
-        if (y < this.rowCount - 1)
-          addCoordinate(coordinates, [y + 1, x])
-
-        if (x > 0)
-          addCoordinate(coordinates, [y, x - 1])
-        if (x < this.columnCount - 1)
-          addCoordinate(coordinates, [y, x + 1])
-
-        if (y > 0 && x > 0)
-          addCoordinate(coordinates, [y - 1, x - 1])
-        if (y < this.rowCount - 1 && x < this.columnCount - 1)
-          addCoordinate(coordinates, [y + 1, x + 1])
-
-        if (y > 0 && x < this.columnCount - 1)
-          addCoordinate(coordinates, [y - 1, x + 1])
-        if (y < this.rowCount - 1 && x > 0)
-          addCoordinate(coordinates, [y + 1, x - 1])
+        addCoordinate([y - 1, x])
+        addCoordinate([y + 1, x])
+        addCoordinate([y, x - 1])
+        addCoordinate([y, x + 1])
+        addCoordinate([y - 1, x - 1])
+        addCoordinate([y + 1, x + 1])
+        addCoordinate([y - 1, x + 1])
+        addCoordinate([y + 1, x - 1])
       }
     }
 
@@ -141,17 +133,17 @@ export class State {
 
     const countNeighborMines = (mineCoordinates, y, x) => {
       let mineCount = 0
-      if (State.contains(mineCoordinates, [y - 1, x])) mineCount++
-      if (State.contains(mineCoordinates, [y + 1, x])) mineCount++
-
-      if (State.contains(mineCoordinates, [y, x - 1])) mineCount++
-      if (State.contains(mineCoordinates, [y, x + 1])) mineCount++
-
-      if (State.contains(mineCoordinates, [y - 1, x - 1])) mineCount++
-      if (State.contains(mineCoordinates, [y + 1, x + 1])) mineCount++
-
-      if (State.contains(mineCoordinates, [y - 1, x + 1])) mineCount++
-      if (State.contains(mineCoordinates, [y + 1, x - 1])) mineCount++
+      const increment = (coordinate) => {
+        if (State.contains(mineCoordinates, coordinate)) mineCount++
+      }
+      increment([y - 1, x])
+      increment([y + 1, x])
+      increment([y, x - 1])
+      increment([y, x + 1])
+      increment([y - 1, x - 1])
+      increment([y + 1, x + 1])
+      increment([y - 1, x + 1])
+      increment([y + 1, x - 1])
       return mineCount
     }
 
