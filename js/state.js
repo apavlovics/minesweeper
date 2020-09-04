@@ -31,7 +31,7 @@ export class State {
               coordinate[1] >= 0 &&
               coordinate[1] < this.columnCount
           if (inBounds && !State.contains(coordinates, coordinate)) {
-            coordinates[coordinates.length] = coordinate
+            coordinates.push(coordinate)
           }
         })
       }
@@ -94,7 +94,7 @@ export class State {
         coordinateY = coordinate
       } else {
         coordinateX = coordinate
-        mineCoordinates[mineCoordinates.length] = [coordinateY, coordinateX]
+        mineCoordinates.push([coordinateY, coordinateX])
       }
     })
     return new State(cells, mineCoordinates)
