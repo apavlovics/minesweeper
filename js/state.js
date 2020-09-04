@@ -20,36 +20,28 @@ export class State {
   }
 
   calculateCoordinatesToVisit(y, x) {
+    const coordinates = Array()
 
-    const addNeighborCoordinates = (coordinates, index) => {
-      const addCoordinate = (coordinate) => {
-        const inBounds = coordinate[0] >= 0 &&
-            coordinate[0] < this.rowCount &&
-            coordinate[1] >= 0 &&
-            coordinate[1] < this.columnCount
-        if (inBounds && !State.contains(coordinates, coordinate)) {
-          coordinates[coordinates.length] = coordinate
-        }
-      }
+    const addNeighborCoordinates = (index) => {
       const [y, x] = coordinates[index]
       if (this.cells[y][x].value == 0) {
-        addCoordinate([y - 1, x])
-        addCoordinate([y + 1, x])
-        addCoordinate([y, x - 1])
-        addCoordinate([y, x + 1])
-        addCoordinate([y - 1, x - 1])
-        addCoordinate([y + 1, x + 1])
-        addCoordinate([y - 1, x + 1])
-        addCoordinate([y + 1, x - 1])
+        State.calculateNeighborCoordinates(y, x).forEach(coordinate => {
+          const inBounds = coordinate[0] >= 0 &&
+              coordinate[0] < this.rowCount &&
+              coordinate[1] >= 0 &&
+              coordinate[1] < this.columnCount
+          if (inBounds && !State.contains(coordinates, coordinate)) {
+            coordinates[coordinates.length] = coordinate
+          }
+        })
       }
     }
 
-    const coordinates = Array()
     if (this.cells[y][x].value == 0) {
       let index = 0
       coordinates[index] = [y, x]
       while (index < coordinates.length) {
-        addNeighborCoordinates(coordinates, index++)
+        addNeighborCoordinates(index++)
       }
     } else {
       coordinates[0] = [y, x]
@@ -108,6 +100,19 @@ export class State {
     return new State(cells, mineCoordinates)
   }
 
+  static calculateNeighborCoordinates(y, x) {
+    return [
+        [y - 1, x],
+        [y + 1, x],
+        [y, x - 1],
+        [y, x + 1],
+        [y - 1, x - 1],
+        [y + 1, x + 1],
+        [y - 1, x + 1],
+        [y + 1, x - 1],
+    ]
+  }
+
   // Determine if two coordinates are the same (i.e. have the same number of strictly equal values)
   static same(coordinate1, coordinate2) {
     return coordinate1.length == coordinate2.length &&
@@ -131,20 +136,9 @@ export class State {
       mineCoordinates[index] = mineCoordinate
     }
 
-    const countNeighborMines = (mineCoordinates, y, x) => {
-      let mineCount = 0
-      const increment = (coordinate) => {
-        if (State.contains(mineCoordinates, coordinate)) mineCount++
-      }
-      increment([y - 1, x])
-      increment([y + 1, x])
-      increment([y, x - 1])
-      increment([y, x + 1])
-      increment([y - 1, x - 1])
-      increment([y + 1, x + 1])
-      increment([y - 1, x + 1])
-      increment([y + 1, x - 1])
-      return mineCount
+    const countNeighborMines = (y, x) => {
+      return State.calculateNeighborCoordinates(y, x)
+          .filter(coordinate => State.contains(mineCoordinates, coordinate)).length
     }
 
     // Generate state
@@ -155,7 +149,7 @@ export class State {
         if (State.contains(mineCoordinates, [y, x])) {
           row[x] = new Cell('M', false, false)
         } else {
-          row[x] = new Cell(countNeighborMines(mineCoordinates, y, x), false, false)
+          row[x] = new Cell(countNeighborMines(y, x), false, false)
         }
       }
       cells[y] = row
