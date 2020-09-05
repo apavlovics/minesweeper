@@ -26,10 +26,8 @@ export class State {
       const [y, x] = coordinates[index]
       if (this.cells[y][x].value == 0) {
         State.calculateNeighborCoordinates(y, x).forEach(coordinate => {
-          const inBounds = coordinate[0] >= 0 &&
-              coordinate[0] < this.rowCount &&
-              coordinate[1] >= 0 &&
-              coordinate[1] < this.columnCount
+          const [y, x] = coordinate
+          const inBounds = y >= 0 && y < this.rowCount && x >= 0 && x < this.columnCount
           if (inBounds && !State.contains(coordinates, coordinate)) {
             coordinates.push(coordinate)
           }
