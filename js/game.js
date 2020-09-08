@@ -31,7 +31,8 @@ export class Game {
             <div class="mine"></div>
             <div id="mine-count"></div>
           </div>
-        </div>`)
+        </div>
+      `)
       Game.createField()
     })
     $(window).on('unload', () => {
