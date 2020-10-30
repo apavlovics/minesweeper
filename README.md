@@ -28,7 +28,7 @@ the web server to work correctly (`file://` protocol is not supported).
 There is a script that bundles all JavaScript files into one and minifies the code. The script uses
 [Rollup](https://rollupjs.org/) for bundling and [Terser](https://github.com/terser/terser) for minification.
 Both tools must be available as global command line tools for the script to work. To run the script, go to the
-root folder of the project and execute:
+project root folder and execute:
 
     scripts/compress.sh
 
