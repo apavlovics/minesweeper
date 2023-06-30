@@ -1,4 +1,4 @@
-import {Cell} from './cell.js'
+import { Cell } from './cell.js'
 
 export class State {
 
@@ -100,21 +100,21 @@ export class State {
 
   static calculateNeighborCoordinates(y, x) {
     return [
-        [y - 1, x],
-        [y + 1, x],
-        [y, x - 1],
-        [y, x + 1],
-        [y - 1, x - 1],
-        [y + 1, x + 1],
-        [y - 1, x + 1],
-        [y + 1, x - 1],
+      [y - 1, x],
+      [y + 1, x],
+      [y, x - 1],
+      [y, x + 1],
+      [y - 1, x - 1],
+      [y + 1, x + 1],
+      [y - 1, x + 1],
+      [y + 1, x - 1],
     ]
   }
 
   // Determine if two coordinates are the same (i.e. have the same number of strictly equal values)
   static same(coordinate1, coordinate2) {
     return coordinate1.length == coordinate2.length &&
-        !coordinate1.some((element, index) => element !== coordinate2[index])
+      !coordinate1.some((element, index) => element !== coordinate2[index])
   }
 
   static contains(coordinates, coordinate) {
@@ -136,7 +136,7 @@ export class State {
 
     const countNeighborMines = (y, x) => {
       return State.calculateNeighborCoordinates(y, x)
-          .filter(coordinate => State.contains(mineCoordinates, coordinate)).length
+        .filter(coordinate => State.contains(mineCoordinates, coordinate)).length
     }
 
     // Generate state

@@ -18,7 +18,8 @@
   background-color: rgb(var(--white));
   color: rgb(var(--black));
   font-size: var(--minesweeper-font-size);
-  user-select: none; -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
   min-width: 35em;
   cursor: default;
 }
@@ -61,11 +62,13 @@
   border-color: rgb(var(--blue));
 }
 
-#menu input[type=radio], #menu input[type=radio] + label {
+#menu input[type=radio],
+#menu input[type=radio] + label {
   cursor: pointer;
 }
 
-#menu input[type=radio] + label, #new-game {
+#menu input[type=radio] + label,
+#new-game {
   margin-right: 1em;
 }
 
@@ -95,7 +98,8 @@
   cursor: default;
 }
 
-#menu input[type=radio]:focus, #menu button:focus {
+#menu input[type=radio]:focus,
+#menu button:focus {
   border-color: rgb(var(--blue));
   box-shadow: 0 0 10px rgb(var(--blue));
   outline: none;
@@ -121,12 +125,19 @@
   vertical-align: middle;
 }
 
-.cell, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
+.cell,
+.cell-visited,
+.cell-mine-visited,
+.cell-mine-exploded {
   background-color: rgb(var(--blue));
   transition-duration: .5s;
 }
 
-.cell:hover, .cell-active, .cell-visited, .cell-mine-visited, .cell-mine-exploded {
+.cell:hover,
+.cell-active,
+.cell-visited,
+.cell-mine-visited,
+.cell-mine-exploded {
   transition-duration: 0s;
 }
 
@@ -151,7 +162,9 @@
   background-image: radial-gradient(ellipse at center, rgb(var(--orange)) 50%, rgb(var(--red)) 100%);
 }
 
-.mine, .mine-revealed, .flag {
+.mine,
+.mine-revealed,
+.flag {
   width: 65%;
   height: 65%;
   margin: auto;

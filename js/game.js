@@ -1,6 +1,6 @@
-import {State} from './state.js'
-import {CookieManager} from './cookie-manager.js'
-import {UI} from './ui.js'
+import { State } from './state.js'
+import { CookieManager } from './cookie-manager.js'
+import { UI } from './ui.js'
 
 export class Game {
 
@@ -11,15 +11,15 @@ export class Game {
         <div id="menu">
           <div>
             <input type="radio" id="easy" name="level" value="easy" checked
-                data-row-count="8" data-column-count="8" data-mine-count="10"><label for="easy"> Easy</label>
+              data-row-count="8" data-column-count="8" data-mine-count="10"><label for="easy"> Easy</label>
           </div>
           <div>
             <input type="radio" id="medium" name="level" value="medium"
-                data-row-count="8" data-column-count="16" data-mine-count="25"><label for="medium"> Medium</label>
+              data-row-count="8" data-column-count="16" data-mine-count="25"><label for="medium"> Medium</label>
           </div>
           <div>
             <input type="radio" id="hard" name="level" value="hard"
-                data-row-count="16" data-column-count="16" data-mine-count="45"><label for="hard"> Hard</label>
+              data-row-count="16" data-column-count="16" data-mine-count="45"><label for="hard"> Hard</label>
           </div>
           <button id="new-game" onclick="Game.resetField()">New Game</button>
           <button id="cheat" onclick="Game.revealField()" disabled>Cheat</button>
@@ -58,8 +58,8 @@ export class Game {
         UI.levelRadioButtons.each((index, element) => {
           const button = $(element)
           if (button.attr('data-row-count') == rowCount &&
-              button.attr('data-column-count') == columnCount &&
-              button.attr('data-mine-count') == mineCount) {
+            button.attr('data-column-count') == columnCount &&
+            button.attr('data-mine-count') == mineCount) {
             button.attr('checked', true)
             wasChecked = true
           }
@@ -210,7 +210,7 @@ export class Game {
     UI.title = 'Game Over'
 
     Game.state.cells.forEach((row, y) => {
-      row.forEach((cell, x) => { 
+      row.forEach((cell, x) => {
         if (!cell.visited) {
           const td = $(`#cell-${y}-${x}`)
           Game.visitCell(td, cell, false, true)
@@ -270,13 +270,13 @@ export class Game {
     const getCellColor = value => {
       switch (value) {
         // See :root CSS variables for color definitions
-        case 1:  return 'blue'
-        case 2:  return 'green'
-        case 3:  return 'red'
-        case 4:  return 'dark-blue'
-        case 5:  return 'dark-red'
-        case 6:  return 'teal'
-        case 7:  return 'purple'
+        case 1: return 'blue'
+        case 2: return 'green'
+        case 3: return 'red'
+        case 4: return 'dark-blue'
+        case 5: return 'dark-red'
+        case 6: return 'teal'
+        case 7: return 'purple'
         default: return 'black'
       }
     }
