@@ -1,6 +1,6 @@
 # Minesweeper
 
-The classic game of Minesweeper, implemented using web technologies.
+The classic game of Minesweeper implemented using web technologies.
 
 The game features:
 
