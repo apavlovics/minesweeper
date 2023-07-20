@@ -1,25 +1,22 @@
 import { State } from "./state.js";
 
+const EXPIRATION_PERIOD = 365;
+const LEVEL_KEY = "level";
+const STATE_KEY = "state";
+
 export class CookieManager {
   /* State */
 
-  static get STATE_KEY() {
-    return "state";
-  }
-  static get EXPIRATION_PERIOD() {
-    return 365;
-  }
-
   static saveState(state) {
     if (state != null && !state.isVisited && !state.isValid) {
-      Cookies.set(CookieManager.STATE_KEY, state.toString(), {
-        expires: CookieManager.EXPIRATION_PERIOD,
+      Cookies.set(STATE_KEY, state.toString(), {
+        expires: EXPIRATION_PERIOD,
       });
     }
   }
 
   static loadState() {
-    const stateString = Cookies.get(CookieManager.STATE_KEY);
+    const stateString = Cookies.get(STATE_KEY);
     if (stateString != null) {
       try {
         return State.fromString(stateString);
@@ -31,26 +28,22 @@ export class CookieManager {
   }
 
   static clearState() {
-    Cookies.remove(CookieManager.STATE_KEY);
+    Cookies.remove(STATE_KEY);
   }
 
   /* Level */
 
-  static get LEVEL_KEY() {
-    return "level";
-  }
-
   static saveLevel(level) {
-    Cookies.set(CookieManager.LEVEL_KEY, level, {
-      expires: CookieManager.EXPIRATION_PERIOD,
+    Cookies.set(LEVEL_KEY, level, {
+      expires: EXPIRATION_PERIOD,
     });
   }
 
   static loadLevel() {
-    return Cookies.get(CookieManager.LEVEL_KEY);
+    return Cookies.get(LEVEL_KEY);
   }
 
   static clearLevel() {
-    Cookies.remove(CookieManager.LEVEL_KEY);
+    Cookies.remove(LEVEL_KEY);
   }
 }
