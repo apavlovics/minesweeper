@@ -1,4 +1,4 @@
-import { State } from "./state.js";
+import State from "./state.js";
 
 const EXPIRATION_PERIOD = 365;
 const LEVEL_KEY = "level";

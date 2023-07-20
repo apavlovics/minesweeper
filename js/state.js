@@ -1,6 +1,6 @@
-import { Cell } from "./cell.js";
+import Cell from "./cell.js";
 
-export class State {
+export default class State {
   constructor(cells, mineCoordinates) {
     this.cells = cells;
     this.rowCount = cells.length;

@@ -1,4 +1,4 @@
-import { State } from "./state.js";
+import State from "./state.js";
 import * as cookie from "./cookie.js";
 import { UI } from "./ui.js";
 
