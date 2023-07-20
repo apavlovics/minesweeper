@@ -37,7 +37,7 @@ As a result of running the script two files are generated:
 
 The project uses [Prettier](https://prettier.io/) for code formatting.
 
-To reformat all files, execute:
+When using NPX, to reformat all files, execute:
 
     npx prettier . --write
 
