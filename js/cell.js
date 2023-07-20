@@ -1,7 +1,6 @@
 const MINE = "M";
 
 export class Cell {
-
   constructor(value, visited, marked) {
     if (value == MINE) {
       this.value = value;

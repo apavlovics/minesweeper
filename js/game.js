@@ -1,5 +1,5 @@
 import { State } from "./state.js";
-import { CookieManager } from "./cookie-manager.js";
+import * as cookie from "./cookie.js";
 import { UI } from "./ui.js";
 
 export class Game {
@@ -35,8 +35,8 @@ export class Game {
       Game.createField();
     });
     $(window).on("unload", () => {
-      CookieManager.saveState(Game.state);
-      CookieManager.saveLevel(UI.level);
+      cookie.saveState(Game.state);
+      cookie.saveLevel(UI.level);
     });
   }
 
@@ -44,10 +44,10 @@ export class Game {
     let rowCount, columnCount, mineCount;
 
     const loadStateOrFieldParameters = () => {
-      Game.state = CookieManager.loadState();
+      Game.state = cookie.loadState();
       if (Game.state != null) {
-        CookieManager.clearState();
-        CookieManager.clearLevel();
+        cookie.clearState();
+        cookie.clearLevel();
 
         rowCount = Game.state.rowCount;
         columnCount = Game.state.columnCount;
@@ -71,9 +71,9 @@ export class Game {
         UI.enableCheatButton();
       } else {
         // Restore level if possible
-        const level = CookieManager.loadLevel();
+        const level = cookie.loadLevel();
         if (level != null) {
-          CookieManager.clearLevel();
+          cookie.clearLevel();
           UI.level = level;
         }
         const button = UI.checkedLevelRadioButton;
