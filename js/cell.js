@@ -1,45 +1,46 @@
 export class Cell {
-
-  static get MINE() { return 'M' }
+  static get MINE() {
+    return "M";
+  }
 
   constructor(value, visited, marked) {
     if (value == Cell.MINE) {
-      this.value = value
+      this.value = value;
     } else {
-      value = parseInt(value)
+      value = parseInt(value);
       if (value >= 0 && value <= 8) {
-        this.value = value
+        this.value = value;
       } else {
-        throw 'Cell value is not valid'
+        throw "Cell value is not valid";
       }
     }
 
     // Loosely convert to boolean
-    this.visited = visited == true
-    this.marked = marked == true
+    this.visited = visited == true;
+    this.marked = marked == true;
     if (this.visited && this.marked) {
-      throw 'Cell flags are not valid'
+      throw "Cell flags are not valid";
     }
   }
 
   get hasMine() {
-    return this.value == Cell.MINE
+    return this.value == Cell.MINE;
   }
 
   toString() {
     // Convert boolean to integer
-    const visitedInt = +this.visited
-    const markedInt = +this.marked
-    return String(this.value) + visitedInt + markedInt
+    const visitedInt = +this.visited;
+    const markedInt = +this.marked;
+    return String(this.value) + visitedInt + markedInt;
   }
 
   static fromString(string) {
     if (string.length != 3) {
-      throw 'There must be 3 cell attributes'
+      throw "There must be 3 cell attributes";
     }
-    const value = string.substr(0, 1)
-    const visited = string.substr(1, 1)
-    const marked = string.substr(2, 1)
-    return new Cell(value, visited, marked)
+    const value = string.substr(0, 1);
+    const visited = string.substr(1, 1);
+    const marked = string.substr(2, 1);
+    return new Cell(value, visited, marked);
   }
 }
