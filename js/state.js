@@ -1,5 +1,8 @@
 import Cell from "./cell.js";
 
+const STATE_SEPARATOR = ";";
+const MINE_COORDINATES_SEPARATOR = ",";
+
 export default class State {
   constructor(cells, mineCoordinates) {
     this.cells = cells;
@@ -46,24 +49,17 @@ export default class State {
     return coordinates;
   }
 
-  static get STATE_SEPARATOR() {
-    return ";";
-  }
-  static get MINE_COORDINATES_SEPARATOR() {
-    return ",";
-  }
-
   toString() {
-    let string = this.rowCount + State.STATE_SEPARATOR + this.columnCount + State.STATE_SEPARATOR;
+    let string = this.rowCount + STATE_SEPARATOR + this.columnCount + STATE_SEPARATOR;
     this.cells.forEach((row) => {
-      row.forEach((cell) => (string += cell.toString() + State.STATE_SEPARATOR));
+      row.forEach((cell) => (string += cell.toString() + STATE_SEPARATOR));
     });
-    string += this.mineCount + State.STATE_SEPARATOR + this.mineCoordinates;
+    string += this.mineCount + STATE_SEPARATOR + this.mineCoordinates;
     return string;
   }
 
   static fromString(string) {
-    const attributes = string.split(State.STATE_SEPARATOR);
+    const attributes = string.split(STATE_SEPARATOR);
     if (attributes.length < 5) {
       throw "State attribute count is not valid";
     }
@@ -83,7 +79,7 @@ export default class State {
 
     const mineCount = parseInt(attributes[index++]);
 
-    const mineCoordinatesArray = attributes[index++].split(State.MINE_COORDINATES_SEPARATOR);
+    const mineCoordinatesArray = attributes[index++].split(MINE_COORDINATES_SEPARATOR);
     if (mineCoordinatesArray.length / 2 != mineCount) {
       throw `Mine coordinate count is not valid: should be ${mineCount}`;
     }
