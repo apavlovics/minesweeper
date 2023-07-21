@@ -4,7 +4,7 @@ const EXPIRATION_PERIOD = 365;
 const LEVEL_KEY = "level";
 const STATE_KEY = "state";
 
-/* State */
+// State
 
 export function saveState(state) {
   if (state != null && !state.isVisited && !state.isValid) {
@@ -30,7 +30,7 @@ export function clearState() {
   Cookies.remove(STATE_KEY);
 }
 
-/* Level */
+// Level
 
 export function saveLevel(level) {
   Cookies.set(LEVEL_KEY, level, {
