@@ -1,64 +1,72 @@
-export class UI {
-  // Minesweeper
+// Minesweeper
 
-  static get minesweeper() {
-    return $("#minesweeper");
+export function getMinesweeper() {
+  return $("#minesweeper");
+}
+
+// Field
+
+export function getField() {
+  return $("#field");
+}
+
+// Level radio buttons
+
+const LEVEL_RADIO_BUTTONS = 'input:radio[name="level"]';
+
+export function getLevelRadioButtons() {
+  return $(LEVEL_RADIO_BUTTONS);
+}
+
+export function getCheckedLevelRadioButton() {
+  return $(`${LEVEL_RADIO_BUTTONS}:checked`);
+}
+
+export function getLevel() {
+  return getCheckedLevelRadioButton().val();
+}
+
+export function setLevel(level) {
+  const radioButton = $(`${LEVEL_RADIO_BUTTONS}[value="${level}"]`);
+  if (radioButton.length > 0) {
+    radioButton.attr("checked", true);
   }
+}
 
-  // Field
+// Cheat button
 
-  static get field() {
-    return $("#field");
-  }
+const CHEAT_BUTTON = "#cheat";
 
-  // Level radio buttons
+export function enableCheatButton() {
+  $(CHEAT_BUTTON).removeAttr("disabled");
+}
 
-  static get LEVEL_RADIO_BUTTONS() {
-    return 'input:radio[name="level"]';
-  }
+export function disableCheatButton() {
+  $(CHEAT_BUTTON).attr("disabled", true);
+}
 
-  static get levelRadioButtons() {
-    return $(UI.LEVEL_RADIO_BUTTONS);
-  }
+// Title
 
-  static get checkedLevelRadioButton() {
-    return $(`${UI.LEVEL_RADIO_BUTTONS}:checked`);
-  }
+export function setTitle(title) {
+  $("#title").text(title);
+}
 
-  static get level() {
-    return UI.checkedLevelRadioButton.val();
-  }
+// Mine count
 
-  static set level(level) {
-    const radioButton = $(`${UI.LEVEL_RADIO_BUTTONS}[value="${level}"]`);
-    if (radioButton.length > 0) {
-      radioButton.attr("checked", true);
-    }
-  }
+const MINE_COUNT = "#mine-count";
 
-  // Cheat button
+function getMineCount() {
+  return parseInt($(MINE_COUNT).text());
+}
 
-  static enableCheatButton() {
-    $("#cheat").removeAttr("disabled");
-  }
+export function setMineCount(mineCount) {
+  $(MINE_COUNT).text(mineCount);
+}
 
-  static disableCheatButton() {
-    $("#cheat").attr("disabled", true);
-  }
+export function incMineCount() {
+  setMineCount(getMineCount() + 1);
+}
 
-  // Title
-
-  static set title(title) {
-    $("#title").text(title);
-  }
-
-  // Mine count
-
-  static get mineCount() {
-    return parseInt($("#mine-count").text());
-  }
-
-  static set mineCount(mineCount) {
-    $("#mine-count").text(mineCount);
-  }
+export function decMineCount() {
+  setMineCount(getMineCount() - 1);
 }

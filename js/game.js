@@ -1,12 +1,12 @@
 import State from "./state.js";
 import * as cookie from "./cookie.js";
-import { UI } from "./ui.js";
+import * as ui from "./ui.js";
 
 export class Game {
   static initialize() {
     window.Game = Game;
     $(document).ready(() => {
-      UI.minesweeper.html(`
+      ui.getMinesweeper().html(`
         <div id="menu">
           <div>
             <input type="radio" id="easy" name="level" value="easy" checked
@@ -36,7 +36,7 @@ export class Game {
     });
     $(window).on("unload", () => {
       cookie.saveState(Game.state);
-      cookie.saveLevel(UI.level);
+      cookie.saveLevel(ui.getLevel());
     });
   }
 
@@ -54,7 +54,7 @@ export class Game {
         mineCount = Game.state.mineCount;
 
         let wasChecked = false;
-        UI.levelRadioButtons.each((index, element) => {
+        ui.getLevelRadioButtons().each((_, element) => {
           const button = $(element);
           if (
             button.attr("data-row-count") == rowCount &&
@@ -66,17 +66,17 @@ export class Game {
           }
         });
         if (!wasChecked) {
-          UI.title = "Custom config, eh?";
+          ui.setTitle("Custom config, eh?");
         }
-        UI.enableCheatButton();
+        ui.enableCheatButton();
       } else {
         // Restore level if possible
         const level = cookie.loadLevel();
         if (level != null) {
           cookie.clearLevel();
-          UI.level = level;
+          ui.setLevel(level);
         }
-        const button = UI.checkedLevelRadioButton;
+        const button = ui.getCheckedLevelRadioButton();
         rowCount = parseInt(button.attr("data-row-count"));
         columnCount = parseInt(button.attr("data-column-count"));
         mineCount = parseInt(button.attr("data-mine-count"));
@@ -107,7 +107,7 @@ export class Game {
             const [y, x] = Game.resolveCoordinates(td);
             if (Game.state == null) {
               Game.state = State.generateState(rowCount, columnCount, mineCount, [y, x]);
-              UI.enableCheatButton();
+              ui.enableCheatButton();
             }
 
             const cell = Game.state.cells[y][x];
@@ -147,19 +147,19 @@ export class Game {
         });
 
       // Disable context menu
-      UI.field.bind("contextmenu", () => false);
+      ui.getField().bind("contextmenu", () => false);
 
       // Set frame size if located in iframe
       if (self != top) {
-        const minesweeper = UI.minesweeper;
+        const minesweeper = ui.getMinesweeper();
         parent.setFrameSize(`${minesweeper.outerWidth(true)}px`, `${minesweeper.outerHeight(true)}px`);
       }
     };
 
     loadStateOrFieldParameters();
-    UI.mineCount = mineCount;
+    ui.setMineCount(mineCount);
 
-    const field = UI.field;
+    const field = ui.getField();
     const rows = Array(rowCount);
     const cells = Array(columnCount);
 
@@ -193,20 +193,20 @@ export class Game {
   }
 
   static resetField() {
-    UI.disableCheatButton();
-    UI.title = "Minesweeper";
+    ui.disableCheatButton();
+    ui.setTitle("Minesweeper");
 
     // Remove current state
     Game.state = null;
 
     // Regenerate field
-    UI.field.empty();
+    ui.getField().empty();
     Game.createField();
   }
 
   static visitField() {
-    UI.disableCheatButton();
-    UI.title = "Game Over";
+    ui.disableCheatButton();
+    ui.setTitle("Game Over");
 
     Game.state.cells.forEach((row, y) => {
       row.forEach((cell, x) => {
@@ -220,10 +220,10 @@ export class Game {
 
   static validateField(shouldVisitField) {
     if (Game.state.isValid) {
-      UI.disableCheatButton();
-      UI.title = "Victory!";
+      ui.disableCheatButton();
+      ui.setTitle("Victory!");
 
-      $(".cell").each((index, element) => {
+      $(".cell").each((_, element) => {
         const td = $(element);
         const cell = Game.resolveCell(td);
         if (!cell.marked) {
@@ -235,13 +235,13 @@ export class Game {
   }
 
   static revealField() {
-    UI.title = "Cheater!";
+    ui.setTitle("Cheater!");
 
     const revealCell = (td, cell) => {
       if (cell.hasMine) {
         if (cell.marked) {
           cell.marked = false;
-          UI.mineCount++;
+          ui.incMineCount();
         }
         td.html('<div class="mine-revealed"></div>');
       }
@@ -262,7 +262,7 @@ export class Game {
       cell.visited = true;
       if (cell.marked) {
         cell.marked = false;
-        UI.mineCount++;
+        ui.incMineCount();
       }
     }
 
@@ -311,10 +311,10 @@ export class Game {
 
     if (cell.marked) {
       td.html('<div class="flag"></div>');
-      UI.mineCount--;
+      ui.decMineCount();
     } else {
       td.empty();
-      UI.mineCount++;
+      ui.incMineCount();
     }
   }
 
